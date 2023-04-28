@@ -1,0 +1,21 @@
+##################################################
+#   Steps needed to run Monte Carlo simulation   #
+##################################################
+Step 1. read in data
+    Functions needed:
+        1) read in full symmetry equivalent clusters and convert then to vectors for C++
+        2) read in str_list and convert to energy above hull or raw energy
+Step 2. create MC session
+    Functions needed:
+        1) read in cluster expansion rules (motif and decoration) generated probably from python code
+        2) create simulation cell with 
+           a) neighbor list
+           b) species list
+           c) spin list
+        2) read in session parameters, e.g. algorithm and spin model to use
+Step 3. MC run
+    Functions needed:
+        1) atom swap, spin flip
+        2) random number generator
+        3) energy difference calculator
+        4) output writer

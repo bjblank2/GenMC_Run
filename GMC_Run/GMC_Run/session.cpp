@@ -121,7 +121,7 @@ void Session::_copy(Session& _session) {
 	moments = _session.moments;
 }
 
-void Session::get_spin_states(string input_file) {
+void Session::add_spin_states(string input_file) {
 	vector<string> input_lines;
 	string input_settings;
 	ifstream session_input;
@@ -143,4 +143,42 @@ void Session::get_spin_states(string input_file) {
 		atom_spin_states.clear();
 	}
 	if (spin_states.size() != atom_numbs.size()) { cout << "Error: atom_numbs not equal to number of lines in spin_states file\n"; }
+}
+
+void Session::fill_rule_list(){
+	vector<float> distances;
+	vector<int> spins;
+	vector<int> species;
+	long double energy_contribution = 0;
+	int rule_type = 0;
+	int rule_length = 0;
+	string phase = "";
+	string rule_line;
+	vector<string> rule_lines;
+	ifstream rule_list_file;
+	rule_list_file.open(rules_file, ifstream::in);
+	// Parce rule list txt file
+	if (rule_list_file.is_open()) {
+		while (getline(rule_list_file, rule_line))
+		{
+			rule_lines.push_back(rule_line);
+		}
+		rule_list_file.close();
+		for (int i = 0; i < rule_lines.size(); i++) {
+			rule_list.push_back(Rule(rule_lines[i]));
+		}
+	}
+	else cout << "Unable to open rule file\n";
+
+}
+
+void Session::find_unique_dists(){
+	// Loop through all mc_rules
+	for (int i = 0; i < rule_list.size(); i++) {
+		for (int j = 0; j < rule_list[i].GetDists().size(); j++) {
+			if (find(unique_dists.begin(), unique_dists.end(), rule_list[i].GetDists()[j]) == unique_dists.end()) {
+				unique_dists.push_back(rule_list[i].GetDists()[j]);
+			}
+		}
+	}
 }

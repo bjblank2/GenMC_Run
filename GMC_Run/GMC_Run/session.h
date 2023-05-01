@@ -10,6 +10,7 @@
 #include <algorithm>
 #include "file_io.h"
 #include "rule.h"
+#include "sim_cell.h"
 using namespace std;
 
 class Session
@@ -34,6 +35,7 @@ public:
 	int shape[3] = { 0,0,0 };
 	vector<int> atom_numbs;
 	vector<float> moments;
+	vector<float> unique_dists;
 	bool use_states;
 	vector<vector<float>> spin_states;
 	vector<Rule> rule_list;
@@ -44,6 +46,8 @@ public:
 	Session(string input_file);
 
 	void _copy(Session& _session);
-	void get_spin_states(string input_file);
+	void add_spin_states(string input_file);
+	void fill_rule_list();
+	void find_unique_dists();
 };
 #endif

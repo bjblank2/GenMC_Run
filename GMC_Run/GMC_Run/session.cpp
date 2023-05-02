@@ -54,9 +54,10 @@ Session::Session(string input_file) {
 				atom_numbs.push_back(stoi(setting[j]));
 			}
 		}
-		else if (setting[0].compare("MOMENTS") == 0) {
+		else if (setting[0].compare("SPECIES") == 0) {
 			for (int j = 2; j < setting.size(); j++) {
-				moments.push_back(stoi(setting[j]));
+				species.push_back(setting[j]);
+				species_inds.push_back(j - 2);
 			}
 		}
 		else if (setting[0].compare("SHAPE") == 0) {

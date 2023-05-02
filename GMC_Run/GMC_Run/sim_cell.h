@@ -17,18 +17,18 @@ using namespace std;
 
 class SimCell {
 public:
+	int sup_cell[3];
+	int numb_atoms;
+	int numb_cells[3];
+	int X_num;
+	float cell_dim[3];
 	float cutoff;
+	float unit_LC[3];
 	string sim_type;
 	string phase_init;
 	vector<int> species_types;
 	vector<int> species_numbs;
 	vector<int> poscar_comp;
-	int sup_cell[3];
-	float cell_dim[3];
-	int numb_atoms;
-	int numb_cells[3];
-	float unit_LC[3];
-	int X_num;
 	class Atom {
 	private:
 		int species;
@@ -36,10 +36,10 @@ public:
 		int phase;
 		string cluster_status;
 	public:
-		vector<float> neighbor_dists;
-		vector<int> neighbors;
 		int index;
 		float pos[3];
+		vector<int> neighbors;
+		vector<float> neighbor_dists;
 		Atom(void);
 		Atom(int _index, int _species, int _spin, int _phase, vector<float> _pos);
 		void setSpin(int _spin);
@@ -52,8 +52,8 @@ public:
 		int getNeighborSpecies(int _neighbor, SimCell& sim_cell);
 		int getNeighborPhase(int _neighbor, SimCell& sim_cell);
 		int getNeighborIndex(int _neighbor, SimCell& sim_cell);
-		float getNeighborDist(int _neighbor, SimCell& sim_cell);
 		int getNumbNeighbors(int _site, SimCell& sim_cell);
+		float getNeighborDist(int _neighbor, SimCell& sim_cell);
 	};
 	vector<Atom> atom_list;
 	vector<Atom> unit_cell;

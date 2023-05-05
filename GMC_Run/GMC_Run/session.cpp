@@ -156,6 +156,13 @@ void Session::fill_rule_list(){
 	string phase = "";
 	string rule_line;
 	vector<string> rule_lines;
+	vector<string> setting;
+	vector<string> line;
+	vector<int> type;
+	vector<float> enrg;
+	vector<int> phase;
+	vector<vector<float>> motif;
+	vector<vector<int>> deco;
 	ifstream rule_list_file;
 	rule_list_file.open(rules_file, ifstream::in);
 	// Parce rule list txt file
@@ -166,8 +173,51 @@ void Session::fill_rule_list(){
 		}
 		rule_list_file.close();
 		for (int i = 0; i < rule_lines.size(); i++) {
-			rule_list.push_back(Rule(rule_lines[i]));
+			if (rule_lines[i].find('#') != std::string::npos) {
+				for (int j = 0; j < type.size(); j++) {
+					rule_list.push_back(Rule(enrg[j], type[j], phase[j], deco[j], motif));
+				}
+				motif.clear();
+				deco.clear();
+				type.clear();
+				enrg.clear();
+				phase.clear();
+			}
+			setting = split(rule_lines[i], "=");
+			if (setting[0].compare("Motif") == 0) {
+				line = split(setting[1], ":");
+				for (int j = 0; j < line.size(); j++) {
+					vector<string> pos = split(line[j], ",");
+					motif.push_back({ stof(pos[0]), stof(pos[1]), stof(pos[2]) });
+				}
+			}
+			else if (setting[0].compare("Deco") == 0) {
+				line = split(setting[1], ":");
+				for (int j = 0; j < line.size(); j++) {
+					vector<string> spec = split(line[j], ",");
+					deco.push_back({ stoi(spec[0]), stoi(spec[1]), stoi(spec[2]) });
+				}
+			}
+			else if (setting[0].compare("Type") == 0) {
+				line = split(setting[1], ",");
+				for (int j = 0; j < line.size(); j++) {
+					type.push_back(stoi(line[0]));
+				}
+			}
+			else if (setting[0].compare("Enrg") == 0) {
+				line = split(setting[1], ",");
+				for (int j = 0; j < line.size(); j++) {
+					enrg.push_back(stof(line[0]));
+				}
+			}
+			else if (setting[0].compare("Phase") == 0) {
+				line = split(setting[1], ",");
+				for (int j = 0; j < line.size(); j++) {
+					phase.push_back(stoi(line[0]));
+				}
+			}
 		}
+
 	}
 	else cout << "Unable to open rule file\n";
 

@@ -8,26 +8,26 @@ SimCell::SimCell(void) {
 }
 
 // the sim_cell object
-SimCell::SimCell(string POSCAR_file, int _sup_cell[3], vector<int>& _species_numbs, float _cutoff, string _sim_type, string _phase_init, string spin_init, string species_init) {
-	sim_type = _sim_type;
-	phase_init = _phase_init;
-	cutoff = _cutoff;
-	bool use_poscar = true;
-	for (int i = 0; i < _species_numbs.size(); i++) {
-		species_types.push_back(i);
-		species_numbs.push_back(_species_numbs[i]);
-	}
-	fillUnitCell(POSCAR_file, use_poscar); // make a "unit cell" from poscar file. This is used in turn to make the simulation cell
-	for (int i = 0; i < 3; i++) { // set the dimensions of the simulation cell
-		sup_cell[i] = _sup_cell[i];
-		cell_dim[i] = unit_LC[i] * sup_cell[i];
-	}
-	vector<vector<float>> _pos_list;
-	vector<int> _species_list;
-	make_supercell(_pos_list, _species_list, phase_init); // create the simulation cell from the unit cell.
-	vector<float> dist_list{ 0 };
-	fillAtomList(_pos_list, _species_list, dist_list, phase_init, spin_init, species_init); // populate the simulation cell with "atom" objects initalized to the desired spin, species and phase settings
-}
+//SimCell::SimCell(string POSCAR_file, int _sup_cell[3], vector<int>& _species_numbs, float _cutoff, string _sim_type, string _phase_init, string spin_init, string species_init) {
+//	sim_type = _sim_type;
+//	phase_init = _phase_init;
+//	cutoff = _cutoff;
+//	bool use_poscar = true;
+//	for (int i = 0; i < _species_numbs.size(); i++) {
+//		species_types.push_back(i);
+//		species_numbs.push_back(_species_numbs[i]);
+//	}
+//	fillUnitCell(POSCAR_file,  use_poscar); // make a "unit cell" from poscar file. This is used in turn to make the simulation cell
+//	for (int i = 0; i < 3; i++) { // set the dimensions of the simulation cell
+//		sup_cell[i] = _sup_cell[i];
+//		cell_dim[i] = unit_LC[i] * sup_cell[i];
+//	}
+//	vector<vector<float>> _pos_list;
+//	vector<int> _species_list;
+//	make_supercell(_pos_list, _species_list, phase_init); // create the simulation cell from the unit cell.
+//	vector<float> dist_list{ 0 };
+//	fillAtomList(_pos_list, _species_list, dist_list, phase_init, spin_init, species_init); // populate the simulation cell with "atom" objects initalized to the desired spin, species and phase settings
+//}
 
 SimCell::SimCell(SimCell& sc_copy) {
 	cutoff = sc_copy.cutoff;
@@ -63,14 +63,16 @@ void SimCell::_copy(SimCell& sc_copy) {
 	unit_cell = sc_copy.unit_cell;
 }
 // fill the unit cell using the poscar file 
-void SimCell::fillUnitCell(string POSCAR_file, bool use_poscar) {
+void SimCell::fillUnitCell(string POSCAR_file,vector<string>& _species, bool use_poscar) {
 	ifstream POS_list;
 	string pos_line;
 	vector<string> comp_line;
 	vector<string> pos_lines;
 	vector<string> LCs;
 	vector<string> pos_list_s;
+	vector<string> pos_species_s;
 	vector<vector<float>> pos_list_f;
+	vector<vector<string>> pos_species_f;
 	vector<int> species_list;
 	vector<float> pos{ 0,0,0 };
 	// read the poscar file
@@ -95,6 +97,15 @@ void SimCell::fillUnitCell(string POSCAR_file, bool use_poscar) {
 		pos_list_s = split(pos_line);// , " ");
 		for (int j = 0; j < 3; j++) {
 			pos[j] = stof(pos_list_s[j]);
+		}
+		for (int j = 3; j < pos_list_s.size(); j++) {
+			pos_species_s.push_back(pos_list_s[j]);
+		}
+		if (pos_species_s.size() == 0) {
+			pos_species_f.push_back(_species);
+		}
+		else {
+			pos_species_f.push_back(pos_species_s);
 		}
 		pos_list_f.push_back(pos);
 	}
@@ -345,7 +356,7 @@ void SimCell::initSimCell(string POSCAR_file, Session& session) {
 		species_types.push_back(i);
 		species_numbs.push_back(_species_numbs[i]);
 	}
-	fillUnitCell(POSCAR_file, use_poscar);
+	fillUnitCell(POSCAR_file,session.species, use_poscar);
 	for (int i = 0; i < 3; i++) {
 		sup_cell[i] = _sup_cell[i];
 		cell_dim[i] = unit_LC[i] * sup_cell[i];
@@ -362,7 +373,6 @@ SimCell::Atom::Atom(void) {
 	spin = 10;
 	phase = 10;
 	index = 10;
-	cluster_status = "unknown";
 }
 
 SimCell::Atom::Atom(int _index, int _species, int _spin, int _phase, vector<float> _pos) {
@@ -373,7 +383,6 @@ SimCell::Atom::Atom(int _index, int _species, int _spin, int _phase, vector<floa
 	pos[0] = _pos[0];
 	pos[1] = _pos[1];
 	pos[2] = _pos[2];
-	cluster_status = "unknown";
 }
 
 int SimCell::Atom::getNeighborSpin(int _neighbor, SimCell& sim_cell) {

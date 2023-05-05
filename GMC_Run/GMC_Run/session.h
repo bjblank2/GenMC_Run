@@ -41,6 +41,7 @@ public:
 	vector<string> species;
 	vector<Rule> rule_list;
 	vector<vector<float>> spin_states;
+	vector<vector<vector<float>>> motif_list;
 
 
 	Session(void);

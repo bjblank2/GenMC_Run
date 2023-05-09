@@ -6,22 +6,23 @@ extern Session session;
 MCrun::MCrun(void) {}
 
 MCrun::MCrun(Session& _session, SimCell& _sim_cell) {
-	sim_cell._copy(_sim_cell);
-	session._copy(_session);
+	sim_cell = _sim_cell;
+	session = _session;
 }
 
-void MCrun::start(vector<Rule>& mc_rules) {
+void MCrun::start() {
 	cout <<"using algo " << session.algo << "\n";
 	if (session.algo == 0) { return; }
-	else if (session.algo == 3) { runMetropolis3(mc_rules); }
-	else if (session.algo == 4) { runMetropolis4(mc_rules); }
-	else if (session.algo == 5) { runMetropolis5(mc_rules); }
-	else if (session.algo == 6) { runMetropolis6(mc_rules); }
-	else if (session.algo == 7) { runMetropolis7(mc_rules); }
-	else if (session.algo == 8) { runMetropolis8(mc_rules); }
-	else if (session.algo == 9) { runMetropolis9(mc_rules); }
-	else if (session.algo == 10) { runMetropolis10(mc_rules); }
-	else if (session.algo == -1) { outputSimCell(mc_rules); }
+	else if (session.algo == 3) { runMetropolis3(); }
+	else if (session.algo == 4) { runMetropolis4(); }
+	else if (session.algo == 5) { runMetropolis5(); }
+	else if (session.algo == 6) { runMetropolis6(); }
+	else if (session.algo == 7) { runMetropolis7(); }
+	else if (session.algo == 8) { runMetropolis8(); }
+	else if (session.algo == 9) { runMetropolis9(); }
+	else if (session.algo == 10) { runMetropolis10(); }
+	else if (session.algo == -1) { outputSimCell(); }
+	else if (session.algo == -2) { debug_run(); }
 }
 // Evaluate the energy controbution from a singal atom, includeing spin chem rules.
 long double MCrun::evalSiteEnergyAll(int site, map<string, long double>& rule_map_spin, map<string, long double>& rule_map_chem, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
@@ -545,7 +546,7 @@ long double MCrun::evalLatticeSpin(map<string, long double>& rule_map_spin, vect
 	return enrg;// / atom_species.size() * 16 - 66.8295069760671;
 }
 // Run MC with ONLY spin flips
-void MCrun::runMetropolis3(vector<Rule>& mc_rules) {
+void MCrun::runMetropolis3() {
 	int numb_atoms = sim_cell.numb_atoms;
 	int numb_neighbors = sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell);
 	vector<int> atom_species_list;
@@ -706,27 +707,27 @@ void MCrun::runMetropolis3(vector<Rule>& mc_rules) {
 	vector<float> dist_check;
 	vector<int> spin_atoms;
 	cout << "Making JMatSpin and Chem\n";
-	for (int i = 0; i < mc_rules.size(); i++) {
-		if (mc_rules[i].GetType() == 0 and mc_rules[i].GetLength() < 3) {
-			JMChem.push_back(mc_rules[i].GetEnrgCont());
-			JMChem.push_back(mc_rules[i].GetLength());
+	for (int i = 0; i < session.rule_list.size(); i++) {
+		if (session.rule_list[i].GetType() == 0 and session.rule_list[i].GetLength() < 3) {
+			JMChem.push_back(session.rule_list[i].GetEnrgCont());
+			JMChem.push_back(session.rule_list[i].GetLength());
 			JMatChem.push_back(JMChem);
 			JMChem.clear();
 		}
-		else if (mc_rules[i].GetType() == 0 and mc_rules[i].GetLength() >= 3) {
-			JMChem.push_back(mc_rules[i].GetEnrgCont());
-			JMChem.push_back(mc_rules[i].GetLength());
+		else if (session.rule_list[i].GetType() == 0 and session.rule_list[i].GetLength() >= 3) {
+			JMChem.push_back(session.rule_list[i].GetEnrgCont());
+			JMChem.push_back(session.rule_list[i].GetLength());
 			JMatChem.push_back(JMChem);
 			JMChem.clear();
 		}
-		else if (mc_rules[i].GetType() == 1) {
-			if (mc_rules[i].GetLength() == 1) { spin_atoms.push_back(mc_rules[i].GetSpecies()[0]); }
+		else if (session.rule_list[i].GetType() == 1) {
+			if (session.rule_list[i].GetLength() == 1) { spin_atoms.push_back(session.rule_list[i].GetDeco()[0]); }
 			else {
-				spin_atoms.push_back(mc_rules[i].GetSpecies()[0]);
-				spin_atoms.push_back(mc_rules[i].GetSpecies()[1]);
+				spin_atoms.push_back(session.rule_list[i].GetDeco()[0]);
+				spin_atoms.push_back(session.rule_list[i].GetDeco()[1]);
 			}
-			JMSpin.push_back(mc_rules[i].GetEnrgCont());
-			JMSpin.push_back(mc_rules[i].GetLength());
+			JMSpin.push_back(session.rule_list[i].GetEnrgCont());
+			JMSpin.push_back(session.rule_list[i].GetLength());
 			JMatSpin.push_back(JMSpin);
 			JMSpin.clear();
 		}
@@ -738,26 +739,26 @@ void MCrun::runMetropolis3(vector<Rule>& mc_rules) {
 
 	// cout << numb_atoms << "\n";
 	for (int i = 0; i < numb_atoms; i++) {
-		for (int j = 0; j < mc_rules.size(); j++) {
-			if (mc_rules[j].GetLength() == 1) {
-				if (mc_rules[j].GetSpecies()[0] == atom_species_list[i]) {
-					if (mc_rules[j].GetType() == 0) { JcChem.push_back(i); }
-					else if (mc_rules[j].GetType() == 1) { JcSpin.push_back(i); }
+		for (int j = 0; j < session.rule_list.size(); j++) {
+			if (session.rule_list[j].GetLength() == 1) {
+				if (session.rule_list[j].GetDeco()[0] == atom_species_list[i]) {
+					if (session.rule_list[j].GetType() == 0) { JcChem.push_back(i); }
+					else if (session.rule_list[j].GetType() == 1) { JcSpin.push_back(i); }
 				}
 			}
-			else if (mc_rules[j].GetLength() == 2) {
+			else if (session.rule_list[j].GetLength() == 2) {
 				for (int k = 0; k < neighbor_index_list[i].size(); k++) {
 					species_check.push_back(atom_species_list[i]);
 					species_check.push_back(atom_species_list[neighbor_index_list[i][k]]);
 					dist_check.push_back(neighbor_dist_list[i][k]);
-					if (mc_rules[j].IsRuleChem(species_check, dist_check)) { JcChem.push_back(neighbor_index_list[i][k]); } //////////////////// Could this if / else be a problem (is the type check inside the function messing up?) 
-					else if (mc_rules[j].IsRuleSpin(species_check, dist_check)) { JcSpin.push_back(neighbor_index_list[i][k]); } ///////////////
-					//else { cout << mc_rules[j].GetType() << ", " << species_check[0] << species_check[1] << ", " << neighbor_dist_list[i][k]; }
+					if (session.rule_list[j].IsRuleChem(species_check, dist_check)) { JcChem.push_back(neighbor_index_list[i][k]); } //////////////////// Could this if / else be a problem (is the type check inside the function messing up?) 
+					else if (session.rule_list[j].IsRuleSpin(species_check, dist_check)) { JcSpin.push_back(neighbor_index_list[i][k]); } ///////////////
+					//else { cout << session.rule_list[j].GetType() << ", " << species_check[0] << species_check[1] << ", " << neighbor_dist_list[i][k]; }
 					species_check.clear();
 					dist_check.clear();
 				}
 			}
-			if (mc_rules[j].GetLength() == 3) {
+			if (session.rule_list[j].GetLength() == 3) {
 				for (int k = 0; k < neighbor_index_list[i].size(); k++) {
 					for (int a = 0; a < neighbor_index_list[i].size(); a++) {
 						species_check.push_back(atom_species_list[i]);
@@ -769,16 +770,16 @@ void MCrun::runMetropolis3(vector<Rule>& mc_rules) {
 						if (dist_3_itr != neighbor_index_list[neighbor_index_list[i][k]].end()) {
 							int dist_3_ind = distance(neighbor_index_list[neighbor_index_list[i][k]].begin(), dist_3_itr);
 							dist_check.push_back(neighbor_dist_list[neighbor_index_list[i][k]][dist_3_ind]);
-							if (mc_rules[j].IsRuleChem(species_check, dist_check)) { JcChem.push_back(neighbor_index_list[i][k]); }
-							else if (mc_rules[j].IsRuleSpin(species_check, dist_check)) { JcSpin.push_back(neighbor_index_list[i][k]); }
+							if (session.rule_list[j].IsRuleChem(species_check, dist_check)) { JcChem.push_back(neighbor_index_list[i][k]); }
+							else if (session.rule_list[j].IsRuleSpin(species_check, dist_check)) { JcSpin.push_back(neighbor_index_list[i][k]); }
 						}
 						species_check.clear();
 						dist_check.clear();
 					}
 				}
 			}
-			if (mc_rules[j].GetType() == 0) { JcountsChem.push_back(JcChem); }
-			else if (mc_rules[j].GetType() == 1) { JcountsSpin.push_back(JcSpin); }
+			if (session.rule_list[j].GetType() == 0) { JcountsChem.push_back(JcChem); }
+			else if (session.rule_list[j].GetType() == 1) { JcountsSpin.push_back(JcSpin); }
 			if (JcChem.size() != 0) { JcChem.clear(); }
 			if (JcSpin.size() != 0) { JcSpin.clear(); }
 		}
@@ -984,7 +985,7 @@ void MCrun::runMetropolis3(vector<Rule>& mc_rules) {
 	Output.close();
 }
 
-void MCrun::runMetropolis4(vector<Rule>& mc_rules) {
+void MCrun::runMetropolis4() {
 	int numb_atoms = sim_cell.numb_atoms;
 	int numb_neighbors = sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell);
 	vector<int> atom_species_list;
@@ -1130,27 +1131,27 @@ void MCrun::runMetropolis4(vector<Rule>& mc_rules) {
 	vector<float> dist_check;
 	vector<int> spin_atoms;
 	cout << "Making JMatSpin and Chem\n";
-	for (int i = 0; i < mc_rules.size(); i++) {
-		if (mc_rules[i].GetType() == 0 and mc_rules[i].GetLength() < 3) {
-			JMChem.push_back(mc_rules[i].GetEnrgCont());
-			JMChem.push_back(mc_rules[i].GetLength());
+	for (int i = 0; i < session.rule_list.size(); i++) {
+		if (session.rule_list[i].GetType() == 0 and session.rule_list[i].GetLength() < 3) {
+			JMChem.push_back(session.rule_list[i].GetEnrgCont());
+			JMChem.push_back(session.rule_list[i].GetLength());
 			JMatChem.push_back(JMChem);
 			JMChem.clear();
 		}
-		else if (mc_rules[i].GetType() == 0 and mc_rules[i].GetLength() >= 3) {
-			JMChem.push_back(mc_rules[i].GetEnrgCont());
-			JMChem.push_back(mc_rules[i].GetLength());
+		else if (session.rule_list[i].GetType() == 0 and session.rule_list[i].GetLength() >= 3) {
+			JMChem.push_back(session.rule_list[i].GetEnrgCont());
+			JMChem.push_back(session.rule_list[i].GetLength());
 			JMatChem.push_back(JMChem);
 			JMChem.clear();
 		}
-		else if (mc_rules[i].GetType() == 1) {
-			if (mc_rules[i].GetLength() == 1) { spin_atoms.push_back(mc_rules[i].GetSpecies()[0]); }
+		else if (session.rule_list[i].GetType() == 1) {
+			if (session.rule_list[i].GetLength() == 1) { spin_atoms.push_back(session.rule_list[i].GetDeco()[0]); }
 			else {
-				spin_atoms.push_back(mc_rules[i].GetSpecies()[0]);
-				spin_atoms.push_back(mc_rules[i].GetSpecies()[1]);
+				spin_atoms.push_back(session.rule_list[i].GetDeco()[0]);
+				spin_atoms.push_back(session.rule_list[i].GetDeco()[1]);
 			}
-			JMSpin.push_back(mc_rules[i].GetEnrgCont());
-			JMSpin.push_back(mc_rules[i].GetLength());
+			JMSpin.push_back(session.rule_list[i].GetEnrgCont());
+			JMSpin.push_back(session.rule_list[i].GetLength());
 			JMatSpin.push_back(JMSpin);
 			JMSpin.clear();
 		}
@@ -1160,25 +1161,25 @@ void MCrun::runMetropolis4(vector<Rule>& mc_rules) {
 	spin_atoms.erase(unique(spin_atoms.begin(), spin_atoms.end()), spin_atoms.end());
 	cout << numb_atoms << "\n";
 	for (int i = 0; i < numb_atoms; i++) {
-		for (int j = 0; j < mc_rules.size(); j++) {
-			if (mc_rules[j].GetLength() == 1) {
-				if (mc_rules[j].GetSpecies()[0] == atom_species_list[i]) {
-					if (mc_rules[j].GetType() == 0) { JcChem.push_back(i); }
-					else if (mc_rules[j].GetType() == 1) { JcSpin.push_back(i); }
+		for (int j = 0; j < session.rule_list.size(); j++) {
+			if (session.rule_list[j].GetLength() == 1) {
+				if (session.rule_list[j].GetDeco()[0] == atom_species_list[i]) {
+					if (session.rule_list[j].GetType() == 0) { JcChem.push_back(i); }
+					else if (session.rule_list[j].GetType() == 1) { JcSpin.push_back(i); }
 				}
 			}
-			else if (mc_rules[j].GetLength() == 2) {
+			else if (session.rule_list[j].GetLength() == 2) {
 				for (int k = 0; k < neighbor_index_list[i].size(); k++) {
 					species_check.push_back(atom_species_list[i]);
 					species_check.push_back(atom_species_list[neighbor_index_list[i][k]]);
 					dist_check.push_back(neighbor_dist_list[i][k]);
-					if (mc_rules[j].IsRuleChem(species_check, dist_check)) { JcChem.push_back(neighbor_index_list[i][k]); }
-					else if (mc_rules[j].IsRuleSpin(species_check, dist_check)) { JcSpin.push_back(neighbor_index_list[i][k]); }
+					if (session.rule_list[j].IsRuleChem(species_check, dist_check)) { JcChem.push_back(neighbor_index_list[i][k]); }
+					else if (session.rule_list[j].IsRuleSpin(species_check, dist_check)) { JcSpin.push_back(neighbor_index_list[i][k]); }
 					species_check.clear();
 					dist_check.clear();
 				}
 			}
-			if (mc_rules[j].GetLength() == 3) {
+			if (session.rule_list[j].GetLength() == 3) {
 				for (int k = 0; k < neighbor_index_list[i].size(); k++) {
 					for (int a = 0; a < neighbor_index_list[i].size(); a++) {
 						species_check.push_back(atom_species_list[i]);
@@ -1190,16 +1191,16 @@ void MCrun::runMetropolis4(vector<Rule>& mc_rules) {
 						if (dist_3_itr != neighbor_index_list[neighbor_index_list[i][k]].end()) {
 							int dist_3_ind = distance(neighbor_index_list[neighbor_index_list[i][k]].begin(), dist_3_itr);
 							dist_check.push_back(neighbor_dist_list[neighbor_index_list[i][k]][dist_3_ind]);
-							if (mc_rules[j].IsRuleChem(species_check, dist_check)) { JcChem.push_back(neighbor_index_list[i][k]); }
-							else if (mc_rules[j].IsRuleSpin(species_check, dist_check)) { JcSpin.push_back(neighbor_index_list[i][k]); }
+							if (session.rule_list[j].IsRuleChem(species_check, dist_check)) { JcChem.push_back(neighbor_index_list[i][k]); }
+							else if (session.rule_list[j].IsRuleSpin(species_check, dist_check)) { JcSpin.push_back(neighbor_index_list[i][k]); }
 						}
 						species_check.clear();
 						dist_check.clear();
 					}
 				}
 			}
-			if (mc_rules[j].GetType() == 0) { JcountsChem.push_back(JcChem); }
-			else if (mc_rules[j].GetType() == 1) { JcountsSpin.push_back(JcSpin); }
+			if (session.rule_list[j].GetType() == 0) { JcountsChem.push_back(JcChem); }
+			else if (session.rule_list[j].GetType() == 1) { JcountsSpin.push_back(JcSpin); }
 			if (JcChem.size() != 0) { JcChem.clear(); }
 			if (JcSpin.size() != 0) { JcSpin.clear(); }
 		}
@@ -1337,7 +1338,7 @@ void MCrun::runMetropolis4(vector<Rule>& mc_rules) {
 	Output.close();
 }
 
-void MCrun::runMetropolis5(vector<Rule>& mc_rules) {
+void MCrun::runMetropolis5() {
 	int numb_atoms = sim_cell.numb_atoms;
 	int numb_neighbors = sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell);
 	map <string, long double> rule_map_spin;
@@ -1348,57 +1349,57 @@ void MCrun::runMetropolis5(vector<Rule>& mc_rules) {
 	vector<vector<float>> neighbor_dist_list(numb_atoms, vector<float>(sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell), 0));
 	// Turn rule list into map for spin and map for chem
 	// Redundent rules are added for [0,1] and [1,0] ect... so that comparison is quicker in mc steps
-	for (int i = 0; i < mc_rules.size(); i++) {
+	for (int i = 0; i < session.rule_list.size(); i++) {
 		string rule_key = "_";
-		if (mc_rules[i].GetLength() == 1) {
-			rule_key = "_" + to_string(mc_rules[i].GetSpecies()[0]) + ",0,";
-			rule_map_chem.insert(pair<string, float>(rule_key, mc_rules[i].GetEnrgCont()));
+		if (session.rule_list[i].GetLength() == 1) {
+			rule_key = "_" + to_string(session.rule_list[i].GetDeco()[0]) + ",0,";
+			rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 		}
-		else if (mc_rules[i].GetLength() == 2) {
-			vector<int> species = mc_rules[i].GetSpecies();
-			float dist = mc_rules[i].GetDists()[0];
+		else if (session.rule_list[i].GetLength() == 2) {
+			vector<int> species = session.rule_list[i].GetDeco();
+			float dist = session.rule_list[i].GetDists()[0];
 			rule_key = "_" + to_string(species[0]) + "," + to_string(species[1]) + "," + to_string(dist) + ",";
-			if (mc_rules[i].GetType() == 0) {
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			if (session.rule_list[i].GetType() == 0) {
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
-			else if (mc_rules[i].GetType() == 1) {
-				rule_map_spin.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			else if (session.rule_list[i].GetType() == 1) {
+				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
 			if (species[0] != species[1]) {
 				rule_key = "_" + to_string(species[1]) + "," + to_string(species[0]) + "," + to_string(dist) + ",";
-				if (mc_rules[i].GetType() == 0) {
-					rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				if (session.rule_list[i].GetType() == 0) {
+					rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 				}
-				else if (mc_rules[i].GetType() == 1) {
-					rule_map_spin.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				else if (session.rule_list[i].GetType() == 1) {
+					rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 				}
 			}
 		}
-		else if (mc_rules[i].GetLength() == 3) {
-			vector<int> trip = mc_rules[i].GetSpecies();
-			vector<float> dists = mc_rules[i].GetDists();
-			if (mc_rules[i].GetType() == 0) {
+		else if (session.rule_list[i].GetLength() == 3) {
+			vector<int> trip = session.rule_list[i].GetDeco();
+			vector<float> dists = session.rule_list[i].GetDists();
+			if (session.rule_list[i].GetType() == 0) {
 				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
-			else if (mc_rules[i].GetType() == 1) {
+			else if (session.rule_list[i].GetType() == 1) {
 				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-				rule_map_spin.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 				//cout << rule_key << "\n";
 			}
 		}
@@ -1656,7 +1657,7 @@ void MCrun::runMetropolis5(vector<Rule>& mc_rules) {
 	Output.close();
 }
 // Uses seperate thermostat for Spin and Chem
-void MCrun::runMetropolis6(vector<Rule>& mc_rules) {
+void MCrun::runMetropolis6() {
 	int numb_atoms = sim_cell.numb_atoms;
 	int numb_neighbors = sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell);
 	map <string, long double> rule_map_spin;
@@ -1667,55 +1668,55 @@ void MCrun::runMetropolis6(vector<Rule>& mc_rules) {
 	vector<vector<float>> neighbor_dist_list(numb_atoms, vector<float>(sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell), 0));
 	// Turn rule list into map for spin and map for chem
 	// Redundent rules are added for [0,1] and [1,0] ect... so that comparison is quicker in mc steps
-	for (int i = 0; i < mc_rules.size(); i++) {
+	for (int i = 0; i < session.rule_list.size(); i++) {
 		string rule_key = "_";
-		if (mc_rules[i].GetLength() == 1) {
-			rule_key = "_" + to_string(mc_rules[i].GetSpecies()[0]) + ",0,";
-			rule_map_chem.insert(pair<string, float>(rule_key, mc_rules[i].GetEnrgCont()));
+		if (session.rule_list[i].GetLength() == 1) {
+			rule_key = "_" + to_string(session.rule_list[i].GetDeco()[0]) + ",0,";
+			rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 		}
-		else if (mc_rules[i].GetLength() == 2) {
-			vector<int> species = mc_rules[i].GetSpecies();
-			float dist = mc_rules[i].GetDists()[0];
+		else if (session.rule_list[i].GetLength() == 2) {
+			vector<int> species = session.rule_list[i].GetDeco();
+			float dist = session.rule_list[i].GetDists()[0];
 			rule_key = "_" + to_string(species[0]) + "," + to_string(species[1]) + "," + to_string(dist) + ",";
-			if (mc_rules[i].GetType() == 0) {
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			if (session.rule_list[i].GetType() == 0) {
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
-			else if (mc_rules[i].GetType() == 1) {
-				rule_map_spin.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			else if (session.rule_list[i].GetType() == 1) {
+				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
 			rule_key = "_" + to_string(species[1]) + "," + to_string(species[0]) + "," + to_string(dist) + ",";
-			if (mc_rules[i].GetType() == 0) {
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			if (session.rule_list[i].GetType() == 0) {
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
-			else if (mc_rules[i].GetType() == 1) {
-				rule_map_spin.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			else if (session.rule_list[i].GetType() == 1) {
+				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
 		}
-		else if (mc_rules[i].GetLength() == 3) {
-			vector<int> trip = mc_rules[i].GetSpecies();
-			vector<float> dists = mc_rules[i].GetDists();
-			if (mc_rules[i].GetType() == 0) {
+		else if (session.rule_list[i].GetLength() == 3) {
+			vector<int> trip = session.rule_list[i].GetDeco();
+			vector<float> dists = session.rule_list[i].GetDists();
+			if (session.rule_list[i].GetType() == 0) {
 				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
-			else if (mc_rules[i].GetType() == 1) {
+			else if (session.rule_list[i].GetType() == 1) {
 				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-				rule_map_spin.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
 		}
 	}
@@ -1963,7 +1964,7 @@ void MCrun::runMetropolis6(vector<Rule>& mc_rules) {
 	Output.close();
 }
 
-void MCrun::runMetropolis7(vector<Rule>& mc_rules) {
+void MCrun::runMetropolis7() {
 	int numb_atoms = sim_cell.numb_atoms;
 	int numb_neighbors = sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell);
 	map <string, long double> rule_map_spin;
@@ -1974,55 +1975,55 @@ void MCrun::runMetropolis7(vector<Rule>& mc_rules) {
 	vector<vector<float>> neighbor_dist_list(numb_atoms, vector<float>(sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell), 0));
 	// Turn rule list into map for spin and map for chem
 	// Redundent rules are added for [0,1] and [1,0] ect... so that comparison is quicker in mc steps
-	for (int i = 0; i < mc_rules.size(); i++) {
+	for (int i = 0; i < session.rule_list.size(); i++) {
 		string rule_key = "_";
-		if (mc_rules[i].GetLength() == 1) {
-			rule_key = "_" + to_string(mc_rules[i].GetSpecies()[0]) + ",0,";
-			rule_map_chem.insert(pair<string, float>(rule_key, mc_rules[i].GetEnrgCont()));
+		if (session.rule_list[i].GetLength() == 1) {
+			rule_key = "_" + to_string(session.rule_list[i].GetDeco()[0]) + ",0,";
+			rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 		}
-		else if (mc_rules[i].GetLength() == 2) {
-			vector<int> species = mc_rules[i].GetSpecies();
-			float dist = mc_rules[i].GetDists()[0];
+		else if (session.rule_list[i].GetLength() == 2) {
+			vector<int> species = session.rule_list[i].GetDeco();
+			float dist = session.rule_list[i].GetDists()[0];
 			rule_key = "_" + to_string(species[0]) + "," + to_string(species[1]) + "," + to_string(dist) + ",";
-			if (mc_rules[i].GetType() == 0) {
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			if (session.rule_list[i].GetType() == 0) {
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
-			else if (mc_rules[i].GetType() == 1) {
-				rule_map_spin.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			else if (session.rule_list[i].GetType() == 1) {
+				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
 			rule_key = "_" + to_string(species[1]) + "," + to_string(species[0]) + "," + to_string(dist) + ",";
-			if (mc_rules[i].GetType() == 0) {
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			if (session.rule_list[i].GetType() == 0) {
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
-			else if (mc_rules[i].GetType() == 1) {
-				rule_map_spin.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			else if (session.rule_list[i].GetType() == 1) {
+				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
 		}
-		else if (mc_rules[i].GetLength() == 3) {
-			vector<int> trip = mc_rules[i].GetSpecies();
-			vector<float> dists = mc_rules[i].GetDists();
-			if (mc_rules[i].GetType() == 0) {
+		else if (session.rule_list[i].GetLength() == 3) {
+			vector<int> trip = session.rule_list[i].GetDeco();
+			vector<float> dists = session.rule_list[i].GetDists();
+			if (session.rule_list[i].GetType() == 0) {
 				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
-			else if (mc_rules[i].GetType() == 1) {
+			else if (session.rule_list[i].GetType() == 1) {
 				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-				rule_map_spin.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
 		}
 	}
@@ -2279,7 +2280,7 @@ void MCrun::runMetropolis7(vector<Rule>& mc_rules) {
 	Output.close();
 }
 
-void MCrun::runMetropolis8(vector<Rule>& mc_rules) {
+void MCrun::runMetropolis8() {
 	int numb_atoms = sim_cell.numb_atoms;
 	int numb_neighbors = sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell);
 	map <string, long double> rule_map_spin;
@@ -2290,55 +2291,55 @@ void MCrun::runMetropolis8(vector<Rule>& mc_rules) {
 	vector<vector<float>> neighbor_dist_list(numb_atoms, vector<float>(sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell), 0));
 	// Turn rule list into map for spin and map for chem
 	// Redundent rules are added for [0,1] and [1,0] ect... so that comparison is quicker in mc steps
-	for (int i = 0; i < mc_rules.size(); i++) {
+	for (int i = 0; i < session.rule_list.size(); i++) {
 		string rule_key = "_";
-		if (mc_rules[i].GetLength() == 1) {
-			rule_key = "_" + to_string(mc_rules[i].GetSpecies()[0]) + ",0,";
-			rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+		if (session.rule_list[i].GetLength() == 1) {
+			rule_key = "_" + to_string(session.rule_list[i].GetDeco()[0]) + ",0,";
+			rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 		}
-		else if (mc_rules[i].GetLength() == 2) {
-			vector<int> species = mc_rules[i].GetSpecies();
-			float dist = mc_rules[i].GetDists()[0];
+		else if (session.rule_list[i].GetLength() == 2) {
+			vector<int> species = session.rule_list[i].GetDeco();
+			float dist = session.rule_list[i].GetDists()[0];
 			rule_key = "_" + to_string(species[0]) + "," + to_string(species[1]) + "," + to_string(dist) + ",";
-			if (mc_rules[i].GetType() == 0) {
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			if (session.rule_list[i].GetType() == 0) {
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
-			else if (mc_rules[i].GetType() == 1) {
-				rule_map_spin.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			else if (session.rule_list[i].GetType() == 1) {
+				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
 			rule_key = "_" + to_string(species[1]) + "," + to_string(species[0]) + "," + to_string(dist) + ",";
-			if (mc_rules[i].GetType() == 0) {
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			if (session.rule_list[i].GetType() == 0) {
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
-			else if (mc_rules[i].GetType() == 1) {
-				rule_map_spin.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			else if (session.rule_list[i].GetType() == 1) {
+				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
 		}
-		else if (mc_rules[i].GetLength() == 3) {
-			vector<int> trip = mc_rules[i].GetSpecies();
-			vector<float> dists = mc_rules[i].GetDists();
-			if (mc_rules[i].GetType() == 0) {
+		else if (session.rule_list[i].GetLength() == 3) {
+			vector<int> trip = session.rule_list[i].GetDeco();
+			vector<float> dists = session.rule_list[i].GetDists();
+			if (session.rule_list[i].GetType() == 0) {
 				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
-			else if (mc_rules[i].GetType() == 1) {
+			else if (session.rule_list[i].GetType() == 1) {
 				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-				rule_map_spin.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
 		}
 	}
@@ -2551,7 +2552,7 @@ void MCrun::runMetropolis8(vector<Rule>& mc_rules) {
 
 }
 
-void MCrun::runMetropolis9(vector<Rule>& mc_rules) {
+void MCrun::runMetropolis9() {
 	int numb_atoms = sim_cell.numb_atoms;
 	int numb_neighbors = sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell);
 	map <string, long double> rule_map_spin;
@@ -2562,55 +2563,55 @@ void MCrun::runMetropolis9(vector<Rule>& mc_rules) {
 	vector<vector<float>> neighbor_dist_list(numb_atoms, vector<float>(sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell), 0));
 	// Turn rule list into map for spin and map for chem
 	// Redundent rules are added for [0,1] and [1,0] ect... so that comparison is quicker in mc steps
-	for (int i = 0; i < mc_rules.size(); i++) {
+	for (int i = 0; i < session.rule_list.size(); i++) {
 		string rule_key = "_";
-		if (mc_rules[i].GetLength() == 1) {
-			rule_key = "_" + to_string(mc_rules[i].GetSpecies()[0]) + ",0,";
-			rule_map_chem.insert(pair<string, float>(rule_key, mc_rules[i].GetEnrgCont()));
+		if (session.rule_list[i].GetLength() == 1) {
+			rule_key = "_" + to_string(session.rule_list[i].GetDeco()[0]) + ",0,";
+			rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 		}
-		else if (mc_rules[i].GetLength() == 2) {
-			vector<int> species = mc_rules[i].GetSpecies();
-			float dist = mc_rules[i].GetDists()[0];
+		else if (session.rule_list[i].GetLength() == 2) {
+			vector<int> species = session.rule_list[i].GetDeco();
+			float dist = session.rule_list[i].GetDists()[0];
 			rule_key = "_" + to_string(species[0]) + "," + to_string(species[1]) + "," + to_string(dist) + ",";
-			if (mc_rules[i].GetType() == 0) {
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			if (session.rule_list[i].GetType() == 0) {
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
-			else if (mc_rules[i].GetType() == 1) {
-				rule_map_spin.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			else if (session.rule_list[i].GetType() == 1) {
+				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
 			rule_key = "_" + to_string(species[1]) + "," + to_string(species[0]) + "," + to_string(dist) + ",";
-			if (mc_rules[i].GetType() == 0) {
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			if (session.rule_list[i].GetType() == 0) {
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
-			else if (mc_rules[i].GetType() == 1) {
-				rule_map_spin.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+			else if (session.rule_list[i].GetType() == 1) {
+				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
 		}
-		else if (mc_rules[i].GetLength() == 3) {
-			vector<int> trip = mc_rules[i].GetSpecies();
-			vector<float> dists = mc_rules[i].GetDists();
-			if (mc_rules[i].GetType() == 0) {
+		else if (session.rule_list[i].GetLength() == 3) {
+			vector<int> trip = session.rule_list[i].GetDeco();
+			vector<float> dists = session.rule_list[i].GetDists();
+			if (session.rule_list[i].GetType() == 0) {
 				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 
 				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + ",";
-				rule_map_chem.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
-			else if (mc_rules[i].GetType() == 1) {
+			else if (session.rule_list[i].GetType() == 1) {
 				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-				rule_map_spin.insert(pair<string, long double>(rule_key, mc_rules[i].GetEnrgCont()));
+				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
 			}
 		}
 	}
@@ -2772,7 +2773,7 @@ void MCrun::runMetropolis9(vector<Rule>& mc_rules) {
 	writeSuperCell("CONTCAR", atom_species_list, atom_spin_list, sim_cell);
 }
 
-void MCrun::runMetropolis10(vector<Rule>& mc_rules) {
+void MCrun::runMetropolis10() {
 	int numb_atoms = sim_cell.numb_atoms;
 	int numb_neighbors = sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell);
 	vector<int> atom_species_list;
@@ -2918,27 +2919,27 @@ void MCrun::runMetropolis10(vector<Rule>& mc_rules) {
 	vector<float> dist_check;
 	vector<int> spin_atoms;
 	cout << "Making JMatSpin and Chem\n";
-	for (int i = 0; i < mc_rules.size(); i++) {
-		if (mc_rules[i].GetType() == 0 and mc_rules[i].GetLength() < 3) {
-			JMChem.push_back(mc_rules[i].GetEnrgCont());
-			JMChem.push_back(mc_rules[i].GetLength());
+	for (int i = 0; i < session.rule_list.size(); i++) {
+		if (session.rule_list[i].GetType() == 0 and session.rule_list[i].GetLength() < 3) {
+			JMChem.push_back(session.rule_list[i].GetEnrgCont());
+			JMChem.push_back(session.rule_list[i].GetLength());
 			JMatChem.push_back(JMChem);
 			JMChem.clear();
 		}
-		else if (mc_rules[i].GetType() == 0 and mc_rules[i].GetLength() >= 3) {
-			JMChem.push_back(mc_rules[i].GetEnrgCont());
-			JMChem.push_back(mc_rules[i].GetLength());
+		else if (session.rule_list[i].GetType() == 0 and session.rule_list[i].GetLength() >= 3) {
+			JMChem.push_back(session.rule_list[i].GetEnrgCont());
+			JMChem.push_back(session.rule_list[i].GetLength());
 			JMatChem.push_back(JMChem);
 			JMChem.clear();
 		}
-		else if (mc_rules[i].GetType() == 1) {
-			if (mc_rules[i].GetLength() == 1) { spin_atoms.push_back(mc_rules[i].GetSpecies()[0]); }
+		else if (session.rule_list[i].GetType() == 1) {
+			if (session.rule_list[i].GetLength() == 1) { spin_atoms.push_back(session.rule_list[i].GetDeco()[0]); }
 			else {
-				spin_atoms.push_back(mc_rules[i].GetSpecies()[0]);
-				spin_atoms.push_back(mc_rules[i].GetSpecies()[1]);
+				spin_atoms.push_back(session.rule_list[i].GetDeco()[0]);
+				spin_atoms.push_back(session.rule_list[i].GetDeco()[1]);
 			}
-			JMSpin.push_back(mc_rules[i].GetEnrgCont());
-			JMSpin.push_back(mc_rules[i].GetLength());
+			JMSpin.push_back(session.rule_list[i].GetEnrgCont());
+			JMSpin.push_back(session.rule_list[i].GetLength());
 			JMatSpin.push_back(JMSpin);
 			JMSpin.clear();
 		}
@@ -2948,25 +2949,25 @@ void MCrun::runMetropolis10(vector<Rule>& mc_rules) {
 	spin_atoms.erase(unique(spin_atoms.begin(), spin_atoms.end()), spin_atoms.end());
 	cout << numb_atoms << "\n";
 	for (int i = 0; i < numb_atoms; i++) {
-		for (int j = 0; j < mc_rules.size(); j++) {
-			if (mc_rules[j].GetLength() == 1) {
-				if (mc_rules[j].GetSpecies()[0] == atom_species_list[i]) {
-					if (mc_rules[j].GetType() == 0) { JcChem.push_back(i); }
-					else if (mc_rules[j].GetType() == 1) { JcSpin.push_back(i); }
+		for (int j = 0; j < session.rule_list.size(); j++) {
+			if (session.rule_list[j].GetLength() == 1) {
+				if (session.rule_list[j].GetDeco()[0] == atom_species_list[i]) {
+					if (session.rule_list[j].GetType() == 0) { JcChem.push_back(i); }
+					else if (session.rule_list[j].GetType() == 1) { JcSpin.push_back(i); }
 				}
 			}
-			else if (mc_rules[j].GetLength() == 2) {
+			else if (session.rule_list[j].GetLength() == 2) {
 				for (int k = 0; k < neighbor_index_list[i].size(); k++) {
 					species_check.push_back(atom_species_list[i]);
 					species_check.push_back(atom_species_list[neighbor_index_list[i][k]]);
 					dist_check.push_back(neighbor_dist_list[i][k]);
-					if (mc_rules[j].IsRuleChem(species_check, dist_check)) { JcChem.push_back(neighbor_index_list[i][k]); }
-					else if (mc_rules[j].IsRuleSpin(species_check, dist_check)) { JcSpin.push_back(neighbor_index_list[i][k]); }
+					if (session.rule_list[j].IsRuleChem(species_check, dist_check)) { JcChem.push_back(neighbor_index_list[i][k]); }
+					else if (session.rule_list[j].IsRuleSpin(species_check, dist_check)) { JcSpin.push_back(neighbor_index_list[i][k]); }
 					species_check.clear();
 					dist_check.clear();
 				}
 			}
-			if (mc_rules[j].GetLength() == 3) {
+			if (session.rule_list[j].GetLength() == 3) {
 				for (int k = 0; k < neighbor_index_list[i].size(); k++) {
 					for (int a = 0; a < neighbor_index_list[i].size(); a++) {
 						species_check.push_back(atom_species_list[i]);
@@ -2978,16 +2979,16 @@ void MCrun::runMetropolis10(vector<Rule>& mc_rules) {
 						if (dist_3_itr != neighbor_index_list[neighbor_index_list[i][k]].end()) {
 							int dist_3_ind = distance(neighbor_index_list[neighbor_index_list[i][k]].begin(), dist_3_itr);
 							dist_check.push_back(neighbor_dist_list[neighbor_index_list[i][k]][dist_3_ind]);
-							if (mc_rules[j].IsRuleChem(species_check, dist_check)) { JcChem.push_back(neighbor_index_list[i][k]); }
-							else if (mc_rules[j].IsRuleSpin(species_check, dist_check)) { JcSpin.push_back(neighbor_index_list[i][k]); }
+							if (session.rule_list[j].IsRuleChem(species_check, dist_check)) { JcChem.push_back(neighbor_index_list[i][k]); }
+							else if (session.rule_list[j].IsRuleSpin(species_check, dist_check)) { JcSpin.push_back(neighbor_index_list[i][k]); }
 						}
 						species_check.clear();
 						dist_check.clear();
 					}
 				}
 			}
-			if (mc_rules[j].GetType() == 0) { JcountsChem.push_back(JcChem); }
-			else if (mc_rules[j].GetType() == 1) { JcountsSpin.push_back(JcSpin); }
+			if (session.rule_list[j].GetType() == 0) { JcountsChem.push_back(JcChem); }
+			else if (session.rule_list[j].GetType() == 1) { JcountsSpin.push_back(JcSpin); }
 			if (JcChem.size() != 0) { JcChem.clear(); }
 			if (JcSpin.size() != 0) { JcSpin.clear(); }
 		}
@@ -3215,7 +3216,7 @@ void MCrun::writeSuperCell(string out_path, vector<int>& atom_species, vector<in
 	OUT_file.close();
 }
 
-void MCrun::outputSimCell(vector<Rule>& mc_rules) {
+void MCrun::outputSimCell() {
 	int numb_atoms = sim_cell.numb_atoms;
 	int numb_neighbors = sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell);
 	vector<int> atom_species_list;
@@ -3361,5 +3362,43 @@ void MCrun::outputSimCell(vector<Rule>& mc_rules) {
 
 	writeSuperCell("CONTCAR" + to_string(outFile_count), atom_species_list, atom_spin_list, sim_cell);
 
+	Output.close();
+}
+
+void MCrun::debug_run() {
+	// create seperate output file to avoid race condition
+	cout << "Starting debug...\n";
+	string file_name = "OUTPUT";
+	bool file_exists = true;
+	int outFile_count = 0;
+	while (file_exists == true) {
+		const char* c_file = file_name.c_str();
+		int fd = open(c_file, O_WRONLY | O_CREAT | O_EXCL, S_IRUSR | S_IWUSR);
+		if (fd < 0) {
+			// file exists or otherwise uncreatable
+			outFile_count += 1;
+			file_name = "OUTPUT" + to_string(outFile_count);
+		}
+		else {
+			file_exists = false;
+			close(fd);
+		}
+	}
+	const char* c_file = file_name.c_str();
+	ofstream Output;
+	Output.open(c_file);
+	cout << "attempting to print output...\n";
+	// begin SRO MC run //
+	Output << "Rule Info: \n";
+	Output << "Rule file:" << session.rules_file << "\n";
+	Output << "Algo: " << session.algo <<"\n";
+	Output << "Number: " << session.rule_list.size() << "\n";
+	Output << "Energy cont Rule[0]: " << session.rule_list[0].GetEnrgCont() << "\n";
+	Output << "Deco Rule[0]: ";
+	for (int i = 0; i < session.rule_list[6].deco.size(); i++) { Output << session.rule_list[6].deco[i] << ","; }
+	Output << "\n" << sim_cell.atom_list[0].allowed_species.size() << "atoms allowed\n";
+	Output << "\n";
+	Output << "Motif Rule[0]: ";
+	Output << "\n";
 	Output.close();
 }

@@ -8,9 +8,8 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
-#include "file_io.h"
+#include "utils.h"
 #include "rule.h"
-#include "sim_cell.h"
 using namespace std;
 
 class Session
@@ -22,6 +21,7 @@ public:
 	int numb_passes = 1;
 	int eq_passes = 1;
 	int shape[3] = { 0,0,0 };
+	int tot_atoms;
 	float start_temp = 1;
 	float end_temp = 0;
 	float temp_inc = 0.5;
@@ -38,7 +38,7 @@ public:
 	vector<int> species_inds;
 	vector<float> moments;
 	vector<float> unique_dists;
-	vector<string> species;
+	vector<string> species_str;
 	vector<Rule> rule_list;
 	vector<vector<float>> spin_states;
 	vector<vector<vector<float>>> motif_list;

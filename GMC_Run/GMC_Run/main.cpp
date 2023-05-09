@@ -3,7 +3,7 @@
 #include <string>
 #include "monte_carlo.h"
 #include "session.h"
-#include "mc_utils.h"
+#include "utils.h"
 using namespace std;
 // The MC code
 // The paramiters for the MC run ( Composition, Simulation cell size, ect...) are all set in INPUT.txt
@@ -18,5 +18,6 @@ int main(void) {
 	// Create the simulation cell object. Arguments (POSCAR_file, dist_list, shape, species numbs, cutoff (currently unused), sim_type (also unused), phase_init (aust/mart), spin_init (AFM/FM/RAND), species_init (Ordered/Random), bool use_poscar) 
 	sim_cell.initSimCell("POSCAR", ses); // Create and initalize the simulation cell
 	MCrun mcrun(ses, sim_cell);
-	mcrun.start(mc_rules);
+	mcrun.start();
 	return 0;
+}

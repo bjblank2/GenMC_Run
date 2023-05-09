@@ -19,7 +19,8 @@
 #include "rule.h"
 #include "sim_cell.h"
 #include "running_stat.h"
-#include "Session.h"
+#include "session.h"
+#include "utils.h"
 using namespace std;
 
 class MCrun
@@ -34,16 +35,17 @@ public:
 	const double uB = .000057883818012; // Bhor magnaton 
 	int site_species;
 
-	void start(vector<Rule>& mc_rules);
-	void runMetropolis3(vector<Rule>& mc_rules);
-	void runMetropolis4(vector<Rule>& mc_rules);
-	void runMetropolis5(vector<Rule>& mc_rules);
-	void runMetropolis6(vector<Rule>& mc_rules);
-	void runMetropolis7(vector<Rule>& mc_rules);
-	void runMetropolis8(vector<Rule>& mc_rules);
-	void runMetropolis9(vector<Rule>& mc_rules);
-	void runMetropolis10(vector<Rule>& mc_rules);
-	void outputSimCell(vector<Rule>& mc_rules);
+	void start();
+	void runMetropolis3();
+	void runMetropolis4();
+	void runMetropolis5();
+	void runMetropolis6();
+	void runMetropolis7();
+	void runMetropolis8();
+	void runMetropolis9();
+	void runMetropolis10();
+	void outputSimCell();
+	void debug_run();
 	void writeSuperCell(string out_path, vector<int>& atom_species, vector<int>& atom_spins, SimCell& sim_cell);
 	long double evalLattice(map<string, long double>& rule_map_spin, map<string, long double>& rule_map_chem, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list);
 	long double evalLattice3(map<string, long double>& rule_map_spin, map<string, long double>& rule_map_chem, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list);
@@ -73,5 +75,6 @@ public:
 	float calcSpecies(int site, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list);
 	float stagMag(int site, int spin, SimCell& sim_cell);
 	float stagMagDiff(int site, int spin, int old_spin, SimCell& sim_cell);
+
 };
 #endif

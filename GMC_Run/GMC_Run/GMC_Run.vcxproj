@@ -75,9 +75,8 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
-    <ClCompile Include="file_io.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="mc_utils.cpp" />
+    <ClCompile Include="utils.cpp" />
     <ClCompile Include="monte_carlo.cpp" />
     <ClCompile Include="rule.cpp" />
     <ClCompile Include="running_stat.cpp" />
@@ -85,8 +84,7 @@
     <ClCompile Include="sim_cell.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="file_io.h" />
-    <ClInclude Include="mc_utils.h" />
+    <ClInclude Include="utils.h" />
     <ClInclude Include="monte_carlo.h" />
     <ClInclude Include="rule.h" />
     <ClInclude Include="running_stat.h" />

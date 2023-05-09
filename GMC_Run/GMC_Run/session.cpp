@@ -40,23 +40,23 @@ Session::Session(string input_file) {
 		}
 		else if (setting[0].compare("USE_POSCAR") == 0) {
 			cout << setting[0] << "_" << setting[1] << "_" << setting[2] << "\n";
-			cout << setting[2].compare("TRUE") << "\n";
 			setting[2].erase(std::remove(setting[2].begin(), setting[2].end(), '\n'), setting[2].end());
 			setting[2].erase(std::remove(setting[2].begin(), setting[2].end(), ' '), setting[2].end());
 			cout << setting[0] << "_" << setting[1] << "_" << setting[2] << "\n";
-			cout << setting[2].compare("TRUE") << "\n";
 			if (setting[2][0] == 'T') { use_poscar = true; }// .compare("TRUE") == 0) { use_poscar = true; }
 			else { use_poscar = false; }
 			cout << "useposcar " << use_poscar << "\n";
 		}
 		else if (setting[0].compare("ATOM_NUMBS") == 0) {
+			tot_atoms = 0;
 			for (int j = 2; j < setting.size(); j++) {
 				atom_numbs.push_back(stoi(setting[j]));
+				tot_atoms += stoi(setting[j]);
 			}
 		}
 		else if (setting[0].compare("SPECIES") == 0) {
 			for (int j = 2; j < setting.size(); j++) {
-				species.push_back(setting[j]);
+				species_str.push_back(setting[j]);
 				species_inds.push_back(j - 2);
 			}
 		}
@@ -65,12 +65,16 @@ Session::Session(string input_file) {
 			shape[1] = stoi(setting[3]);
 			shape[2] = stoi(setting[4]);
 		}
+		rules_file = "Rule_file.in";
 	}
 	if (moments.size() == 0) {
 		moments.clear();
 		for (int i = 0; i < atom_numbs.size(); i++) {
 			moments.push_back(1);
 		}
+	}
+	if (species_inds.size() != atom_numbs.size()) { 
+		cout << "*ERROR* number of simulated atoms is unclear\n" << " SPECIES should reflect ATOM_NUMBS\n"; 
 	}
 }
 
@@ -153,7 +157,6 @@ void Session::fill_rule_list(){
 	long double energy_contribution = 0;
 	int rule_type = 0;
 	int rule_length = 0;
-	string phase = "";
 	string rule_line;
 	vector<string> rule_lines;
 	vector<string> setting;
@@ -174,8 +177,13 @@ void Session::fill_rule_list(){
 		rule_list_file.close();
 		for (int i = 0; i < rule_lines.size(); i++) {
 			if (rule_lines[i].find('#') != std::string::npos) {
+				if (phase.size() == 0) { for (int j = 0; j < type.size(); j++) { phase.push_back(0); } }
+				cout << phase.size() << "  " << type.size() << "\n";
 				for (int j = 0; j < type.size(); j++) {
+					cout << "making a rule...";
+					cout << enrg.size() << "  " << type.size() << "  " << phase.size() << "  " << deco.size() << "  " << motif.size() << "\n";
 					rule_list.push_back(Rule(enrg[j], type[j], phase[j], deco[j], motif));
+					cout << "  made a rule..." << rule_list.size() << "\n";
 				}
 				motif.clear();
 				deco.clear();
@@ -194,32 +202,35 @@ void Session::fill_rule_list(){
 			else if (setting[0].compare("Deco") == 0) {
 				line = split(setting[1], ":");
 				for (int j = 0; j < line.size(); j++) {
-					vector<string> spec = split(line[j], ",");
-					deco.push_back({ stoi(spec[0]), stoi(spec[1]), stoi(spec[2]) });
+					vector<string> specs = split(line[j], ",");
+					vector<int>spec = {};
+					for (int k = 0; k < specs.size(); k++) {
+						spec.push_back(stoi(specs[k]));
+					}
+					deco.push_back(spec);
 				}
 			}
 			else if (setting[0].compare("Type") == 0) {
 				line = split(setting[1], ",");
 				for (int j = 0; j < line.size(); j++) {
-					type.push_back(stoi(line[0]));
+					type.push_back(stoi(line[j]));
 				}
 			}
 			else if (setting[0].compare("Enrg") == 0) {
 				line = split(setting[1], ",");
 				for (int j = 0; j < line.size(); j++) {
-					enrg.push_back(stof(line[0]));
+					enrg.push_back(stof(line[j]));
 				}
 			}
 			else if (setting[0].compare("Phase") == 0) {
 				line = split(setting[1], ",");
 				for (int j = 0; j < line.size(); j++) {
-					phase.push_back(stoi(line[0]));
+					phase.push_back(stoi(line[j]));
 				}
 			}
 		}
-
 	}
-	else cout << "Unable to open rule file\n";
+	else cout << "*ERROR* Unable to open rule file\n";
 
 }
 

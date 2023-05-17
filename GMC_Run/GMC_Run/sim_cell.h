@@ -31,7 +31,7 @@ public:
 	class Atom {
 	private:
 		int species;
-		int spin;
+		float spin;
 		int phase;
 	public:
 		int index;
@@ -40,11 +40,11 @@ public:
 		vector<float> neighbor_dists;
 		vector<int> allowed_species; //list of species that can occupy this position on the lattice (used as a way to discribe any sublattice) 
 		Atom(void);
-		Atom(int _index, int _species, int _spin, int _phase, vector<float> _pos, vector<int> _allowed_species);
-		void setSpin(int _spin);
+		Atom(int _index, int _species, float _spin, int _phase, vector<float> _pos, vector<int> _allowed_species);
+		void setSpin(float _spin);
 		void setSpecies(int _species);
 		void setPhase(int _phase);
-		int getSpin(void);
+		float getSpin(void);
 		int getSpecies(void);
 		int getPhase(void);
 		int getNeighborSpin(int _neighbor, SimCell& sim_cell);

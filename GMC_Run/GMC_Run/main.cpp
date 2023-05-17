@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <iostream>
 #include <string>
-#include "monte_carlo.h"
+#include "run_sim.h"
 #include "session.h"
 #include "utils.h"
 using namespace std;
@@ -17,7 +17,7 @@ int main(void) {
 	cout << "Unique Dist List filled\n";
 	// Create the simulation cell object. Arguments (POSCAR_file, dist_list, shape, species numbs, cutoff (currently unused), sim_type (also unused), phase_init (aust/mart), spin_init (AFM/FM/RAND), species_init (Ordered/Random), bool use_poscar) 
 	sim_cell.initSimCell("POSCAR", ses); // Create and initalize the simulation cell
-	MCrun mcrun(ses, sim_cell);
-	mcrun.start();
+	Sim sim(ses, sim_cell);
+	sim.start();
 	return 0;
 }

@@ -28,6 +28,7 @@ public:
 	float sro_temp = 0;
 	float sro_target;
 	float mag_ext = 0;
+	float intercept = 0;
 	string structure_file;
 	string rules_file;
 	string sim_type;
@@ -39,7 +40,8 @@ public:
 	vector<float> moments;
 	vector<float> unique_dists;
 	vector<string> species_str;
-	vector<Rule> rule_list;
+	vector<Rule> spin_rule_list;
+	vector<Rule> chem_rule_list;
 	vector<vector<float>> spin_states;
 	vector<vector<vector<float>>> motif_list;
 

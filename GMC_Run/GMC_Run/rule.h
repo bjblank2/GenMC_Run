@@ -17,10 +17,11 @@ private:
 	int phase;
 public:
 	vector<vector<float>> motif;
+	int motif_ind;
 	vector<int> deco;
 	vector<float> dists;
 	Rule(void);
-	Rule(long double _enrg_cont, int _type, int _phase, vector<int> _deco, vector<vector<float>> _motif);
+	Rule(long double _enrg_cont, int _type, int _phase, vector<int> _deco, vector<vector<float>> _motif, int motif_ind);
 	long double GetEnrgCont();
 	int GetType();
 	int GetPhase();

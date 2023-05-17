@@ -39,13 +39,13 @@ Session::Session(string input_file) {
 			else { use_states = false; }
 		}
 		else if (setting[0].compare("USE_POSCAR") == 0) {
-			cout << setting[0] << "_" << setting[1] << "_" << setting[2] << "\n";
+			//cout << setting[0] << "_" << setting[1] << "_" << setting[2] << "\n";
 			setting[2].erase(std::remove(setting[2].begin(), setting[2].end(), '\n'), setting[2].end());
 			setting[2].erase(std::remove(setting[2].begin(), setting[2].end(), ' '), setting[2].end());
-			cout << setting[0] << "_" << setting[1] << "_" << setting[2] << "\n";
+			//cout << setting[0] << "_" << setting[1] << "_" << setting[2] << "\n";
 			if (setting[2][0] == 'T') { use_poscar = true; }// .compare("TRUE") == 0) { use_poscar = true; }
 			else { use_poscar = false; }
-			cout << "useposcar " << use_poscar << "\n";
+			//cout << "useposcar " << use_poscar << "\n";
 		}
 		else if (setting[0].compare("ATOM_NUMBS") == 0) {
 			tot_atoms = 0;
@@ -56,7 +56,10 @@ Session::Session(string input_file) {
 		}
 		else if (setting[0].compare("SPECIES") == 0) {
 			for (int j = 2; j < setting.size(); j++) {
-				species_str.push_back(setting[j]);
+				string str = setting[j];
+				str.erase(remove(str.begin(), str.end(), '\r'), str.end());
+				str.erase(remove(str.begin(), str.end(), ' '), str.end());
+				species_str.push_back(str);
 				species_inds.push_back(j - 2);
 			}
 		}
@@ -161,7 +164,7 @@ void Session::fill_rule_list(){
 	vector<string> rule_lines;
 	vector<string> setting;
 	vector<string> line;
-	vector<int> type;
+	int type;
 	vector<float> enrg;
 	vector<int> phase;
 	vector<vector<float>> motif;
@@ -175,32 +178,44 @@ void Session::fill_rule_list(){
 			rule_lines.push_back(rule_line);
 		}
 		rule_list_file.close();
+		cout << "Read rule file\n";
+		int chem_motif_ind = 0;
+		int spin_motif_ind = 0;
+		bool intercept_flag = false;
 		for (int i = 0; i < rule_lines.size(); i++) {
 			if (rule_lines[i].find('#') != std::string::npos) {
-				if (phase.size() == 0) { for (int j = 0; j < type.size(); j++) { phase.push_back(0); } }
-				cout << phase.size() << "  " << type.size() << "\n";
-				for (int j = 0; j < type.size(); j++) {
-					cout << "making a rule...";
-					cout << enrg.size() << "  " << type.size() << "  " << phase.size() << "  " << deco.size() << "  " << motif.size() << "\n";
-					rule_list.push_back(Rule(enrg[j], type[j], phase[j], deco[j], motif));
-					cout << "  made a rule..." << rule_list.size() << "\n";
+				if (phase.size() == 0) { for (int j = 0; j < enrg.size(); j++) { phase.push_back(0); } }
+				//cout << phase.size() << "  " << type.size() << "\n";
+				for (int j = 0; j < enrg.size(); j++) {
+					if (type == 0) { chem_rule_list.push_back(Rule(enrg[j], type, phase[j], deco[j], motif, chem_motif_ind)); }
+					if (type == 1) { spin_rule_list.push_back(Rule(enrg[j], type, phase[j], deco[j], motif, spin_motif_ind)); }
 				}
 				motif.clear();
+				chem_motif_ind += 1;
+				spin_motif_ind += 1;
 				deco.clear();
-				type.clear();
+				type=0;
 				enrg.clear();
 				phase.clear();
 			}
-			setting = split(rule_lines[i], "=");
+			setting = split(rule_lines[i], ":");
 			if (setting[0].compare("Motif") == 0) {
-				line = split(setting[1], ":");
-				for (int j = 0; j < line.size(); j++) {
-					vector<string> pos = split(line[j], ",");
-					motif.push_back({ stof(pos[0]), stof(pos[1]), stof(pos[2]) });
+				setting.erase(setting.begin());
+				line = setting;
+				if (line[0].compare("intercept") == 0) {
+					intercept_flag = true;
+				}
+				else {
+					intercept_flag = false;
+					for (int j = 0; j < line.size(); j++) {
+						vector<string> pos = split(line[j], ",");
+						motif.push_back({ stof(pos[0]), stof(pos[1]), stof(pos[2]) });
+					}
 				}
 			}
 			else if (setting[0].compare("Deco") == 0) {
-				line = split(setting[1], ":");
+				setting.erase(setting.begin());
+				line = setting;
 				for (int j = 0; j < line.size(); j++) {
 					vector<string> specs = split(line[j], ",");
 					vector<int>spec = {};
@@ -211,35 +226,45 @@ void Session::fill_rule_list(){
 				}
 			}
 			else if (setting[0].compare("Type") == 0) {
-				line = split(setting[1], ",");
-				for (int j = 0; j < line.size(); j++) {
-					type.push_back(stoi(line[j]));
-				}
+					type = stoi(setting[1]);
 			}
 			else if (setting[0].compare("Enrg") == 0) {
-				line = split(setting[1], ",");
-				for (int j = 0; j < line.size(); j++) {
-					enrg.push_back(stof(line[j]));
+				setting.erase(setting.begin());
+				line = setting;
+				if (intercept_flag == true) { intercept = stof(line[0]); }
+				else {
+					for (int j = 0; j < line.size(); j++) {
+						enrg.push_back(stof(line[j]));
+					}
 				}
 			}
 			else if (setting[0].compare("Phase") == 0) {
-				line = split(setting[1], ",");
+				setting.erase(setting.begin());
+				line = setting;
 				for (int j = 0; j < line.size(); j++) {
 					phase.push_back(stoi(line[j]));
 				}
 			}
 		}
+		cout << "Filled Rule_list\n";
 	}
 	else cout << "*ERROR* Unable to open rule file\n";
-
+	
 }
 
 void Session::find_unique_dists(){
 	// Loop through all mc_rules
-	for (int i = 0; i < rule_list.size(); i++) {
-		for (int j = 0; j < rule_list[i].GetDists().size(); j++) {
-			if (find(unique_dists.begin(), unique_dists.end(), rule_list[i].GetDists()[j]) == unique_dists.end()) {
-				unique_dists.push_back(rule_list[i].GetDists()[j]);
+	for (int i = 0; i < chem_rule_list.size(); i++) {
+		for (int j = 0; j < chem_rule_list[i].GetDists().size(); j++) {
+			if (find(unique_dists.begin(), unique_dists.end(), chem_rule_list[i].GetDists()[j]) == unique_dists.end()) {
+				unique_dists.push_back(chem_rule_list[i].GetDists()[j]);
+			}
+		}
+	}
+	for (int i = 0; i < spin_rule_list.size(); i++) {
+		for (int j = 0; j < spin_rule_list[i].GetDists().size(); j++) {
+			if (find(unique_dists.begin(), unique_dists.end(), spin_rule_list[i].GetDists()[j]) == unique_dists.end()) {
+				unique_dists.push_back(spin_rule_list[i].GetDists()[j]);
 			}
 		}
 	}

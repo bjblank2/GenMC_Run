@@ -93,12 +93,20 @@ void SimCell::fillUnitCell(string POSCAR_file, Session& sess) {
 	for (int i = 8; i < pos_lines.size(); i++) {
 		pos_line = pos_lines[i];
 		pos_list_s = split(pos_line);// , " ");
+		pos_species_s.clear();
 		for (int j = 0; j < 3; j++) {
 			pos[j] = stof(pos_list_s[j]);
 		}
 		for (int j = 3; j < pos_list_s.size(); j++) {
-			pos_species_s.push_back(get_index(sess.species_str, pos_list_s[j]));
+			string str = pos_list_s[j];
+			str.erase(remove(str.begin(), str.end(), '\r'), str.end());
+			str.erase(remove(str.begin(), str.end(), ' '), str.end());
+			pos_species_s.push_back(get_index(sess.species_str, str));
+			//cout << "," << pos_list_s[j] << "..." << get_index(sess.species_str, pos_list_s[j]) << ",";
 		}
+		//cout << " : ";
+		//for (string spec : sess.species_str) { cout << "," << spec << ","; }
+		//cout << "\n";
 		if (pos_species_s.size() == 0) {
 			pos_species_f.push_back(sess.species_inds);
 		}
@@ -164,15 +172,14 @@ void SimCell::make_supercell(Session& sess) {
 					for (int n = 0; n < 3; n++) {
 						new_atom_pos[n] = round((unit_cell[m].pos[n] + current_cell[n]) * unit_LC[n] * 100000) / 100000;
 					}
-					spin_rand = unif(rng);
-					if (sess.spin_init[0] == 'F') { spin = 1; }
+					if (sess.spin_init[0] == 'F') { spin = vect_max(sess.spin_states[unit_cell[m].getSpecies()]); }
 					else if (sess.spin_init[0] == 'R') {
 						if (sess.spin_states.size() == 0) {
 							if (unif(rng) <= 0.5) { spin = -1; }
 							else { spin = 1; }
 						}
 						else {
-							int rand_int = round(unif(rng) * sess.spin_states[unit_cell[m].getSpecies()].size()) ;
+							int rand_int = round(unif(rng) * (sess.spin_states[unit_cell[m].getSpecies()].size()-1));
 							spin = sess.spin_states[unit_cell[m].getSpecies()][rand_int];
 						}
 					}
@@ -190,7 +197,7 @@ void SimCell::make_supercell(Session& sess) {
 			}
 		}
 	}
-	vector<int> current_atom_numbs;
+	numb_atoms = atom_list.size();
 	if (sess.use_poscar == true) {
 		bool poscar_flag = true;
 		if (poscar_comp.size() != species_numbs.size()) { poscar_flag == false; }
@@ -210,15 +217,30 @@ void SimCell::make_supercell(Session& sess) {
 		for (int i = 0; i < numb_atoms; i++) { reset_spec.push_back(true); }
 		for (int i = 0; i < species_numbs.size(); i++) { 
 			int spec_count = 0;
+			//cout << i << " " << species_numbs[i] << " " << sess.species_inds[i] << " " << sess.species_str[i] << "\n";
 			for (int j = 0; j < numb_atoms; j++) {
 				if (spec_count < species_numbs[i]){
+					//cout << atom_list[j].allowed_species.size() << " " << i << " " << reset_spec[j] << " as: ";
+					//for (int as : atom_list[j].allowed_species) { cout << as << " "; }
+					//cout << "\n";
 					if (get_index(atom_list[j].allowed_species, i) != -1 and reset_spec[j] == true) {
 						atom_list[j].setSpecies(i);
+						if (sess.spin_init[0] == 'F') { spin = vect_max(sess.spin_states[i]); }
+						else if (sess.spin_init[0] == 'R') {
+							if (sess.spin_states.size() == 0) {
+								if (unif(rng) <= 0.5) { spin = -1; }
+								else { spin = 1; }
+							}
+							else {
+								int rand_int = round(unif(rng) * (sess.spin_states[i].size() - 1));
+								spin = sess.spin_states[i][rand_int];
+							}
+						}
+						atom_list[j].setSpin(spin);
 						spec_count += 1;
 						reset_spec[j] = false;
 					}
 				}
-				else { break; }
 			}
 		}
 	}
@@ -311,7 +333,7 @@ SimCell::Atom::Atom(void) {
 	index = 0;
 }
 
-SimCell::Atom::Atom(int _index, int _species, int _spin, int _phase, vector<float> _pos, vector<int> _allowed_species) {
+SimCell::Atom::Atom(int _index, int _species, float _spin, int _phase, vector<float> _pos, vector<int> _allowed_species) {
 	index = _index;
 	species = _species;
 	spin = _spin;
@@ -319,7 +341,11 @@ SimCell::Atom::Atom(int _index, int _species, int _spin, int _phase, vector<floa
 	pos[0] = _pos[0];
 	pos[1] = _pos[1];
 	pos[2] = _pos[2];
-	for (int i = 0; i < _allowed_species.size(); i++) { allowed_species.push_back(_allowed_species[i]); }
+	for (int i = 0; i < _allowed_species.size(); i++) { 
+		allowed_species.push_back(_allowed_species[i]);
+		//cout << "," << _allowed_species[i] << ",";
+	}
+	//cout << "\n";
 }
 
 int SimCell::Atom::getNeighborSpin(int _neighbor, SimCell& sim_cell) {
@@ -352,7 +378,7 @@ int SimCell::Atom::getNumbNeighbors(int _site, SimCell& sim_cell) {
 	return sim_cell.atom_list[_site].neighbors.size();
 }
 
-int SimCell::Atom::getSpin(void) {
+float SimCell::Atom::getSpin(void) {
 	return spin;
 }
 
@@ -364,7 +390,7 @@ int SimCell::Atom::getPhase(void) {
 	return phase;
 }
 
-void SimCell::Atom::setSpin(int _spin) {
+void SimCell::Atom::setSpin(float _spin) {
 	spin = _spin;
 }
 

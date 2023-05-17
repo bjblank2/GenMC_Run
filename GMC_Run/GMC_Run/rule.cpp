@@ -5,7 +5,7 @@
 Rule::Rule(void) {
 }
 
-Rule::Rule(long double _enrg_cont, int _type, int _phase, vector<int> _deco, vector<vector<float>> _motif) {
+Rule::Rule(long double _enrg_cont, int _type, int _phase, vector<int> _deco, vector<vector<float>> _motif, int motif_ind) {
 	motif = _motif;
 	enrg_cont = _enrg_cont;
 	type = _type;

@@ -5,21 +5,20 @@
 Rule::Rule(void) {
 }
 
-Rule::Rule(long double _enrg_cont, int _type, int _phase, vector<int> _deco, vector<vector<float>> _motif, int motif_ind) {
+Rule::Rule(long double _enrg_cont, int _type, int _phase, vector<int> _deco, vector<vector<float>> _motif, int _motif_ind) {
 	motif = _motif;
 	enrg_cont = _enrg_cont;
 	type = _type;
 	phase = _phase;
 	deco = _deco;
+	motif_ind = _motif_ind;
 	for (int i = 0; i < motif.size(); i++) {
 		for (int j = i + 1; j < motif.size(); j++) {
 			float new_dist = 0;
-			for (int k = 0; k < 3; k++) {
-				new_dist += pow((motif[i][k] - motif[j][k]), 2.0);
-				new_dist = sqrt(new_dist);
-				if (std::find(dists.begin(), dists.end(), new_dist) == dists.end()) {
-					dists.push_back(new_dist);
-				}
+			for (int k = 0; k < 3; k++) { new_dist += pow((motif[i][k] - motif[j][k]), 2.0); }
+			new_dist = sqrt(new_dist);
+			if (std::find(dists.begin(), dists.end(), new_dist) == dists.end()) {
+				dists.push_back(new_dist);
 			}
 		}
 	}
@@ -28,18 +27,23 @@ Rule::Rule(long double _enrg_cont, int _type, int _phase, vector<int> _deco, vec
 int Rule::GetPhase() {
 	return phase;
 }
+
 long double Rule::GetEnrgCont() {
 	return enrg_cont;
 }
+
 int Rule::GetType() {
 	return type;
 }
+
 int Rule::GetLength() {
 	return motif.size();
 }
+
 vector<int> Rule::GetDeco() {
 	return deco;
 }
+
 vector<float> Rule::GetDists() {
 	return dists;
 }

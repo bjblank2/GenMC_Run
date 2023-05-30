@@ -68,6 +68,9 @@ Session::Session(string input_file) {
 			shape[1] = stoi(setting[3]);
 			shape[2] = stoi(setting[4]);
 		}
+		else {
+			cout << "Unrecognised input flag: " << setting[0] << "\n";
+		}
 		rules_file = "Rule_file.in";
 	}
 	if (moments.size() == 0) {
@@ -183,7 +186,7 @@ void Session::fill_rule_list(){
 		int spin_motif_ind = 0;
 		bool intercept_flag = false;
 		for (int i = 0; i < rule_lines.size(); i++) {
-			if (rule_lines[i].find('#') != std::string::npos) {
+			if (rule_lines[i].find('#') != std::string::npos and intercept_flag == false) {
 				if (phase.size() == 0) { for (int j = 0; j < enrg.size(); j++) { phase.push_back(0); } }
 				//cout << phase.size() << "  " << type.size() << "\n";
 				for (int j = 0; j < enrg.size(); j++) {
@@ -191,18 +194,18 @@ void Session::fill_rule_list(){
 					if (type == 1) { spin_rule_list.push_back(Rule(enrg[j], type, phase[j], deco[j], motif, spin_motif_ind)); }
 				}
 				motif.clear();
-				chem_motif_ind += 1;
-				spin_motif_ind += 1;
 				deco.clear();
+				if (type == 0) { chem_motif_ind += 1; }
+				else if (type == 1) { spin_motif_ind += 1; }
 				type=0;
 				enrg.clear();
 				phase.clear();
 			}
 			setting = split(rule_lines[i], ":");
-			if (setting[0].compare("Motif") == 0) {
+			if (setting[0].find("Motif") != std::string::npos) {
 				setting.erase(setting.begin());
 				line = setting;
-				if (line[0].compare("intercept") == 0) {
+				if (line[0].find("nter") != std::string::npos) {
 					intercept_flag = true;
 				}
 				else {
@@ -213,7 +216,7 @@ void Session::fill_rule_list(){
 					}
 				}
 			}
-			else if (setting[0].compare("Deco") == 0) {
+			else if (setting[0].find("Deco") != std::string::npos) {
 				setting.erase(setting.begin());
 				line = setting;
 				for (int j = 0; j < line.size(); j++) {
@@ -225,10 +228,10 @@ void Session::fill_rule_list(){
 					deco.push_back(spec);
 				}
 			}
-			else if (setting[0].compare("Type") == 0) {
+			else if (setting[0].find("Type") != std::string::npos) {
 					type = stoi(setting[1]);
 			}
-			else if (setting[0].compare("Enrg") == 0) {
+			else if (setting[0].find("Enrg") != std::string::npos) {
 				setting.erase(setting.begin());
 				line = setting;
 				if (intercept_flag == true) { intercept = stof(line[0]); }
@@ -238,7 +241,7 @@ void Session::fill_rule_list(){
 					}
 				}
 			}
-			else if (setting[0].compare("Phase") == 0) {
+			else if (setting[0].find("Phase") != std::string::npos) {
 				setting.erase(setting.begin());
 				line = setting;
 				for (int j = 0; j < line.size(); j++) {

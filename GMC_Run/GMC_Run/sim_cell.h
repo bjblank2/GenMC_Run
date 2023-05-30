@@ -23,11 +23,13 @@ public:
 	float cell_dim[3];
 	float cutoff;
 	float unit_LC[3];
+	float unit_lat_fact;
 	string sim_type;
 	string phase_init;
 	vector<int> species_types;
 	vector<int> species_numbs;
 	vector<int> poscar_comp;
+	vector<vector<float>> unit_lat_vect;
 	class Atom {
 	private:
 		int species;
@@ -36,6 +38,7 @@ public:
 	public:
 		int index;
 		float pos[3];
+
 		vector<int> neighbors;
 		vector<float> neighbor_dists;
 		vector<int> allowed_species; //list of species that can occupy this position on the lattice (used as a way to discribe any sublattice) 

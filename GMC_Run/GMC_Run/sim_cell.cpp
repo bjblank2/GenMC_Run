@@ -7,28 +7,6 @@ SimCell::SimCell(void) {
 	sim_type = "EMPTY";
 }
 
-// the sim_cell object
-//SimCell::SimCell(string POSCAR_file, int _sup_cell[3], vector<int>& _species_numbs, float _cutoff, string _sim_type, string _phase_init, string spin_init, string species_init) {
-//	sim_type = _sim_type;
-//	phase_init = _phase_init;
-//	cutoff = _cutoff;
-//	bool use_poscar = true;
-//	for (int i = 0; i < _species_numbs.size(); i++) {
-//		species_types.push_back(i);
-//		species_numbs.push_back(_species_numbs[i]);
-//	}
-//	fillUnitCell(POSCAR_file,  use_poscar); // make a "unit cell" from poscar file. This is used in turn to make the simulation cell
-//	for (int i = 0; i < 3; i++) { // set the dimensions of the simulation cell
-//		sup_cell[i] = _sup_cell[i];
-//		cell_dim[i] = unit_LC[i] * sup_cell[i];
-//	}
-//	vector<vector<float>> _pos_list;
-//	vector<int> _species_list;
-//	make_supercell(_pos_list, _species_list, phase_init); // create the simulation cell from the unit cell.
-//	vector<float> dist_list{ 0 };
-//	fillAtomList(_pos_list, _species_list, dist_list, phase_init, spin_init, species_init); // populate the simulation cell with "atom" objects initalized to the desired spin, species and phase settings
-//}
-
 SimCell::SimCell(SimCell& sc_copy) {
 	cutoff = sc_copy.cutoff;
 	sim_type = sc_copy.sim_type;
@@ -43,6 +21,8 @@ SimCell::SimCell(SimCell& sc_copy) {
 	copy(sc_copy.unit_LC, sc_copy.unit_LC + 3, unit_LC);
 	atom_list = sc_copy.atom_list;
 	unit_cell = sc_copy.unit_cell;
+	unit_lat_fact = sc_copy.unit_lat_fact;
+	unit_lat_vect = sc_copy.unit_lat_vect;
 }
 
 void SimCell::_copy(SimCell& sc_copy) {
@@ -59,7 +39,10 @@ void SimCell::_copy(SimCell& sc_copy) {
 	copy(sc_copy.unit_LC, sc_copy.unit_LC + 3, unit_LC);
 	atom_list = sc_copy.atom_list;
 	unit_cell = sc_copy.unit_cell;
+	unit_lat_fact = sc_copy.unit_lat_fact;
+	copy(sc_copy.unit_lat_vect.begin(), sc_copy.unit_lat_vect.end(), back_inserter(unit_lat_vect));
 }
+
 // fill the unit cell using the poscar file 
 void SimCell::fillUnitCell(string POSCAR_file, Session& sess) {
 	ifstream POS_list;
@@ -72,7 +55,7 @@ void SimCell::fillUnitCell(string POSCAR_file, Session& sess) {
 	vector<vector<float>> pos_list_f;
 	vector<vector<int>> pos_species_f;
 	vector<int> species_list;
-	vector<float> pos{ 0,0,0 };
+	vector<float> pos;
 	// read the poscar file
 	POS_list.open(POSCAR_file, ifstream::in);
 	if (POS_list.is_open()) {
@@ -81,40 +64,41 @@ void SimCell::fillUnitCell(string POSCAR_file, Session& sess) {
 			pos_lines.push_back(pos_line);
 		}
 		POS_list.close();
+		cout << "POSCAR read\n";
 	}
 	else cout << "Unable to open POSCAR file\n";
-	// get the lattice constants              NEEDS TO BE CHANGED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+	// get the lattice constants vectors and factor
+	unit_lat_fact = stof(pos_lines[1]);
 	for (int i = 2; i < 5; i++) {
 		pos_line = pos_lines[i];
 		LCs = split(pos_line);// , " ");
-		unit_LC[i - 2] = stof(LCs[i - 2]);
+		unit_lat_vect.push_back({ unit_lat_fact * stof(LCs[0]), unit_lat_fact * stof(LCs[1]), unit_lat_fact * stof(LCs[2]) });
+		unit_LC[i - 2] = sqrt(pow(unit_lat_vect[i - 2][0], 2) + pow(unit_lat_vect[i - 2][1], 2) + pow(unit_lat_vect[i - 2][2], 2));
 	}
-	// get the positions of each atom
+	// get the positions of each site
 	for (int i = 8; i < pos_lines.size(); i++) {
 		pos_line = pos_lines[i];
-		pos_list_s = split(pos_line);// , " ");
+		pos_list_s = split(pos_line, " ");
 		pos_species_s.clear();
-		for (int j = 0; j < 3; j++) {
-			pos[j] = stof(pos_list_s[j]);
-		}
+		for (int j = 0; j < 3; j++) {pos.push_back(stof(pos_list_s[j]));}
+		pos_list_f.push_back(pos);
+		pos.clear();
+		// get the allowed species for each site
 		for (int j = 3; j < pos_list_s.size(); j++) {
 			string str = pos_list_s[j];
 			str.erase(remove(str.begin(), str.end(), '\r'), str.end());
 			str.erase(remove(str.begin(), str.end(), ' '), str.end());
 			pos_species_s.push_back(get_index(sess.species_str, str));
-			//cout << "," << pos_list_s[j] << "..." << get_index(sess.species_str, pos_list_s[j]) << ",";
 		}
-		//cout << " : ";
-		//for (string spec : sess.species_str) { cout << "," << spec << ","; }
-		//cout << "\n";
 		if (pos_species_s.size() == 0) {
 			pos_species_f.push_back(sess.species_inds);
 		}
 		else {
 			pos_species_f.push_back(pos_species_s);
 		}
-		pos_list_f.push_back(pos);
 	}
+
 	// assign the correct atomic species to each atom position
 	comp_line = split(pos_lines[6]);
 	for (int i = 0; i < comp_line.size(); i++) {
@@ -141,6 +125,7 @@ void SimCell::fillUnitCell(string POSCAR_file, Session& sess) {
 	for (int i = 0; i < pos_list_f.size(); i++) {
 		unit_cell.push_back(Atom(i, species_list[i], 0, 0, pos_list_f[i], pos_species_f[i]));
 	}
+	cout << "unit cell read\n";
 }
 
 // make a super cell (simulation cell) from the unit cell 
@@ -148,30 +133,30 @@ void SimCell::make_supercell(Session& sess) {
 	int x = sup_cell[0];
 	int y = sup_cell[1];
 	int z = sup_cell[2];
-	int current_cell[3];
+	vector<float>current_cell{ 0, 0, 0 };
 	int index = 0;
 	int spin;
 	int phase;
 	float spin_rand;
-	vector<float> new_atom_pos{ 0,0,0 };
-	const int unit_length = unit_cell.size();
+	vector<float> new_atom_pos;
 
 	std::mt19937_64 rng;
 	uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
 	std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
 	rng.seed(ss);
 	std::uniform_real_distribution<double> unif(0, 1);
-
+	cout << " looping through super cell deminsions\n";
 	for (int i = 0; i < x; i++) {
 		for (int j = 0; j < y; j++) {
 			for (int k = 0; k < z; k++) {
 				current_cell[0] = i;
 				current_cell[1] = j;
 				current_cell[2] = k;
-				for (int m = 0; m < unit_length; m++) {
-					for (int n = 0; n < 3; n++) {
-						new_atom_pos[n] = round((unit_cell[m].pos[n] + current_cell[n]) * unit_LC[n] * 100000) / 100000;
-					}
+				for (int m = 0; m < unit_cell.size(); m++) {
+					vector<float> uc_pos; for (int unit_i = 0; unit_i < 3; unit_i++) { uc_pos.push_back(unit_cell[m].pos[unit_i]); }
+					vector<float> shifted_pos;
+					shifted_pos = pos_shift(uc_pos, current_cell);
+					new_atom_pos = pos_transform(shifted_pos, unit_lat_vect);
 					if (sess.spin_init[0] == 'F') { spin = vect_max(sess.spin_states[unit_cell[m].getSpecies()]); }
 					else if (sess.spin_init[0] == 'R') {
 						if (sess.spin_states.size() == 0) {
@@ -179,7 +164,7 @@ void SimCell::make_supercell(Session& sess) {
 							else { spin = 1; }
 						}
 						else {
-							int rand_int = round(unif(rng) * (sess.spin_states[unit_cell[m].getSpecies()].size()-1));
+							int rand_int = round(unif(rng) * (sess.spin_states[unit_cell[m].getSpecies()].size() - 1));
 							spin = sess.spin_states[unit_cell[m].getSpecies()][rand_int];
 						}
 					}
@@ -204,7 +189,7 @@ void SimCell::make_supercell(Session& sess) {
 		for (int i = 0; i < min(poscar_comp.size(), species_numbs.size()); i++) {
 			if (poscar_comp[i] * sup_cell[0] * sup_cell[0] * sup_cell[2] != species_numbs[i]) { poscar_flag = false; }
 		}
-		if (poscar_flag == false){
+		if (poscar_flag == false) {
 			cout << "The POSCAR and INPUT files have diffrent compositions. Using POSCAR for initialization\n";
 			species_numbs.clear();
 			for (int i = 0; i < poscar_comp.size(); i++) {
@@ -215,14 +200,10 @@ void SimCell::make_supercell(Session& sess) {
 	else {
 		vector<bool> reset_spec;
 		for (int i = 0; i < numb_atoms; i++) { reset_spec.push_back(true); }
-		for (int i = 0; i < species_numbs.size(); i++) { 
+		for (int i = 0; i < species_numbs.size(); i++) {
 			int spec_count = 0;
-			//cout << i << " " << species_numbs[i] << " " << sess.species_inds[i] << " " << sess.species_str[i] << "\n";
 			for (int j = 0; j < numb_atoms; j++) {
-				if (spec_count < species_numbs[i]){
-					//cout << atom_list[j].allowed_species.size() << " " << i << " " << reset_spec[j] << " as: ";
-					//for (int as : atom_list[j].allowed_species) { cout << as << " "; }
-					//cout << "\n";
+				if (spec_count < species_numbs[i]) {
 					if (get_index(atom_list[j].allowed_species, i) != -1 and reset_spec[j] == true) {
 						atom_list[j].setSpecies(i);
 						if (sess.spin_init[0] == 'F') { spin = vect_max(sess.spin_states[i]); }
@@ -315,13 +296,15 @@ void SimCell::initSimCell(string POSCAR_file, Session& session) {
 		species_types.push_back(i);
 		species_numbs.push_back(_species_numbs[i]);
 	}
-	fillUnitCell(POSCAR_file,session);
+	cout << "Reading POSCAR file\n";
+	fillUnitCell(POSCAR_file, session);
 	for (int i = 0; i < 3; i++) {
 		sup_cell[i] = _sup_cell[i];
 		cell_dim[i] = unit_LC[i] * sup_cell[i];
 	}
 	vector<vector<float>> _pos_list;
 	vector<int> _species_list;
+	cout << "Making supercell\n";
 	make_supercell(session);
 }
 
@@ -341,11 +324,9 @@ SimCell::Atom::Atom(int _index, int _species, float _spin, int _phase, vector<fl
 	pos[0] = _pos[0];
 	pos[1] = _pos[1];
 	pos[2] = _pos[2];
-	for (int i = 0; i < _allowed_species.size(); i++) { 
+	for (int i = 0; i < _allowed_species.size(); i++) {
 		allowed_species.push_back(_allowed_species[i]);
-		//cout << "," << _allowed_species[i] << ",";
 	}
-	//cout << "\n";
 }
 
 int SimCell::Atom::getNeighborSpin(int _neighbor, SimCell& sim_cell) {

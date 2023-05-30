@@ -49,6 +49,7 @@ public:
 	float eval_lat_spin();
 	float eval_site_spin(int site);
 	float eval_site_chem(int site);
+	float eval_spin_flip(int site, float old_spin);
 	void print_state();
 };
 

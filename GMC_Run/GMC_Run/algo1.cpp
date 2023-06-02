@@ -54,8 +54,8 @@ float Algo1::eval_spin_flip(int site, float old_spin) {
 		rule_itr = rule_map_spin.find(rule_key);
 		enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod : 0.0;
 	}
-	enrg_old = enrg / spin_list[site] * old_spin;
-	return enrg_old - enrg;
+	enrg_old = enrg / spin_list[site] * old_spin; //THIS is dangerous!!!!! add conditional for spin = 0
+	return enrg - enrg_old;
 }
 
 float Algo1::eval_lat() {
@@ -363,10 +363,11 @@ void Algo1::fill_SMG(vector<vector<int>>& neigh_ind_list){
 					else {
 						for (int neigh : neigh_ind_list[i]) {
 							if (pos_list[neigh] == pos_shift(pos_list[i], shift)) { deco_group.push_back(neigh); }
+							//else if (pos_list[neigh] == ){}
 						}
 					}
 				}
-				motifs.push_back(deco_group);
+				if (deco_group.size() == rule.motif.size()) { motifs.push_back(deco_group); }
 				deco_group.clear();
 				last_ind = rule.motif_ind;
 			}
@@ -398,7 +399,6 @@ void Algo1::fill_CMG(vector<vector<int>>& neigh_ind_list) {
 			}
 		}
 		chem_motif_groups.push_back(motifs);
-		cout << "motif size " << motifs.size() << "\n";
 		motifs.clear();
 	}
 }
@@ -441,3 +441,11 @@ void Algo1::print_state() {
 	}
 	OUT_file.close();
 }
+
+//vector<float> Algo1:: bc_check(vector<float>& shift) {
+//	vector<float>bc_shift { 0, 0, 0 };
+//	for (int i = 0; i < 3; i++) {
+//		bc_shift[i] = shift[i] - sim_cell.
+//	}
+//	return bc_shift;
+//}

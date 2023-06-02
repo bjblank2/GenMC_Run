@@ -19,6 +19,12 @@ int get_index(vector<int>& vect, int elem);
 int get_index(vector<float>& vect, float elem);
 int get_index(vector<string>& vect, string elem);
 int vect_max(vector<int>& vect);
+int kron_del(int int1, int int2);
+int kron_del(float float1, float float2);
+int kron_del(int int1, float float2);
+int kron_del(float float1, int int2);
+float round_to(float val, int digits);
+
 float vect_max(vector<float>& vect);
 vector<int> vect_permut(vector<int>& vect);
 vector<int> vect_permut(vector<float>& vect);

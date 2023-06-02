@@ -76,6 +76,7 @@
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
     <ClCompile Include="algo1.cpp" />
+    <ClCompile Include="algo2.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="run_sim.cpp" />
     <ClCompile Include="utils.cpp" />
@@ -87,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="algo1.h" />
+    <ClInclude Include="algo2.h" />
     <ClInclude Include="run_sim.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="monte_carlo.h" />

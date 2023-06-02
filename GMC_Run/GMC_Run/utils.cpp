@@ -80,6 +80,28 @@ int vect_max(vector<int>& vect) {
     return max;
 }
 
+int kron_del(int int1, int int2) {
+    if (int1 == int2) { return 1; }
+    else { return 0; }
+}
+
+int kron_del(float float1, float float2) {
+    if (round_to(float1, 5) == round_to(float2, 5)) { return 1; }
+    else { return 0; }
+}
+int kron_del(int int1, float float2){
+    if (float(int1) == round_to(float2, 5)) { return 1; }
+    else { return 0; }
+}
+int kron_del(float float1, int int2){
+    if (round_to(float1, 5) == float(int2)) { return 1; }
+    else { return 0; }
+}
+
+float round_to(float val, int digits) {
+    return int(val * pow(10, digits)) / pow(10, digits);
+}
+
 float vect_max(vector<float>& vect) {
     float max = vect[0];
     for (float i : vect) { if (i > max) { max = i; } }

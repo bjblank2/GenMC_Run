@@ -20,9 +20,9 @@ public:
 	int sup_cell[3];
 	int numb_atoms;
 	int numb_cells[3];
-	float cell_dim[3];
 	float cutoff;
 	float unit_LC[3];
+	float LC[3];
 	float unit_lat_fact;
 	string sim_type;
 	string phase_init;
@@ -30,6 +30,7 @@ public:
 	vector<int> species_numbs;
 	vector<int> poscar_comp;
 	vector<vector<float>> unit_lat_vect;
+	vector<vector<float>> lat_vect;
 	class Atom {
 	private:
 		int species;
@@ -61,7 +62,6 @@ public:
 	vector<Atom> unit_cell;
 
 	SimCell(void);
-	//SimCell(string POSCAR_file, int _sup_cell[3], vector<int>& _species_numbs, float _cutoff, string _sim_type, string phase_init, string spin_init, string species_init);
 	SimCell(SimCell& sc_copy);
 	void _copy(SimCell& sc_copy);
 	void initSimCell(string POSCAR_file, Session& session);
@@ -69,5 +69,6 @@ public:
 	void make_supercell(Session& sess);
 	void setNeighborDists(vector<float>& dist_list);
 	float findAtomDists(int atom1, int atom2);
+	float bc_dist(vector<float>& pos1, vector<float>& pos2);
 };
 #endif

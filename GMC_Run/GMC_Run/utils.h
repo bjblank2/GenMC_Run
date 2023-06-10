@@ -24,13 +24,21 @@ int kron_del(float float1, float float2);
 int kron_del(int int1, float float2);
 int kron_del(float float1, int int2);
 float round_to(float val, int digits);
-
+int vect_max(vector<int>& vect);
 float vect_max(vector<float>& vect);
+float dot_pos(vector<float>& vect1, vector<float>& vect2);
+float pos_dist(vector<float> pos1, vector<float> pos2);
 vector<int> vect_permut(vector<int>& vect);
 vector<int> vect_permut(vector<float>& vect);
+vector<float> pos_round(vector<float>& pos, int digits);
 vector<float> pos_shift(vector<float>& vect1, vector<float>& vect2);
 vector<float> pos_shift(vector<float>& vect1, float vect2[3]);
 vector<float> pos_transform(vector<float>& pos, vector<vector<float>>& trans);
+vector<float> scale_vect(vector<float>& vect, float numb);
 vector<string> split(string str, const string delim);
-vector<string> split(string str);
+vector<string> split(string str); 
+int sgn(float v);
+int sign(float v);
+bool fcomp(float a, float b, float tol = 0.0001);
+bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol = 0.0001);
 #endif

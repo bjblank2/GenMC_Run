@@ -41,8 +41,10 @@ public:
 	Algo2(void);
 	Algo2(Session& _session, SimCell& _sim_cell);
 	void run();
-	void fill_SMG(vector<vector<int>>& neigh_ind_list);
 	void fill_CMG(vector<vector<int>>& neigh_ind_list);
+	void fill_SMG(vector<vector<int>>& neigh_ind_list);
+	void print_state();
+	bool bc_check(vector<float> check_vect, vector<float>& pos);
 	float init_SRO(vector<vector<int>>& neigh_ind_list, vector<vector<float>>& neigh_dist_list);
 	float calc_struct(int site, vector<vector<int>>& neigh_ind_list, vector<vector<float>>& neigh_dist_list);
 	float eval_lat();
@@ -50,7 +52,7 @@ public:
 	float eval_site_spin(int site);
 	float eval_site_chem(int site);
 	float eval_spin_flip(int site, float old_spin);
-	void print_state();
+	float eval_chem_flip(int site1, int site2);
 };
 
 #endif

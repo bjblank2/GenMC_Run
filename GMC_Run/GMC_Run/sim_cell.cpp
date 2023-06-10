@@ -15,7 +15,7 @@ SimCell::SimCell(SimCell& sc_copy) {
 	species_numbs = sc_copy.species_numbs;
 	poscar_comp = sc_copy.poscar_comp;
 	copy(sc_copy.sup_cell, sc_copy.sup_cell + 3, sup_cell);
-	copy(sc_copy.cell_dim, sc_copy.cell_dim + 3, cell_dim);
+	copy(sc_copy.LC, sc_copy.LC + 3, LC);
 	numb_atoms = sc_copy.numb_atoms;
 	copy(sc_copy.numb_cells, sc_copy.numb_cells + 3, numb_cells);
 	copy(sc_copy.unit_LC, sc_copy.unit_LC + 3, unit_LC);
@@ -33,7 +33,7 @@ void SimCell::_copy(SimCell& sc_copy) {
 	species_numbs = sc_copy.species_numbs;
 	poscar_comp = sc_copy.poscar_comp;
 	copy(sc_copy.sup_cell, sc_copy.sup_cell + 3, sup_cell);
-	copy(sc_copy.cell_dim, sc_copy.cell_dim + 3, cell_dim);
+	copy(sc_copy.LC, sc_copy.LC + 3, LC);
 	numb_atoms = sc_copy.numb_atoms;
 	copy(sc_copy.numb_cells, sc_copy.numb_cells + 3, numb_cells);
 	copy(sc_copy.unit_LC, sc_copy.unit_LC + 3, unit_LC);
@@ -139,7 +139,10 @@ void SimCell::make_supercell(Session& sess) {
 	int phase;
 	float spin_rand;
 	vector<float> new_atom_pos;
-
+	for (int i = 0; i < 3; i++) { 
+		LC[i] = unit_LC[i] * sup_cell[i]; 
+		lat_vect.push_back({ unit_lat_vect[i][0] * sup_cell[i], unit_lat_vect[i][1] * sup_cell[i], unit_lat_vect[i][2] * sup_cell[i] });
+	}
 	std::mt19937_64 rng;
 	uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
 	std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
@@ -228,12 +231,60 @@ void SimCell::make_supercell(Session& sess) {
 	setNeighborDists(sess.unique_dists); // add neighbor distance for each atom
 }
 
+float SimCell::bc_dist(vector<float>& pos1, vector<float>& pos2) {
+	vector<int> dir { -1, 1 };
+	vector<float> dists { pos_dist(pos1, pos2) };
+	vector<float> shift;
+	vector<float> bc_pos { 0, 0, 0 };
+	vector<float> lc_shift { 0, 0, 0 };
+	
+	for (int i = 0; i < 3; i++) { shift.push_back(pos2[i] - pos1[i]); }
+
+	for (int a : dir) {
+		for (int i = 0; i < 3; i++) {
+			lc_shift = scale_vect(lat_vect[i], a);
+			bc_pos = pos_shift(pos2, lc_shift);
+			dists.push_back(pos_dist(pos1, bc_pos));
+		}
+		for (int b : dir) {
+			lc_shift = scale_vect(lat_vect[0], a);
+			bc_pos = pos_shift(pos2, lc_shift);
+			lc_shift = scale_vect(lat_vect[1], b);
+			bc_pos = pos_shift(bc_pos, lc_shift);
+			dists.push_back(pos_dist(pos1, bc_pos));
+
+			lc_shift = scale_vect(lat_vect[0], a);
+			bc_pos = pos_shift(pos2, lc_shift);
+			lc_shift = scale_vect(lat_vect[2], b);
+			bc_pos = pos_shift(bc_pos, lc_shift);
+			dists.push_back(pos_dist(pos1, bc_pos));
+
+			lc_shift = scale_vect(lat_vect[1], a);
+			bc_pos = pos_shift(pos2, lc_shift);
+			lc_shift = scale_vect(lat_vect[2], b);
+			bc_pos = pos_shift(bc_pos, lc_shift);
+			dists.push_back(pos_dist(pos1, bc_pos));
+
+			for (int c : dir) {
+				lc_shift = scale_vect(lat_vect[0], a);
+				bc_pos = pos_shift(pos2, lc_shift);
+				lc_shift = scale_vect(lat_vect[1], b);
+				bc_pos = pos_shift(bc_pos, lc_shift);
+				lc_shift = scale_vect(lat_vect[2], c);
+				bc_pos = pos_shift(bc_pos, lc_shift);
+				dists.push_back(pos_dist(pos1, bc_pos));
+			}
+		}
+	}
+
+	return *min_element(dists.begin(), dists.end());
+}
+
 // fill the neighbor matrix using the dist_list (list of relevent neighbors from the mc_rules)
 void SimCell::setNeighborDists(vector<float>& dist_list) {
 	// declare variables
-	float pos1[3];
-	float pos2[3];
-	float distXYZ[3];
+	vector<float> pos1 { 0, 0, 0 };
+	vector<float> pos2 { 0, 0, 0 };
 	float dist;
 	int added = 0;
 	// loop through each atom object
@@ -246,30 +297,24 @@ void SimCell::setNeighborDists(vector<float>& dist_list) {
 			pos2[0] = atom_list[j].pos[0];
 			pos2[1] = atom_list[j].pos[1];
 			pos2[2] = atom_list[j].pos[2];
-			// find the xyz distance between the atoms
-			distXYZ[0] = pos2[0] - pos1[0];
-			distXYZ[1] = pos2[1] - pos1[1];
-			distXYZ[2] = pos2[2] - pos1[2];
-			// apply BC
-			for (int k = 0; k < 3; k++) {
-				if (distXYZ[k] > .5 * cell_dim[k]) {
-					distXYZ[k] = cell_dim[k] - distXYZ[k];
-				}
-				else if (distXYZ[k] < -.5 * cell_dim[k]) {
-					distXYZ[k] = cell_dim[k] + distXYZ[k];
-				}
-			}
 			// find straight line distance in BC
-			dist = sqrt(pow(distXYZ[0], 2) + pow(distXYZ[1], 2) + pow(distXYZ[2], 2));
+			dist = bc_dist(pos1, pos2);
 			added = 0;
 			// add to neighbor distance list and neighbor index list if the distance is relevent
 			for (int k = 0; k < dist_list.size(); k++) {
-				if (fabs(dist - dist_list[k]) <= .001) {
+				if (fabs(dist - dist_list[k]) <= .0001) {
 					atom_list[i].neighbor_dists.push_back(dist);
 					atom_list[i].neighbors.push_back(j);
 					added = 1;
 				}
 			}
+		}
+		if (atom_list[i].neighbors.size() != 12) {
+			cout << "problem at atom " << i + 1 << ": ";
+			for (int j = 0; j < atom_list[i].neighbors.size(); j++) {
+				cout << atom_list[i].neighbors[j] + 1 << " ";
+			}
+			cout << "\n";
 		}
 	}
 }
@@ -300,7 +345,7 @@ void SimCell::initSimCell(string POSCAR_file, Session& session) {
 	fillUnitCell(POSCAR_file, session);
 	for (int i = 0; i < 3; i++) {
 		sup_cell[i] = _sup_cell[i];
-		cell_dim[i] = unit_LC[i] * sup_cell[i];
+		LC[i] = unit_LC[i] * sup_cell[i];
 	}
 	vector<vector<float>> _pos_list;
 	vector<int> _species_list;

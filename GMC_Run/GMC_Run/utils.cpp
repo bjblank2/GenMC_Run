@@ -80,6 +80,13 @@ int vect_max(vector<int>& vect) {
     return max;
 }
 
+float vect_mat(vector<float>& vect) {
+    float max = vect[0];
+    for (float i : vect) { if (i > max) { max = i; } }
+    return max;
+}
+
+
 int kron_del(int int1, int int2) {
     if (int1 == int2) { return 1; }
     else { return 0; }
@@ -89,17 +96,20 @@ int kron_del(float float1, float float2) {
     if (round_to(float1, 5) == round_to(float2, 5)) { return 1; }
     else { return 0; }
 }
+
 int kron_del(int int1, float float2){
     if (float(int1) == round_to(float2, 5)) { return 1; }
     else { return 0; }
 }
+
 int kron_del(float float1, int int2){
     if (round_to(float1, 5) == float(int2)) { return 1; }
     else { return 0; }
 }
 
 float round_to(float val, int digits) {
-    return int(val * pow(10, digits)) / pow(10, digits);
+    float mult = pow(10.0, digits);
+    return roundf(val * mult) / mult;
 }
 
 float vect_max(vector<float>& vect) {
@@ -183,4 +193,50 @@ vector<float> pos_transform(vector<float>& pos, vector<vector<float>>& trans) {
     vect[1] += pos[0] * trans[0][1] + pos[1] * trans[1][1] + pos[2] * trans[2][1];
     vect[2] += pos[0] * trans[0][2] + pos[1] * trans[1][2] + pos[2] * trans[2][2];
     return vect;
+}
+
+vector<float> scale_vect(vector<float>& vect, float numb) {
+    vector<float> new_vect { 0.0, 0.0, 0.0 };
+    for (int i = 0; i < 3; i++) { new_vect[i] = numb * vect[i]; }
+    return new_vect;
+}
+
+int sgn(float v) {
+    return (v > 0) - (v < 0);
+}
+
+int sign(float v) {
+    if (v >= 0) { return 1; }
+    else { return -1; }
+}
+
+float dot_pos(vector<float>& vect1, vector<float>& vect2) {
+    float prod = 0;
+    for (int i = 0; i < 3; i++) {
+        prod += vect1[i] * vect2[1];
+    }
+    return prod;
+}
+
+float pos_dist(vector<float> pos1, vector<float> pos2) {
+    float dist;
+    for (int i = 0; i < 3; i++) { dist += pow(pos1[i] - pos2[i], 2); }
+    return sqrt(dist);
+}
+
+vector<float> pos_round(vector<float>& pos, int digits) {
+	vector<float> new_pos;
+	for (int i = 0; i < 3; i++) { new_pos.push_back(round_to(pos[i], digits)); }
+	return new_pos;
+}
+
+bool fcomp(float a, float b, float tol) {
+	return (fabs(a - b) < tol);
+}
+
+bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol) {
+    for (int i = 0; i < 3; i++) {
+		if (!fcomp(pos1[i], pos2[i], tol)) { return false; }
+	}
+	return true;
 }

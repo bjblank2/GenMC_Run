@@ -12,7 +12,7 @@ using namespace std;
 
 class Rule {
 private:
-	long double enrg_cont;
+	float enrg_cont;
 	int type; // spin or chem
 	int phase;
 public:
@@ -21,8 +21,8 @@ public:
 	vector<int> deco;
 	vector<float> dists;
 	Rule(void);
-	Rule(long double _enrg_cont, int _type, int _phase, vector<int> _deco, vector<vector<float>> _motif, int motif_ind);
-	long double GetEnrgCont();
+	Rule(float _enrg_cont, int _type, int _phase, vector<int> _deco, vector<vector<float>> _motif, int motif_ind);
+	float GetEnrgCont();
 	int GetType();
 	int GetPhase();
 	int GetLength();

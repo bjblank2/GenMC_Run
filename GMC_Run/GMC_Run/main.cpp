@@ -18,6 +18,7 @@ int main(void) {
 	// Create the simulation cell object. Arguments (POSCAR_file, dist_list, shape, species numbs, cutoff (currently unused), sim_type (also unused), phase_init (aust/mart), spin_init (AFM/FM/RAND), species_init (Ordered/Random), bool use_poscar) 
 	sim_cell.initSimCell("POSCAR", ses); // Create and initalize the simulation cell
 	Sim sim(ses, sim_cell);
+	for (int i = 0; i < sim_cell.numb_atoms; i++) { cout << "numb neighbors: " << sim_cell.atom_list[i].getNumbNeighbors(i,sim_cell) << "\n"; }
 	sim.start();
 	return 0;
 }

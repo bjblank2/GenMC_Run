@@ -41,7 +41,6 @@ float Algo1::eval_site_spin(int site) {
 
 float Algo1::eval_spin_flip(int site, float old_spin) {
 	float enrg = 0;
-	float enrg_old;
 	map<string, float>::iterator rule_itr;
 	for (int i = 0; i < spin_motif_groups[site].size(); i++) {
 		float spin_prod = 1;
@@ -49,22 +48,19 @@ float Algo1::eval_spin_flip(int site, float old_spin) {
 		rule_key += to_string(i);
 		for (int j : spin_motif_groups[site][i]) {
 			rule_key += "." + to_string(chem_list[j]);
-			spin_prod *= spin_list[j];
+			if (j != site) { spin_prod *= spin_list[j]; }
 		}
 		rule_itr = rule_map_spin.find(rule_key);
 		enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod : 0.0;
-	}
-	enrg_old = enrg / spin_list[site] * old_spin; //THIS is dangerous!!!!! add conditional for spin = 0
-	return enrg - enrg_old;
+	}	
+	return 2 * (enrg * spin_list[site] - enrg * old_spin);
 }
 
 float Algo1::eval_lat() {
 	float enrg = 0;
 	for (int site = 0; site < sim_cell.numb_atoms; site++) {
 		enrg += eval_site_chem(site);
-		//cout << enrg << " , ";
 		enrg += eval_site_spin(site);
-		//cout << enrg << "\n"; 
 	}
 	return enrg + session.intercept;
 }
@@ -89,8 +85,8 @@ void Algo1::run() {
 	float spin_avg = 0.0;
 	int flip_count = 0;
 	int flip_count2 = 0;
-	long double Cmag = 0.0;
-	long double Xmag = 0.0;
+	float Cmag = 0.0;
+	float Xmag = 0.0;
 	int passes = session.numb_passes;
 	int eq_passes = session.eq_passes;
 	float sro_target = session.sro_target;
@@ -164,8 +160,6 @@ void Algo1::run() {
 	// fill motif group lists
 	fill_CMG(neigh_ind_list);
 	fill_SMG(neigh_ind_list);
-	cout << "cmg: " << chem_motif_groups.size() << " smg: " << spin_motif_groups.size() << "\n";
-	cout << chem_motif_groups[0].size() << " " << chem_motif_groups[1].size() << " " << chem_motif_groups[2].size() << "\n";
 
 	// initalize system with desired SRO
 	Output << "EQ passes: " << session.eq_passes << ", EQ Temp: " << session.sro_temp << "\n";
@@ -180,16 +174,17 @@ void Algo1::run() {
 
 	float init_enrg = eval_lat();
 	cout << "evaluated lattice\n";
-	long double init_spin_cont = eval_lat_spin();
+	float init_spin_cont = eval_lat_spin();
 	cout << "evalueated spin contribution\n";
 	Output << init_enrg / numb_atoms + 0 << ", " << init_spin_cont / numb_atoms << "\n";
 	cout << init_enrg / numb_atoms + 0 << ", " << init_spin_cont / numb_atoms << "\n";
-	Output << "temp, enrg, inst enrg, mag, var_e, var_spin, Cmag, Xmag, flip_count, flip_count2 \n";
-	long double init_spin = 0.0;
-	long double var_spin = 0.0;
-	long double var_e = 0.0;
+	Output << "temp, enrg, mag, var_e, var_spin, Cmag, Xmag, flip_count, flip_count2 \n";
+	float init_spin = 0.0;
+	float var_spin = 0.0;
+	float var_e = 0.0;
 	RunningStat rs_C;
 	RunningStat rs_X;
+	//RunningStat init_enrg_R;
 	cout << "counting spins...\n";
 	for (int site = 0; site < numb_atoms; site++) {
 		if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
@@ -235,7 +230,8 @@ void Algo1::run() {
 						keep_rand = unif(rng);
 						keep_prob = exp(-1 / (Kb * temp) * (e_flip));
 						if (keep_rand < keep_prob) { flip_count2 += 1; }
-						else { spin_list[site] = old_spin; e_flip = 0; spin_flip = 0; }
+						else { spin_list[site] = old_spin; e_flip = 0.0; spin_flip = 0; }
+
 					}
 					init_enrg += e_flip;
 					init_spin += spin_flip;
@@ -256,7 +252,6 @@ void Algo1::run() {
 		Output << " # "
 			<< temp << ", "
 			<< e_avg << ", "
-			<< init_enrg << ", "
 			<< spin_avg << ", "// / (pow(numb_atoms, 2) * passes * .8) << ", "
 			<< var_e << ", "
 			<< var_spin << ", "
@@ -271,7 +266,7 @@ void Algo1::run() {
 	print_state();
 	Output.close();
 }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 float Algo1::calc_struct(int site, vector<vector<int>>& neigh_ind_list, vector<vector<float>>& neigh_dist_list) {
 	int site_species = chem_list[site];
 	int count = 0;
@@ -349,25 +344,81 @@ float Algo1::init_SRO(vector<vector<int>>& neigh_ind_list, vector<vector<float>>
 	}
 	return sro_final;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+bool Algo1::bc_check(vector<float> check_vect, vector<float>& pos) {
+	bool bc_test = false;
+	vector<int> dir { -1, 1 };
+	vector<float> bc_pos { 0, 0, 0 };
+	vector<float> lc_shift { 0, 0, 0 };
+	vector<vector<float>> bc_shifts { pos };
+
+	for (int a : dir) {
+		for (int i = 0; i < 3; i++) {
+			lc_shift = scale_vect(sim_cell.lat_vect[i], a);
+			bc_pos = pos_shift(pos, lc_shift);
+			bc_shifts.push_back(bc_pos);
+		}
+		for (int b : dir) {
+			lc_shift = scale_vect(sim_cell.lat_vect[0], a);
+			bc_pos = pos_shift(pos, lc_shift);
+			lc_shift = scale_vect(sim_cell.lat_vect[1], b);
+			bc_pos = pos_shift(bc_pos, lc_shift);
+			bc_shifts.push_back(bc_pos);
+
+			lc_shift = scale_vect(sim_cell.lat_vect[0], a);
+			bc_pos = pos_shift(pos, lc_shift);
+			lc_shift = scale_vect(sim_cell.lat_vect[2], b);
+			bc_pos = pos_shift(bc_pos, lc_shift);
+			bc_shifts.push_back(bc_pos);
+
+			lc_shift = scale_vect(sim_cell.lat_vect[1], a);
+			bc_pos = pos_shift(pos, lc_shift);
+			lc_shift = scale_vect(sim_cell.lat_vect[2], b);
+			bc_pos = pos_shift(bc_pos, lc_shift);
+			bc_shifts.push_back(bc_pos);
+
+			for (int c : dir) {
+				lc_shift = scale_vect(sim_cell.lat_vect[0], a);
+				bc_pos = pos_shift(pos, lc_shift);
+				lc_shift = scale_vect(sim_cell.lat_vect[1], b);
+				bc_pos = pos_shift(bc_pos, lc_shift);
+				lc_shift = scale_vect(sim_cell.lat_vect[2], c);
+				bc_pos = pos_shift(bc_pos, lc_shift);
+				bc_shifts.push_back(bc_pos);
+			}
+		}
+	}
+	for (vector<float> check : bc_shifts) {
+		if (pos_comp(check, check_vect)) {
+			bc_test = true;
+			break;
+		}
+	}
+	return bc_test;
+}
 
 void Algo1::fill_SMG(vector<vector<int>>& neigh_ind_list){
 	vector<int> deco_group;
-	vector<float> self_site = { 0.0, 0.0, 0.0 };
+	vector<float> new_pos { 0.0, 0.0, 0.0 };
+	vector<float> self_site { 0.0, 0.0, 0.0 };
 	vector<vector<int>> motifs;
 	int last_ind = -1;
 	for (int i = 0; i < sim_cell.numb_atoms; i++) {
 		for (Rule rule : session.spin_rule_list) {
 			if (last_ind != rule.motif_ind) {
 				for (vector<float> shift : rule.motif) {
-					if (shift == self_site) { deco_group.push_back(i); }
+					if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
 					else {
+						new_pos = pos_shift(pos_list[i], shift);
 						for (int neigh : neigh_ind_list[i]) {
-							if (pos_list[neigh] == pos_shift(pos_list[i], shift)) { deco_group.push_back(neigh); }
-							//else if (pos_list[neigh] == ){}
+							int x = 0;
+							if (bc_check(pos_list[neigh], new_pos)) { 
+								deco_group.push_back(neigh);
+							}
 						}
 					}
 				}
-				if (deco_group.size() == rule.motif.size()) { motifs.push_back(deco_group); }
+				motifs.push_back(deco_group);
 				deco_group.clear();
 				last_ind = rule.motif_ind;
 			}
@@ -379,17 +430,22 @@ void Algo1::fill_SMG(vector<vector<int>>& neigh_ind_list){
 
 void Algo1::fill_CMG(vector<vector<int>>& neigh_ind_list) {
 	vector<int> deco_group;
-	vector<float> self_site = { 0.0, 0.0, 0.0 };
+	vector<float> new_pos { 0.0, 0.0, 0.0 };
+	vector<float> self_site { 0.0, 0.0, 0.0 };
 	vector<vector<int>> motifs;
 	int last_ind = -1;
 	for (int i = 0; i < sim_cell.numb_atoms; i++) {
 		for (Rule rule : session.chem_rule_list) {
 			if (last_ind != rule.motif_ind) {
 				for (vector<float> shift : rule.motif) {
-					if (shift == self_site) { deco_group.push_back(i); }
+					if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
 					else {
+						new_pos = pos_shift(pos_list[i], shift);
 						for (int neigh : neigh_ind_list[i]) {
-							if (pos_list[neigh] == pos_shift(pos_list[i], shift)) { deco_group.push_back(neigh); }
+							int x = 0;
+							if (bc_check(pos_list[neigh], new_pos)) {
+								deco_group.push_back(neigh);
+							}
 						}
 					}
 				}
@@ -441,11 +497,3 @@ void Algo1::print_state() {
 	}
 	OUT_file.close();
 }
-
-//vector<float> Algo1:: bc_check(vector<float>& shift) {
-//	vector<float>bc_shift { 0, 0, 0 };
-//	for (int i = 0; i < 3; i++) {
-//		bc_shift[i] = shift[i] - sim_cell.
-//	}
-//	return bc_shift;
-//}

@@ -5,6 +5,7 @@
 #include "session.h"
 #include "sim_cell.h"
 #include "algo1.h"
+#include "algo2.h"
 
 class Sim {
 public:

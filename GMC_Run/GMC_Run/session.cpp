@@ -160,7 +160,7 @@ void Session::fill_rule_list(){
 	vector<float> distances;
 	vector<int> spins;
 	vector<int> species;
-	long double energy_contribution = 0;
+	float energy_contribution = 0;
 	int rule_type = 0;
 	int rule_length = 0;
 	string rule_line;

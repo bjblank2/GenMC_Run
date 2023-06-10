@@ -25,11 +25,11 @@
 //	else if (session.algo == -2) { debug_run(); }
 //}
 //// Evaluate the energy controbution from a singal atom, includeing spin chem rules.
-//long double MCrun::evalSiteEnergyAll(int site, map<string, long double>& rule_map_spin, map<string, long double>& rule_map_chem, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
+//float MCrun::evalSiteEnergyAll(int site, map<string, float>& rule_map_spin, map<string, float>& rule_map_chem, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
 //	// Initalize variables
 //	string key;
-//	long double enrg = 0;
-//	map<string, long double>::iterator rule_itr;
+//	float enrg = 0;
+//	map<string, float>::iterator rule_itr;
 //	int site_species = atom_species[site];
 //	int site_spin = atom_spin[site];
 //	int neighbor_site1;
@@ -84,11 +84,11 @@
 //	return enrg;
 //}
 //// Evaluate the energy contribution from a singal atom using only spin rules. (Assuming the spin is all that changed)
-//long double MCrun::evalSiteEnergySpin(int site, map<string, long double>& rule_map_spin, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
+//float MCrun::evalSiteEnergySpin(int site, map<string, float>& rule_map_spin, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
 //	// Initalize variables and constants
 //	string key;
-//	long double enrg = 0;
-//	map<string, long double>::iterator rule_itr;
+//	float enrg = 0;
+//	map<string, float>::iterator rule_itr;
 //	int neighbor_site1;
 //	int neighbor_species1;
 //	int neighbor_spin1;
@@ -136,11 +136,11 @@
 //	return enrg;
 //}
 //// Evaluate the energy controbution from a singal atom, includeing spin chem rules.
-//long double MCrun::evalSiteEnergyAll3(int site, map<string, long double>& rule_map_spin, map<string, long double>& rule_map_chem, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
+//float MCrun::evalSiteEnergyAll3(int site, map<string, float>& rule_map_spin, map<string, float>& rule_map_chem, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
 //	// Initalize variables
 //	string key;
-//	long double enrg = 0;
-//	map<string, long double>::iterator rule_itr;
+//	float enrg = 0;
+//	map<string, float>::iterator rule_itr;
 //	int site_species = atom_species[site];
 //	int site_spin = atom_spin[site];
 //	int neighbor_site1;
@@ -195,11 +195,11 @@
 //	return enrg;
 //}
 //// Evaluate the energy contribution from a singal atom using only spin rules. (Assuming the spin is all that changed)
-//long double MCrun::evalSiteEnergySpin3(int site, map<string, long double>& rule_map_spin, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
+//float MCrun::evalSiteEnergySpin3(int site, map<string, float>& rule_map_spin, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
 //	// Initalize variables and constants
 //	string key;
-//	long double enrg = 0;
-//	map<string, long double>::iterator rule_itr;
+//	float enrg = 0;
+//	map<string, float>::iterator rule_itr;
 //	int neighbor_site1;
 //	int neighbor_species1;
 //	int neighbor_spin1;
@@ -269,8 +269,8 @@
 //	return enrg;
 //}
 //// Evaluate the total energy of the simulation cell in it's current state
-//long double MCrun::evalLattice3(map<string, long double>& rule_map_spin, map<string, long double>& rule_map_chem, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
-//	long double enrg = 0;
+//float MCrun::evalLattice3(map<string, float>& rule_map_spin, map<string, float>& rule_map_chem, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
+//	float enrg = 0;
 //	// loop thruogh simulation cell and add everything up
 //	for (int site = 0; site < atom_species.size(); site++) {
 //		enrg += evalSiteEnergyAll3(site, rule_map_spin, rule_map_chem, atom_spin, atom_species, neighbor_index_list, neighbor_dist_list);
@@ -278,8 +278,8 @@
 //	return enrg;
 //}
 //// Evaluate the spin contribution to the total energy of the simulation cell
-//long double MCrun::evalLatticeSpin3(map<string, long double>& rule_map_spin, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
-//	long double enrg = 0;
+//float MCrun::evalLatticeSpin3(map<string, float>& rule_map_spin, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
+//	float enrg = 0;
 //	// loop through everything and add it up
 //	for (int site = 0; site < atom_species.size(); site++) {
 //		enrg += evalSiteEnergySpin3(site, rule_map_spin, atom_spin, atom_species, neighbor_index_list, neighbor_dist_list);
@@ -329,7 +329,7 @@
 //}
 //
 //float MCrun::evalSiteEnergyChemFast(vector<vector<int>> JcountChem, vector<vector<float>> JMatChem) {
-//	long double enrg = 0;
+//	float enrg = 0;
 //	for (int i = 0; i < JcountChem.size(); i++) { enrg += JcountChem[i].size() * JMatChem[i][0]; }
 //	return 0.5 * enrg;
 //}
@@ -498,10 +498,10 @@
 //	return species_product / 6;
 //}
 //// Curently unused!!
-//long double MCrun::delSiteEnergySpin(int site, int old_spin, map<string, long double>& rule_map_spin, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
+//float MCrun::delSiteEnergySpin(int site, int old_spin, map<string, float>& rule_map_spin, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
 //	string key;
-//	long double enrg = 0;
-//	map<string, long double>::iterator rule_itr;
+//	float enrg = 0;
+//	map<string, float>::iterator rule_itr;
 //	int neighbor_site1;
 //	int neighbor_species1;
 //	int neighbor_spin1;
@@ -528,8 +528,8 @@
 //	return enrg;
 //}
 //// Evaluate the total energy of the simulation cell in it's current state
-//long double MCrun::evalLattice(map<string, long double>& rule_map_spin, map<string, long double>& rule_map_chem, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
-//	long double enrg = 0;
+//float MCrun::evalLattice(map<string, float>& rule_map_spin, map<string, float>& rule_map_chem, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
+//	float enrg = 0;
 //	// loop thruogh simulation cell and add everything up
 //	for (int site = 0; site < atom_species.size(); site++) {
 //		enrg += evalSiteEnergyAll(site, rule_map_spin, rule_map_chem, atom_spin, atom_species, neighbor_index_list, neighbor_dist_list);
@@ -537,8 +537,8 @@
 //	return enrg;
 //}
 //// Evaluate the spin contribution to the total energy of the simulation cell
-//long double MCrun::evalLatticeSpin(map<string, long double>& rule_map_spin, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
-//	long double enrg = 0;
+//float MCrun::evalLatticeSpin(map<string, float>& rule_map_spin, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
+//	float enrg = 0;
 //	// loop through everything and add it up
 //	for (int site = 0; site < atom_species.size(); site++) {
 //		enrg += evalSiteEnergySpin(site, rule_map_spin, atom_spin, atom_species, neighbor_index_list, neighbor_dist_list);
@@ -570,20 +570,20 @@
 //	// cout << neighbor_dist_list[0].size() << "\n";
 //
 //	// Start MC stuff
-//	long double new_enrg = 0;
+//	float new_enrg = 0;
 //	float spin_rand = 0;
 //	float keep_rand = 0;
 //	int old_spin = 0;
 //	int new_spin = 0;
 //	bool spin_same;
-//	long double e_avg = 0.0;
-//	long double spin_avg = 0.0;
+//	float e_avg = 0.0;
+//	float spin_avg = 0.0;
 //	float spin_avg_Mn = 0;
 //	float keep_prob = 0;
 //	int flip_count = 0;
 //	int flip_count2 = 0;
-//	long double Cmag = 0.0;
-//	long double Xmag = 0.0;
+//	float Cmag = 0.0;
+//	float Xmag = 0.0;
 //	int passes = session.numb_passes;
 //	int eq_passes = session.eq_passes;
 //	float thermostat = session.sro_temp;
@@ -833,19 +833,19 @@
 //
 //
 //	// Begin REAL MC
-//	//long double initial_enrg = evalLatticeFast(atom_spin_list, CountMatChem, CountMatSpin, JMatChem, JMatSpin);
-//	long double initial_enrg = evalLattiveChemFast(CountMatChem, JMatChem) + evalPottsLatticeSpinFast(atom_spin_list, CountMatSpin, JMatSpin);
-//	long double initial_spin_cont = evalPottsLatticeSpinFast(atom_spin_list, CountMatSpin, JMatSpin);
+//	//float initial_enrg = evalLatticeFast(atom_spin_list, CountMatChem, CountMatSpin, JMatChem, JMatSpin);
+//	float initial_enrg = evalLattiveChemFast(CountMatChem, JMatChem) + evalPottsLatticeSpinFast(atom_spin_list, CountMatSpin, JMatSpin);
+//	float initial_spin_cont = evalPottsLatticeSpinFast(atom_spin_list, CountMatSpin, JMatSpin);
 //	Output << initial_enrg / numb_atoms + 0 << ", " << initial_spin_cont / numb_atoms << "\n";
 //	Output << "temp, enrg, mag, magMn, var_e, var_spin, Cmag, Xmag, flip_count, flip_count2 \n";
-//	long double var_mag = 0.0;
-//	long double var_e = 0.0;
-//	long double avg_mag = 0.0;
-//	long double avg_mag1 = 0.0;
-//	long double avg_mag2 = 0.0;
-//	long double avg_mag3 = 0.0;
-//	long double avg_mag4 = 0.0;
-//	long double e_flip = 0;
+//	float var_mag = 0.0;
+//	float var_e = 0.0;
+//	float avg_mag = 0.0;
+//	float avg_mag1 = 0.0;
+//	float avg_mag2 = 0.0;
+//	float avg_mag3 = 0.0;
+//	float avg_mag4 = 0.0;
+//	float e_flip = 0;
 //	float mag = 0;
 //	float mag1 = 0;
 //	float mag2 = 0;
@@ -1002,23 +1002,23 @@
 //		}
 //	}
 //	// Start MC stuff
-//	long double e_flip = 0;
+//	float e_flip = 0;
 //	float spin_flip = 0;
 //	float spin_flipMn = 0;
-//	long double new_enrg = 0;
+//	float new_enrg = 0;
 //	float spin_rand = 0;
 //	float keep_rand = 0;
 //	int old_spin = 0;
 //	int new_spin = 0;
 //	bool spin_same;
-//	long double e_avg = 0.0;
-//	long double spin_avg = 0.0;
-//	long double spin_avg_Mn = 0;
+//	float e_avg = 0.0;
+//	float spin_avg = 0.0;
+//	float spin_avg_Mn = 0;
 //	float keep_prob = 0;
 //	int flip_count = 0;
 //	int flip_count2 = 0;
-//	long double Cmag = 0.0;
-//	long double Xmag = 0.0;
+//	float Cmag = 0.0;
+//	float Xmag = 0.0;
 //	int passes = session.numb_passes;
 //	int eq_passes = session.eq_passes;
 //	float thermostat = session.sro_temp;
@@ -1247,15 +1247,15 @@
 //
 //	cout << "Starting Real MC\n";
 //	// Begin REAL MC
-//	long double initial_enrg = evalLatticeFast(atom_spin_list, atom_species_list, CountMatChem, CountMatSpin, JMatChem, JMatSpin);
-//	long double initial_spin_cont = evalLatticeSpinFast(atom_spin_list, atom_species_list, CountMatSpin, JMatSpin);
+//	float initial_enrg = evalLatticeFast(atom_spin_list, atom_species_list, CountMatChem, CountMatSpin, JMatChem, JMatSpin);
+//	float initial_spin_cont = evalLatticeSpinFast(atom_spin_list, atom_species_list, CountMatSpin, JMatSpin);
 //	Output << initial_enrg / numb_atoms + 0 << ", " << initial_spin_cont / numb_atoms << "\n";
 //	cout << initial_enrg / numb_atoms + 0 << ", " << initial_spin_cont / numb_atoms << "\n";
 //	Output << "temp, enrg, mag, magMn, var_e, var_spin, Cmag, Xmag, flip_count, flip_count2 \n";
-//	long double initial_spin = 0.0;
-//	long double initial_spin_Mn = 0.0;
-//	long double var_spin = 0.0;
-//	long double var_e = 0.0;
+//	float initial_spin = 0.0;
+//	float initial_spin_Mn = 0.0;
+//	float var_spin = 0.0;
+//	float var_e = 0.0;
 //	RunningStat rs_C;
 //	RunningStat rs_X;
 //	for (int site = 0; site < numb_atoms; site++) {
@@ -1341,8 +1341,8 @@
 //void MCrun::runMetropolis5() {
 //	int numb_atoms = sim_cell.numb_atoms;
 //	int numb_neighbors = sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell);
-//	map <string, long double> rule_map_spin;
-//	map <string, long double> rule_map_chem;
+//	map <string, float> rule_map_spin;
+//	map <string, float> rule_map_chem;
 //	vector<int> atom_species_list;
 //	vector<int> atom_spin_list;
 //	vector<vector<int>> neighbor_index_list(numb_atoms, vector<int>(sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell), 0));
@@ -1360,18 +1360,18 @@
 //			float dist = session.rule_list[i].GetDists()[0];
 //			rule_key = "_" + to_string(species[0]) + "," + to_string(species[1]) + "," + to_string(dist) + ",";
 //			if (session.rule_list[i].GetType() == 0) {
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			else if (session.rule_list[i].GetType() == 1) {
-//				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_spin.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			if (species[0] != species[1]) {
 //				rule_key = "_" + to_string(species[1]) + "," + to_string(species[0]) + "," + to_string(dist) + ",";
 //				if (session.rule_list[i].GetType() == 0) {
-//					rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//					rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //				}
 //				else if (session.rule_list[i].GetType() == 1) {
-//					rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//					rule_map_spin.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //				}
 //			}
 //		}
@@ -1380,26 +1380,26 @@
 //			vector<float> dists = session.rule_list[i].GetDists();
 //			if (session.rule_list[i].GetType() == 0) {
 //				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			else if (session.rule_list[i].GetType() == 1) {
 //				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-//				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_spin.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //				//cout << rule_key << "\n";
 //			}
 //		}
@@ -1426,31 +1426,31 @@
 //
 //
 //	// Start MC stuff
-//	long double e_flip = 0;
+//	float e_flip = 0;
 //	float spin_flip = 0;
 //	float spin_flipMn = 0;
 //	float spin_flipMn2 = 0;
 //	float stag_flip = 0;
-//	long double e_site = 0;
-//	long double e_site_new = 0;
-//	long double new_enrg = 0;
+//	float e_site = 0;
+//	float e_site_new = 0;
+//	float new_enrg = 0;
 //	float spin_rand = 0;
 //	float keep_rand = 0;
 //	int old_spin = 0;
 //	int new_spin = 0;
 //	bool spin_same;
-//	long double e_avg = 0.0;
-//	long double spin_avg = 0.0;
-//	long double squ_e_avg = 0.0;
-//	long double squ_spin_avg = 0.0;
+//	float e_avg = 0.0;
+//	float spin_avg = 0.0;
+//	float squ_e_avg = 0.0;
+//	float squ_spin_avg = 0.0;
 //	float stag_avg = 0;
 //	float keep_prob = 0;
 //	int flip_count = 0;
 //	int flip_count2 = 0;
 //	float spin_avg_Mn = 0;
 //	float spin_avg_Mn2 = 0;
-//	long double Cmag = 0.0;
-//	long double Xmag = 0.0;
+//	float Cmag = 0.0;
+//	float Xmag = 0.0;
 //	int passes = session.numb_passes;
 //	int eq_passes = session.eq_passes;
 //	float thermostat = session.sro_temp;
@@ -1494,7 +1494,7 @@
 //	Output << "MC passes: " << passes << "\n";
 //	Output << "Beginning MC EQ run using ALGO_5\n";
 //	Output << "EQ passes: " << eq_passes << ", EQ Temp: " << thermostat << "\n";
-//	long double initial_enrg = evalLattice3(rule_map_spin, rule_map_chem, atom_spin_list, atom_species_list, neighbor_index_list, neighbor_dist_list);
+//	float initial_enrg = evalLattice3(rule_map_spin, rule_map_chem, atom_spin_list, atom_species_list, neighbor_index_list, neighbor_dist_list);
 //	float initial_spin_cont = evalLatticeSpin3(rule_map_spin, atom_spin_list, atom_species_list, neighbor_index_list, neighbor_dist_list);
 //	cout << initial_enrg / numb_atoms + 0 << ", " << initial_spin_cont / numb_atoms << ", " << initial_enrg << "\n";
 //	Output << initial_enrg / numb_atoms + 0 << ", " << initial_spin_cont / numb_atoms << "\n";
@@ -1557,10 +1557,10 @@
 //	float initial_spin_Mn = 0.0;
 //	float initial_spin_2_Mn = 0.0;
 //	float initial_stag_mag = 0;
-//	long double initail_squ_spin = 0.0;
-//	long double initial_squ_enrg = 0.0;
-//	long double var_spin = 0.0;
-//	long double var_e = 0.0;
+//	float initail_squ_spin = 0.0;
+//	float initial_squ_enrg = 0.0;
+//	float var_spin = 0.0;
+//	float var_e = 0.0;
 //	RunningStat rs_C;
 //	RunningStat rs_X;
 //	for (int site = 0; site < numb_atoms; site++) {
@@ -1660,8 +1660,8 @@
 //void MCrun::runMetropolis6() {
 //	int numb_atoms = sim_cell.numb_atoms;
 //	int numb_neighbors = sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell);
-//	map <string, long double> rule_map_spin;
-//	map <string, long double> rule_map_chem;
+//	map <string, float> rule_map_spin;
+//	map <string, float> rule_map_chem;
 //	vector<int> atom_species_list;
 //	vector<int> atom_spin_list;
 //	vector<vector<int>> neighbor_index_list(numb_atoms, vector<int>(sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell), 0));
@@ -1679,17 +1679,17 @@
 //			float dist = session.rule_list[i].GetDists()[0];
 //			rule_key = "_" + to_string(species[0]) + "," + to_string(species[1]) + "," + to_string(dist) + ",";
 //			if (session.rule_list[i].GetType() == 0) {
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			else if (session.rule_list[i].GetType() == 1) {
-//				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_spin.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			rule_key = "_" + to_string(species[1]) + "," + to_string(species[0]) + "," + to_string(dist) + ",";
 //			if (session.rule_list[i].GetType() == 0) {
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			else if (session.rule_list[i].GetType() == 1) {
-//				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_spin.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //		}
 //		else if (session.rule_list[i].GetLength() == 3) {
@@ -1697,26 +1697,26 @@
 //			vector<float> dists = session.rule_list[i].GetDists();
 //			if (session.rule_list[i].GetType() == 0) {
 //				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			else if (session.rule_list[i].GetType() == 1) {
 //				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-//				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_spin.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //		}
 //	}
@@ -1741,31 +1741,31 @@
 //
 //
 //	// Start MC stuff
-//	long double e_flip = 0;
+//	float e_flip = 0;
 //	float spin_flip = 0;
 //	float spin_flipMn = 0;
 //	float spin_flipMn2 = 0;
 //	float stag_flip = 0;
-//	long double e_site = 0;
-//	long double e_site_new = 0;
-//	long double new_enrg = 0;
+//	float e_site = 0;
+//	float e_site_new = 0;
+//	float new_enrg = 0;
 //	float spin_rand = 0;
 //	float keep_rand = 0;
 //	int old_spin = 0;
 //	int new_spin = 0;
 //	bool spin_same;
-//	long double e_avg = 0.0;
-//	long double spin_avg = 0.0;
-//	long double squ_e_avg = 0.0;
-//	long double squ_spin_avg = 0.0;
+//	float e_avg = 0.0;
+//	float spin_avg = 0.0;
+//	float squ_e_avg = 0.0;
+//	float squ_spin_avg = 0.0;
 //	float stag_avg = 0;
 //	float keep_prob = 0;
 //	int flip_count = 0;
 //	int flip_count2 = 0;
 //	float spin_avg_Mn = 0;
 //	float spin_avg_Mn2 = 0;
-//	long double Cmag = 0.0;
-//	long double Xmag = 0.0;
+//	float Cmag = 0.0;
+//	float Xmag = 0.0;
 //	int passes = session.numb_passes;
 //	int eq_passes = session.eq_passes;
 //	float thermostat = session.sro_temp;
@@ -1808,7 +1808,7 @@
 //	Output << "MC passes: " << passes << "\n";
 //	Output << "Beginning MC EQ run using ALGO_7\n";
 //	Output << "EQ passes: " << eq_passes << ", EQ Temp: " << thermostat << "\n";
-//	long double initial_enrg = evalLattice(rule_map_spin, rule_map_chem, atom_spin_list, atom_species_list, neighbor_index_list, neighbor_dist_list);
+//	float initial_enrg = evalLattice(rule_map_spin, rule_map_chem, atom_spin_list, atom_species_list, neighbor_index_list, neighbor_dist_list);
 //	float initial_spin_cont = evalLatticeSpin(rule_map_spin, atom_spin_list, atom_species_list, neighbor_index_list, neighbor_dist_list);
 //	cout << initial_enrg / numb_atoms + 0 << ", " << initial_spin_cont / numb_atoms << ", " << initial_enrg << "\n";
 //	Output << initial_enrg / numb_atoms + 0 << ", " << initial_spin_cont / numb_atoms << "\n";
@@ -1870,8 +1870,8 @@
 //	float initial_spin = 0.0;
 //	float initial_spin_2 = 0.0;
 //	float initial_stag_mag = 0;
-//	long double var_spin = 0.0;
-//	long double var_e = 0.0;
+//	float var_spin = 0.0;
+//	float var_e = 0.0;
 //	RunningStat rs_C;
 //	RunningStat rs_X;
 //	for (int site = 0; site < numb_atoms; site++) {
@@ -1967,8 +1967,8 @@
 //void MCrun::runMetropolis7() {
 //	int numb_atoms = sim_cell.numb_atoms;
 //	int numb_neighbors = sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell);
-//	map <string, long double> rule_map_spin;
-//	map <string, long double> rule_map_chem;
+//	map <string, float> rule_map_spin;
+//	map <string, float> rule_map_chem;
 //	vector<int> atom_species_list;
 //	vector<int> atom_spin_list;
 //	vector<vector<int>> neighbor_index_list(numb_atoms, vector<int>(sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell), 0));
@@ -1986,17 +1986,17 @@
 //			float dist = session.rule_list[i].GetDists()[0];
 //			rule_key = "_" + to_string(species[0]) + "," + to_string(species[1]) + "," + to_string(dist) + ",";
 //			if (session.rule_list[i].GetType() == 0) {
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			else if (session.rule_list[i].GetType() == 1) {
-//				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_spin.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			rule_key = "_" + to_string(species[1]) + "," + to_string(species[0]) + "," + to_string(dist) + ",";
 //			if (session.rule_list[i].GetType() == 0) {
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			else if (session.rule_list[i].GetType() == 1) {
-//				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_spin.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //		}
 //		else if (session.rule_list[i].GetLength() == 3) {
@@ -2004,26 +2004,26 @@
 //			vector<float> dists = session.rule_list[i].GetDists();
 //			if (session.rule_list[i].GetType() == 0) {
 //				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			else if (session.rule_list[i].GetType() == 1) {
 //				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-//				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_spin.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //		}
 //	}
@@ -2049,31 +2049,31 @@
 //
 //
 //	// Start MC stuff
-//	long double e_flip = 0;
+//	float e_flip = 0;
 //	float spin_flip = 0;
 //	float spin_flipMn = 0;
 //	float spin_flipMn2 = 0;
 //	float stag_flip = 0;
-//	long double e_site = 0;
-//	long double e_site_new = 0;
-//	long double new_enrg = 0;
+//	float e_site = 0;
+//	float e_site_new = 0;
+//	float new_enrg = 0;
 //	float spin_rand = 0;
 //	float keep_rand = 0;
 //	int old_spin = 0;
 //	int new_spin = 0;
 //	bool spin_same;
-//	long double e_avg = 0.0;
-//	long double spin_avg = 0.0;
-//	long double squ_e_avg = 0.0;
-//	long double squ_spin_avg = 0.0;
+//	float e_avg = 0.0;
+//	float spin_avg = 0.0;
+//	float squ_e_avg = 0.0;
+//	float squ_spin_avg = 0.0;
 //	float stag_avg = 0;
 //	float keep_prob = 0;
 //	int flip_count = 0;
 //	int flip_count2 = 0;
 //	float spin_avg_Mn = 0;
 //	float spin_avg_Mn2 = 0;
-//	long double Cmag = 0.0;
-//	long double Xmag = 0.0;
+//	float Cmag = 0.0;
+//	float Xmag = 0.0;
 //	int passes = session.numb_passes;
 //	int eq_passes = session.eq_passes;
 //	float thermostat = session.sro_temp;
@@ -2117,7 +2117,7 @@
 //	Output << "MC passes: " << passes << "\n";
 //	Output << "Beginning MC EQ run using ALGO_7\n";
 //	Output << "EQ passes: " << eq_passes << ", EQ Temp: " << thermostat << "\n";
-//	long double initial_enrg = evalLattice(rule_map_spin, rule_map_chem, atom_spin_list, atom_species_list, neighbor_index_list, neighbor_dist_list);
+//	float initial_enrg = evalLattice(rule_map_spin, rule_map_chem, atom_spin_list, atom_species_list, neighbor_index_list, neighbor_dist_list);
 //	float initial_spin_cont = evalLatticeSpin(rule_map_spin, atom_spin_list, atom_species_list, neighbor_index_list, neighbor_dist_list);
 //	cout << initial_enrg / numb_atoms + 0 << ", " << initial_spin_cont / numb_atoms << ", " << initial_enrg << "\n";
 //	Output << initial_enrg / numb_atoms + 0 << ", " << initial_spin_cont / numb_atoms << "\n";
@@ -2180,10 +2180,10 @@
 //	float initial_spin_Mn = 0.0;
 //	float initial_spin_2_Mn = 0.0;
 //	float initial_stag_mag = 0;
-//	long double initail_squ_spin = 0.0;
-//	long double initial_squ_enrg = 0.0;
-//	long double var_spin = 0.0;
-//	long double var_e = 0.0;
+//	float initail_squ_spin = 0.0;
+//	float initial_squ_enrg = 0.0;
+//	float var_spin = 0.0;
+//	float var_e = 0.0;
 //	RunningStat rs_C;
 //	RunningStat rs_X;
 //	for (int site = 0; site < numb_atoms; site++) {
@@ -2283,8 +2283,8 @@
 //void MCrun::runMetropolis8() {
 //	int numb_atoms = sim_cell.numb_atoms;
 //	int numb_neighbors = sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell);
-//	map <string, long double> rule_map_spin;
-//	map <string, long double> rule_map_chem;
+//	map <string, float> rule_map_spin;
+//	map <string, float> rule_map_chem;
 //	vector<int> atom_species_list;
 //	vector<int> atom_spin_list;
 //	vector<vector<int>> neighbor_index_list(numb_atoms, vector<int>(sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell), 0));
@@ -2295,24 +2295,24 @@
 //		string rule_key = "_";
 //		if (session.rule_list[i].GetLength() == 1) {
 //			rule_key = "_" + to_string(session.rule_list[i].GetDeco()[0]) + ",0,";
-//			rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//			rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //		}
 //		else if (session.rule_list[i].GetLength() == 2) {
 //			vector<int> species = session.rule_list[i].GetDeco();
 //			float dist = session.rule_list[i].GetDists()[0];
 //			rule_key = "_" + to_string(species[0]) + "," + to_string(species[1]) + "," + to_string(dist) + ",";
 //			if (session.rule_list[i].GetType() == 0) {
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			else if (session.rule_list[i].GetType() == 1) {
-//				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_spin.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			rule_key = "_" + to_string(species[1]) + "," + to_string(species[0]) + "," + to_string(dist) + ",";
 //			if (session.rule_list[i].GetType() == 0) {
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			else if (session.rule_list[i].GetType() == 1) {
-//				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_spin.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //		}
 //		else if (session.rule_list[i].GetLength() == 3) {
@@ -2320,26 +2320,26 @@
 //			vector<float> dists = session.rule_list[i].GetDists();
 //			if (session.rule_list[i].GetType() == 0) {
 //				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			else if (session.rule_list[i].GetType() == 1) {
 //				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-//				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_spin.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //		}
 //	}
@@ -2555,8 +2555,8 @@
 //void MCrun::runMetropolis9() {
 //	int numb_atoms = sim_cell.numb_atoms;
 //	int numb_neighbors = sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell);
-//	map <string, long double> rule_map_spin;
-//	map <string, long double> rule_map_chem;
+//	map <string, float> rule_map_spin;
+//	map <string, float> rule_map_chem;
 //	vector<int> atom_species_list;
 //	vector<int> atom_spin_list;
 //	vector<vector<int>> neighbor_index_list(numb_atoms, vector<int>(sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell), 0));
@@ -2574,17 +2574,17 @@
 //			float dist = session.rule_list[i].GetDists()[0];
 //			rule_key = "_" + to_string(species[0]) + "," + to_string(species[1]) + "," + to_string(dist) + ",";
 //			if (session.rule_list[i].GetType() == 0) {
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			else if (session.rule_list[i].GetType() == 1) {
-//				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_spin.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			rule_key = "_" + to_string(species[1]) + "," + to_string(species[0]) + "," + to_string(dist) + ",";
 //			if (session.rule_list[i].GetType() == 0) {
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			else if (session.rule_list[i].GetType() == 1) {
-//				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_spin.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //		}
 //		else if (session.rule_list[i].GetLength() == 3) {
@@ -2592,26 +2592,26 @@
 //			vector<float> dists = session.rule_list[i].GetDists();
 //			if (session.rule_list[i].GetType() == 0) {
 //				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + "," + to_string(dists[1]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(dists[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //
 //				rule_key = "_" + to_string(trip[2]) + "," + to_string(trip[1]) + "," + to_string(trip[0]) + "," + to_string(dists[1]) + "," + to_string(dists[0]) + "," + to_string(dists[2]) + ",";
-//				rule_map_chem.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_chem.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //			else if (session.rule_list[i].GetType() == 1) {
 //				rule_key = "_" + to_string(trip[0]) + "," + to_string(trip[1]) + "," + to_string(trip[2]) + "," + to_string(dists[0]) + "," + to_string(dists[1]) + "," + to_string(dists[2]) + ",";
-//				rule_map_spin.insert(pair<string, long double>(rule_key, session.rule_list[i].GetEnrgCont()));
+//				rule_map_spin.insert(pair<string, float>(rule_key, session.rule_list[i].GetEnrgCont()));
 //			}
 //		}
 //	}
@@ -2625,31 +2625,31 @@
 //		}
 //	}
 //	// Start MC stuff
-//	long double e_flip = 0;
+//	float e_flip = 0;
 //	float spin_flip = 0;
 //	float spin_flipMn = 0;
 //	float spin_flipMn2 = 0;
 //	float stag_flip = 0;
-//	long double e_site = 0;
-//	long double e_site_new = 0;
-//	long double new_enrg = 0;
+//	float e_site = 0;
+//	float e_site_new = 0;
+//	float new_enrg = 0;
 //	float spin_rand = 0;
 //	float keep_rand = 0;
 //	int old_spin = 0;
 //	int new_spin = 0;
 //	bool spin_same;
-//	long double e_avg = 0.0;
-//	long double spin_avg = 0.0;
-//	long double squ_e_avg = 0.0;
-//	long double squ_spin_avg = 0.0;
+//	float e_avg = 0.0;
+//	float spin_avg = 0.0;
+//	float squ_e_avg = 0.0;
+//	float squ_spin_avg = 0.0;
 //	float stag_avg = 0;
 //	float keep_prob = 0;
 //	int flip_count = 0;
 //	int flip_count2 = 0;
 //	float spin_avg_Mn = 0;
 //	float spin_avg_Mn2 = 0;
-//	long double Cmag = 0.0;
-//	long double Xmag = 0.0;
+//	float Cmag = 0.0;
+//	float Xmag = 0.0;
 //	int passes = session.numb_passes;
 //	int eq_passes = session.eq_passes;
 //	float thermostat = session.sro_temp;
@@ -2693,7 +2693,7 @@
 //	Output << "MC passes: " << passes << "\n";
 //	Output << "Beginning MC EQ run using ALGO_9\n";
 //	Output << "EQ passes: " << eq_passes << ", EQ Temp: " << thermostat << "\n";
-//	long double initial_enrg = evalLattice(rule_map_spin, rule_map_chem, atom_spin_list, atom_species_list, neighbor_index_list, neighbor_dist_list);
+//	float initial_enrg = evalLattice(rule_map_spin, rule_map_chem, atom_spin_list, atom_species_list, neighbor_index_list, neighbor_dist_list);
 //	float initial_spin_cont = evalLatticeSpin(rule_map_spin, atom_spin_list, atom_species_list, neighbor_index_list, neighbor_dist_list);
 //	cout << initial_enrg / numb_atoms + 0 << ", " << initial_spin_cont / numb_atoms << ", " << initial_enrg << "\n";
 //	Output << initial_enrg / numb_atoms + 0 << ", " << initial_spin_cont / numb_atoms << "\n";
@@ -2790,23 +2790,23 @@
 //		}
 //	}
 //	// Start MC stuff
-//	long double e_flip = 0;
+//	float e_flip = 0;
 //	float spin_flip = 0;
 //	float spin_flipMn = 0;
-//	long double new_enrg = 0;
+//	float new_enrg = 0;
 //	float spin_rand = 0;
 //	float keep_rand = 0;
 //	int old_spin = 0;
 //	int new_spin = 0;
 //	bool spin_same;
-//	long double e_avg = 0.0;
-//	long double spin_avg = 0.0;
-//	long double spin_avg_Mn = 0;
+//	float e_avg = 0.0;
+//	float spin_avg = 0.0;
+//	float spin_avg_Mn = 0;
 //	float keep_prob = 0;
 //	int flip_count = 0;
 //	int flip_count2 = 0;
-//	long double Cmag = 0.0;
-//	long double Xmag = 0.0;
+//	float Cmag = 0.0;
+//	float Xmag = 0.0;
 //	int passes = session.numb_passes;
 //	int eq_passes = session.eq_passes;
 //	float thermostat = session.sro_temp;
@@ -3035,15 +3035,15 @@
 //
 //	cout << "Starting Real MC\n";
 //	// Begin REAL MC
-//	long double initial_enrg = evalLatticeFast(atom_spin_list, atom_species_list, CountMatChem, CountMatSpin, JMatChem, JMatSpin);
-//	long double initial_spin_cont = evalLatticeSpinFast(atom_spin_list, atom_species_list, CountMatSpin, JMatSpin);
+//	float initial_enrg = evalLatticeFast(atom_spin_list, atom_species_list, CountMatChem, CountMatSpin, JMatChem, JMatSpin);
+//	float initial_spin_cont = evalLatticeSpinFast(atom_spin_list, atom_species_list, CountMatSpin, JMatSpin);
 //	Output << initial_enrg / numb_atoms + 0 << ", " << initial_spin_cont / numb_atoms << "\n";
 //	cout << initial_enrg / numb_atoms + 0 << ", " << initial_spin_cont / numb_atoms << "\n";
 //	Output << "temp, enrg, mag, magMn, var_e, var_spin, Cmag, Xmag, flip_count, flip_count2 \n";
-//	long double initial_spin = 0.0;
-//	long double initial_spin_Mn = 0.0;
-//	long double var_spin = 0.0;
-//	long double var_e = 0.0;
+//	float initial_spin = 0.0;
+//	float initial_spin_Mn = 0.0;
+//	float var_spin = 0.0;
+//	float var_e = 0.0;
 //	RunningStat rs_C;
 //	RunningStat rs_X;
 //	for (int site = 0; site < numb_atoms; site++) {
@@ -3126,11 +3126,11 @@
 //	Output.close();
 //}
 //
-//long double MCrun::evalSiteEnergyAll_tri(int site, map<string, long double>& rule_map_spin, map<string, long double>& rule_map_chem, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
+//float MCrun::evalSiteEnergyAll_tri(int site, map<string, float>& rule_map_spin, map<string, float>& rule_map_chem, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
 //	// Initalize variables
 //	string key;
-//	long double enrg = 0;
-//	map<string, long double>::iterator rule_itr;
+//	float enrg = 0;
+//	map<string, float>::iterator rule_itr;
 //	int site_species = atom_species[site];
 //	int site_spin = atom_spin[site];
 //	int neighbor_site1;
@@ -3185,8 +3185,8 @@
 //	return enrg;
 //}
 //// Evaluate the total energy of the simulation cell in it's current state
-//long double MCrun::evalLattice_tri(map<string, long double>& rule_map_spin, map<string, long double>& rule_map_chem, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
-//	long double enrg = 0;
+//float MCrun::evalLattice_tri(map<string, float>& rule_map_spin, map<string, float>& rule_map_chem, vector<int>& atom_spin, vector<int>& atom_species, vector<vector<int>>& neighbor_index_list, vector<vector<float>>& neighbor_dist_list) {
+//	float enrg = 0;
 //	// loop thruogh simulation cell and add everything up
 //	for (int site = 0; site < atom_species.size(); site++) {
 //		enrg += evalSiteEnergyAll_tri(site, rule_map_spin, rule_map_chem, atom_spin, atom_species, neighbor_index_list, neighbor_dist_list);
@@ -3239,20 +3239,20 @@
 //	// cout << neighbor_dist_list[0].size() << "\n";
 //
 //	// Start MC stuff
-//	long double new_enrg = 0;
+//	float new_enrg = 0;
 //	float spin_rand = 0;
 //	float keep_rand = 0;
 //	int old_spin = 0;
 //	int new_spin = 0;
 //	bool spin_same;
-//	long double e_avg = 0.0;
-//	long double spin_avg = 0.0;
+//	float e_avg = 0.0;
+//	float spin_avg = 0.0;
 //	float spin_avg_Mn = 0;
 //	float keep_prob = 0;
 //	int flip_count = 0;
 //	int flip_count2 = 0;
-//	long double Cmag = 0.0;
-//	long double Xmag = 0.0;
+//	float Cmag = 0.0;
+//	float Xmag = 0.0;
 //	int passes = session.numb_passes;
 //	int eq_passes = session.eq_passes;
 //	float thermostat = session.sro_temp;

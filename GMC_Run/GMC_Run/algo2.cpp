@@ -5,6 +5,13 @@ Algo2::Algo2(void) {}
 Algo2::Algo2(Session& _session, SimCell& _sim_cell) {
 	session = _session;
 	sim_cell = _sim_cell;
+	if (session.numb_subpasses > 1) {
+		cout << "_______________________________________________________________________________" << endl;
+		cout << "Possible Error: Algo2 has been given 0 subpasses per main pass" << endl;
+		cout << "This implies that no seperate spin flips are made which is likely not phisical." << endl;
+		cout << "This is probably not what you want..." << endl;
+		cout << "_______________________________________________________________________________" << endl;
+	}
 }
 
 float Algo2::eval_site_chem(int site) {
@@ -51,16 +58,103 @@ float Algo2::eval_spin_flip(int site, float old_spin) {
 			if (j != site) { spin_prod *= spin_list[j]; }
 		}
 		rule_itr = rule_map_spin.find(rule_key);
-		enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod : 0.0;
+		enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod) / spin_motif_groups[site].size() : 0.0;
 	}
-	return 2 * (enrg * spin_list[site] - enrg * old_spin);
+	return (enrg * spin_list[site] - enrg * old_spin);
 }
 
-float Algo2::eval_chem_flip(int site1, int site2) {
-	int site1_old_chem = chem_list[site1];
-	int site2_old_chem = chem_list[site2];
-	int site1_old_spin = spin_list[site1];
-	int site2_old_spin = spin_list[site2];
+float Algo2::eval_atom_flip(int site1, int site2) {
+	int new_spec1 = chem_list[site1];
+	int new_spec2 = chem_list[site2];
+	float new_enrg = 0;
+	float old_enrg = 0;
+	float new_spin1 = spin_list[site1];
+	float new_spin2 = spin_list[site2];
+	map<string, float>::iterator rule_itr;
+	// new and old enrgey for site1
+	// for chemestry motifs
+	for (int i = 0; i < chem_motif_groups[site1].size(); i++) {
+		string new_chem_key = "0." + to_string(i);
+		string old_chem_key = "0." + to_string(i);
+		for (int j : chem_motif_groups[site1][i]) {
+			if (j != site1) {
+				new_chem_key += "." + to_string(chem_list[j]);
+				old_chem_key += "." + to_string(chem_list[j]);
+			}
+			else {
+				new_chem_key += "." + to_string(new_spec1);
+				old_chem_key += "." + to_string(new_spec2);
+			}
+		}
+		rule_itr = rule_map_chem.find(new_chem_key);
+		new_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second / chem_motif_groups[site1].size() : 0.0;
+		rule_itr = rule_map_chem.find(old_chem_key);
+		old_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second / chem_motif_groups[site1].size() : 0.0;
+	}
+	// for spin motifs
+	for (int i = 0; i < spin_motif_groups[site1].size(); i++) {
+		float spin_prod = 1;
+		string new_spin_key = "1." + to_string(i);
+		string old_spin_key = "1." + to_string(i);
+		for (int j : spin_motif_groups[site1][i]) {
+			if (j != site1) {
+				new_spin_key += "." + to_string(chem_list[j]);
+				old_spin_key += "." + to_string(chem_list[j]);
+				spin_prod *= spin_list[j];
+			}
+			else {
+				new_spin_key += "." + to_string(new_spec1);
+				old_spin_key += "." + to_string(new_spec2);
+			}
+		}
+		rule_itr = rule_map_spin.find(new_spin_key);
+		new_enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod * new_spin1 / chem_motif_groups[site1].size() : 0.0;
+		rule_itr = rule_map_spin.find(old_spin_key);
+		old_enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod * new_spin2 / chem_motif_groups[site1].size() : 0.0;
+	}
+
+	//new and old energy for site2
+	// for chemestry motifs
+	for (int i = 0; i < chem_motif_groups[site2].size(); i++) {
+		string new_chem_key = "0." + to_string(i);
+		string old_chem_key = "0." + to_string(i);
+		for (int j : chem_motif_groups[site2][i]) {
+			if (j != site2) {
+				new_chem_key += "." + to_string(chem_list[j]);
+				old_chem_key += "." + to_string(chem_list[j]);
+			}
+			else {
+				new_chem_key += "." + to_string(new_spec2);
+				old_chem_key += "." + to_string(new_spec1);
+			}
+		}
+		rule_itr = rule_map_chem.find(new_chem_key);
+		new_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second / chem_motif_groups[site2].size() : 0.0;
+		rule_itr = rule_map_chem.find(old_chem_key);
+		old_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second / chem_motif_groups[site2].size() : 0.0;
+	}
+	// for spin motifs
+	for (int i = 0; i < spin_motif_groups[site2].size(); i++) {
+		float spin_prod = 1;
+		string new_spin_key = "1." + to_string(i);
+		string old_spin_key = "1." + to_string(i);
+		for (int j : spin_motif_groups[site2][i]) {
+			if (j != site2) {
+				new_spin_key += "." + to_string(chem_list[j]);
+				old_spin_key += "." + to_string(chem_list[j]);
+				spin_prod *= spin_list[j];
+			}
+			else {
+				new_spin_key += "." + to_string(new_spec2);
+				old_spin_key += "." + to_string(new_spec1);
+			}
+		}
+		rule_itr = rule_map_spin.find(new_spin_key);
+		new_enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod * new_spin2 / spin_motif_groups[site2].size() : 0.0;
+		rule_itr = rule_map_spin.find(old_spin_key);
+		old_enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod * new_spin1 / spin_motif_groups[site2].size() : 0.0;
+	}
+	return (new_enrg - old_enrg);
 }
 
 float Algo2::eval_lat() {
@@ -95,6 +189,7 @@ void Algo2::run() {
 	float Cmag = 0.0;
 	float Xmag = 0.0;
 	int passes = session.numb_passes;
+	int sub_passes = session.numb_subpasses;
 	int eq_passes = session.eq_passes;
 	float sro_target = session.sro_target;
 	float temp1 = session.start_temp;
@@ -133,7 +228,8 @@ void Algo2::run() {
 	Output << "Phase: " << sim_cell.phase_init;
 	Output << "Composition: ";
 	for (int i = 0; i < sim_cell.species_numbs.size(); i++) { Output << sim_cell.species_numbs[i] << ", "; }
-	Output << "\n";	Output << "MC passes: " << session.numb_passes << "\n";
+	Output << "\n";	Output << "MC atom-flip passes: " << session.numb_passes << ", ";
+	Output << "\n";	Output << "MC spin-flip passes: " << session.numb_subpasses << "\n";
 	Output << "Beginning MC EQ run using Algo2\n";
 
 	// make atom_list more acessable for species and spin and neighbors
@@ -172,13 +268,9 @@ void Algo2::run() {
 	Output << "EQ passes: " << session.eq_passes << ", EQ Temp: " << session.sro_temp << "\n";
 	Output << "SRO Target: " << session.sro_target << "\n";
 	cout << "SRO Target: " << session.sro_target << "\n";
-	//float sro_final = init_SRO(neigh_ind_list, neigh_dist_list);
-	//cout << "SRO: " << 1 - (sro_final) / (float(sim_cell.species_numbs[1]) / (float(sim_cell.species_numbs[1] + sim_cell.species_numbs[2]))) << "\n";
-	//Output << "SRO: " << 1 - (sro_final) / (float(sim_cell.species_numbs[1]) / (float(sim_cell.species_numbs[1] + sim_cell.species_numbs[2]))) << "\n";
-
 	cout << "Starting Real MC\n";
+	
 	// Begin MC
-
 	float init_enrg = eval_lat();
 	cout << "evaluated lattice\n";
 	float init_spin_cont = eval_lat_spin();
@@ -203,12 +295,13 @@ void Algo2::run() {
 	float inc_dir = 1;
 	if (signbit(temp2 - temp1) == 1) { inc_dir = -1; }
 
-	// setup rng
+	// setup rng for spin and acceptance probability
 	std::mt19937_64 rng;
 	uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
 	std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
 	rng.seed(ss);
 	std::uniform_real_distribution<double> unif(0, 1);
+
 	// start MC loop
 	cout << "entering main loop\n";
 	for (float temp = temp1; (temp2 - temp) * inc_dir >= 0; temp += temp_inc) {
@@ -216,7 +309,52 @@ void Algo2::run() {
 		spin_avg = 0.0;
 		flip_count = 0.0;
 		flip_count2 = 0.0;
+
 		for (int pass = 0; pass < passes; pass++) {
+			for (int site = 0; site < numb_atoms; site++) {
+				bool same_atom = true;
+				int rand_site;
+				while (same_atom == true) {
+					rand_site = rand() % numb_atoms;
+					if (rand_site != site) {
+						if (find(sim_cell.atom_list[rand_site].allowed_species.begin(), sim_cell.atom_list[rand_site].allowed_species.end(), chem_list[rand_site]) != sim_cell.atom_list[rand_site].allowed_species.end()) { same_atom = false; }
+					}
+				}
+				// Flip atoms
+				int old_site_chem = chem_list[site];
+				int old_site_spin = spin_list[site];
+				int old_rand_site_chem = chem_list[rand_site];
+				int old_rand_site_spin = spin_list[rand_site];
+				chem_list[site] = old_rand_site_chem;
+				spin_list[site] = old_rand_site_spin;
+				chem_list[rand_site] = old_site_chem;
+				spin_list[rand_site] = old_site_spin;
+				// Evaluate energy change
+				e_flip = eval_atom_flip(site, rand_site);
+				if (e_flip < 0) { flip_count += 1; }
+				else {
+					keep_rand = unif(rng);
+					keep_prob = exp(-1 / (Kb * temp) * (e_flip));
+					if (keep_rand < keep_prob) { flip_count2 += 1; }
+					else { 
+						chem_list[site] = old_site_chem;
+						spin_list[site] = old_site_spin;	
+						chem_list[rand_site] = old_rand_site_chem;
+						spin_list[rand_site] = old_rand_site_spin;
+						e_flip = 0.0; 
+						spin_flip = 0; }
+				}
+				init_enrg += e_flip;
+				if (pass >= passes * .2) {
+					e_avg += init_enrg;
+					rs_C.Push(init_enrg);
+					rs_X.Push(init_spin);
+				}
+			}
+		}
+
+		// Do sub_passes for spin flips
+		for (int sub_pass = 0; sub_pass < sub_passes; sub_pass++) {
 			for (int site = 0; site < numb_atoms; site++) {
 				if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
 					// Flip Spin
@@ -242,16 +380,16 @@ void Algo2::run() {
 					}
 					init_enrg += e_flip;
 					init_spin += spin_flip;
-					if (pass >= passes * .2) {
-						e_avg += init_enrg; // / (pow(numb_atoms, 2) * 0.8 * passes);
-						rs_C.Push(init_enrg);// / numb_atoms);
-						spin_avg += init_spin / (pow(numb_atoms, 2) * 0.8 * passes);
-						rs_X.Push(init_spin);// / numb_atoms);
+					if (sub_pass >= sub_passes * .2) {
+						e_avg += init_enrg;
+						rs_C.Push(init_enrg);
+						spin_avg += init_spin / (pow(numb_atoms, 2) * 0.8 * sub_passes);
+						rs_X.Push(init_spin);
 					}
 				}
 			}
 		}
-		e_avg /= double(numb_atoms * numb_atoms * 0.8 * passes);
+		e_avg /= double(numb_atoms * numb_atoms * 0.8 * sub_passes * passes);
 		var_e = rs_C.Variance();
 		var_spin = rs_X.Variance();
 		Cmag = var_e / (Kb * double(pow(temp, 2)));
@@ -259,7 +397,7 @@ void Algo2::run() {
 		Output << " # "
 			<< temp << ", "
 			<< e_avg << ", "
-			<< spin_avg << ", "// / (pow(numb_atoms, 2) * passes * .8) << ", "
+			<< spin_avg << ", "
 			<< var_e << ", "
 			<< var_spin << ", "
 			<< Cmag << ", "
@@ -273,7 +411,7 @@ void Algo2::run() {
 	print_state();
 	Output.close();
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 float Algo2::calc_struct(int site, vector<vector<int>>& neigh_ind_list, vector<vector<float>>& neigh_dist_list) {
 	int site_species = chem_list[site];
 	int count = 0;
@@ -307,8 +445,6 @@ float Algo2::init_SRO(vector<vector<int>>& neigh_ind_list, vector<vector<float>>
 	float keep_rand = 0;
 	float keep_prob = 0;
 
-
-	//sro_target = (1 - sro_target) * (float(sim_cell.species_numbs[2])) / (float(sim_cell.species_numbs[1] + sim_cell.species_numbs[2]));
 	for (int i = 0; i < sim_cell.numb_atoms; i++) {
 		sro_initial += calc_struct(i, neigh_ind_list, neigh_dist_list) / sim_cell.species_numbs[2];
 	}
@@ -351,7 +487,7 @@ float Algo2::init_SRO(vector<vector<int>>& neigh_ind_list, vector<vector<float>>
 	}
 	return sro_final;
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 bool Algo2::bc_check(vector<float> check_vect, vector<float>& pos) {
 	bool bc_test = false;
 	vector<int> dir { -1, 1 };

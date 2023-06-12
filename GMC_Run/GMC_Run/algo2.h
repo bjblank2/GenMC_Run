@@ -52,7 +52,7 @@ public:
 	float eval_site_spin(int site);
 	float eval_site_chem(int site);
 	float eval_spin_flip(int site, float old_spin);
-	float eval_chem_flip(int site1, int site2);
+	float eval_atom_flip(int site1, int site2);
 };
 
 #endif

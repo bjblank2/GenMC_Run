@@ -1,6 +1,6 @@
 #include "algo1.h"
 
-Algo1::Algo1(void){}
+Algo1::Algo1(void) {}
 
 Algo1::Algo1(Session& _session, SimCell& _sim_cell) {
 	session = _session;
@@ -51,9 +51,9 @@ float Algo1::eval_spin_flip(int site, float old_spin) {
 			if (j != site) { spin_prod *= spin_list[j]; }
 		}
 		rule_itr = rule_map_spin.find(rule_key);
-		enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod : 0.0;
-	}	
-	return 2 * (enrg * spin_list[site] - enrg * old_spin);
+		enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod) / spin_motif_groups[site].size() : 0.0;
+	}
+	return (enrg * spin_list[site] - enrg * old_spin);
 }
 
 float Algo1::eval_lat() {
@@ -155,7 +155,7 @@ void Algo1::run() {
 			if (find(spin_atoms.begin(), spin_atoms.end(), atom) == spin_atoms.end()) { spin_atoms.push_back(atom); }
 		}
 	}
-	
+
 
 	// fill motif group lists
 	fill_CMG(neigh_ind_list);
@@ -165,13 +165,9 @@ void Algo1::run() {
 	Output << "EQ passes: " << session.eq_passes << ", EQ Temp: " << session.sro_temp << "\n";
 	Output << "SRO Target: " << session.sro_target << "\n";
 	cout << "SRO Target: " << session.sro_target << "\n";
-	//float sro_final = init_SRO(neigh_ind_list, neigh_dist_list);
-	//cout << "SRO: " << 1 - (sro_final) / (float(sim_cell.species_numbs[1]) / (float(sim_cell.species_numbs[1] + sim_cell.species_numbs[2]))) << "\n";
-	//Output << "SRO: " << 1 - (sro_final) / (float(sim_cell.species_numbs[1]) / (float(sim_cell.species_numbs[1] + sim_cell.species_numbs[2]))) << "\n";
-
 	cout << "Starting Real MC\n";
-	// Begin MC
 
+	// Begin MC
 	float init_enrg = eval_lat();
 	cout << "evaluated lattice\n";
 	float init_spin_cont = eval_lat_spin();
@@ -236,10 +232,10 @@ void Algo1::run() {
 					init_enrg += e_flip;
 					init_spin += spin_flip;
 					if (pass >= passes * .2) {
-						e_avg += init_enrg; // / (pow(numb_atoms, 2) * 0.8 * passes);
-						rs_C.Push(init_enrg);// / numb_atoms);
+						e_avg += init_enrg;
+						rs_C.Push(init_enrg);
 						spin_avg += init_spin / (pow(numb_atoms, 2) * 0.8 * passes);
-						rs_X.Push(init_spin);// / numb_atoms);
+						rs_X.Push(init_spin);
 					}
 				}
 			}
@@ -252,7 +248,7 @@ void Algo1::run() {
 		Output << " # "
 			<< temp << ", "
 			<< e_avg << ", "
-			<< spin_avg << ", "// / (pow(numb_atoms, 2) * passes * .8) << ", "
+			<< spin_avg << ", "
 			<< var_e << ", "
 			<< var_spin << ", "
 			<< Cmag << ", "
@@ -266,7 +262,6 @@ void Algo1::run() {
 	print_state();
 	Output.close();
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 float Algo1::calc_struct(int site, vector<vector<int>>& neigh_ind_list, vector<vector<float>>& neigh_dist_list) {
 	int site_species = chem_list[site];
 	int count = 0;
@@ -282,7 +277,7 @@ float Algo1::calc_struct(int site, vector<vector<int>>& neigh_ind_list, vector<v
 	return count / 6.0;
 }
 
-float Algo1::init_SRO(vector<vector<int>>& neigh_ind_list, vector<vector<float>>& neigh_dist_list){
+float Algo1::init_SRO(vector<vector<int>>& neigh_ind_list, vector<vector<float>>& neigh_dist_list) {
 	// setup rng
 	std::mt19937_64 rng;
 	uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
@@ -300,8 +295,6 @@ float Algo1::init_SRO(vector<vector<int>>& neigh_ind_list, vector<vector<float>>
 	float keep_rand = 0;
 	float keep_prob = 0;
 
-
-	//sro_target = (1 - sro_target) * (float(sim_cell.species_numbs[2])) / (float(sim_cell.species_numbs[1] + sim_cell.species_numbs[2]));
 	for (int i = 0; i < sim_cell.numb_atoms; i++) {
 		sro_initial += calc_struct(i, neigh_ind_list, neigh_dist_list) / sim_cell.species_numbs[2];
 	}
@@ -344,7 +337,7 @@ float Algo1::init_SRO(vector<vector<int>>& neigh_ind_list, vector<vector<float>>
 	}
 	return sro_final;
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 bool Algo1::bc_check(vector<float> check_vect, vector<float>& pos) {
 	bool bc_test = false;
 	vector<int> dir { -1, 1 };
@@ -397,7 +390,7 @@ bool Algo1::bc_check(vector<float> check_vect, vector<float>& pos) {
 	return bc_test;
 }
 
-void Algo1::fill_SMG(vector<vector<int>>& neigh_ind_list){
+void Algo1::fill_SMG(vector<vector<int>>& neigh_ind_list) {
 	vector<int> deco_group;
 	vector<float> new_pos { 0.0, 0.0, 0.0 };
 	vector<float> self_site { 0.0, 0.0, 0.0 };
@@ -412,7 +405,7 @@ void Algo1::fill_SMG(vector<vector<int>>& neigh_ind_list){
 						new_pos = pos_shift(pos_list[i], shift);
 						for (int neigh : neigh_ind_list[i]) {
 							int x = 0;
-							if (bc_check(pos_list[neigh], new_pos)) { 
+							if (bc_check(pos_list[neigh], new_pos)) {
 								deco_group.push_back(neigh);
 							}
 						}
@@ -481,7 +474,7 @@ void Algo1::print_state() {
 		OUT_file << "Alloy of";
 		for (string spec : session.species_str) { OUT_file << " " << spec; }
 		OUT_file << "\n 1 \n";
-		for (int i = 0; i < 3;i++) {
+		for (int i = 0; i < 3; i++) {
 			vector<float>vect = sim_cell.unit_lat_vect[i];
 			for (int j = 0; j < 3; j++) { OUT_file << vect[j] * session.shape[i] << " "; }
 			OUT_file << "\n";

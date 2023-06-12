@@ -19,6 +19,7 @@ public:
 	bool use_states;
 	int algo = 0;
 	int numb_passes = 1;
+	int numb_subpasses = 0;
 	int eq_passes = 1;
 	int shape[3] = { 0,0,0 };
 	int tot_atoms;

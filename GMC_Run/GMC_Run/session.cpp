@@ -27,6 +27,7 @@ Session::Session(string input_file) {
 		else if (setting[0].compare("SPIN_INIT") == 0) { spin_init = setting[2]; }
 		else if (setting[0].compare("SPECIES_INIT") == 0) { species_init = setting[2]; }
 		else if (setting[0].compare("NUMB_PASSES") == 0) { numb_passes = stoi(setting[2]); }
+		else if (setting[0].compare("NUMB_SUBPASSES") == 0) { numb_subpasses = stoi(setting[2]); }
 		else if (setting[0].compare("START_TEMP") == 0) { start_temp = stof(setting[2]); }
 		else if (setting[0].compare("END_TEMP") == 0) { end_temp = stof(setting[2]); }
 		else if (setting[0].compare("TEMP_INC") == 0) { temp_inc = stof(setting[2]); }
@@ -94,6 +95,7 @@ Session::Session(Session& _session) {
 	species_init = _session.species_init;
 	use_poscar = _session.use_poscar;
 	numb_passes = _session.numb_passes;
+	numb_subpasses = _session.numb_subpasses;
 	eq_passes = _session.eq_passes;
 	start_temp = _session.start_temp;
 	end_temp = _session.end_temp;
@@ -118,6 +120,7 @@ void Session::_copy(Session& _session) {
 	species_init = _session.species_init;
 	use_poscar = _session.use_poscar;
 	numb_passes = _session.numb_passes;
+	numb_subpasses = _session.numb_subpasses;
 	eq_passes = _session.eq_passes;
 	start_temp = _session.start_temp;
 	end_temp = _session.end_temp;

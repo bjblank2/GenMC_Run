@@ -5,7 +5,7 @@ Algo2::Algo2(void) {}
 Algo2::Algo2(Session& _session, SimCell& _sim_cell) {
 	session = _session;
 	sim_cell = _sim_cell;
-	if (session.numb_subpasses > 1) {
+	if (session.numb_subpasses < 1) {
 		cout << "_______________________________________________________________________________" << endl;
 		cout << "Possible Error: Algo2 has been given 0 subpasses per main pass" << endl;
 		cout << "This implies that no seperate spin flips are made which is likely not phisical." << endl;
@@ -108,12 +108,12 @@ float Algo2::eval_atom_flip(int site1, int site2) {
 			}
 		}
 		rule_itr = rule_map_spin.find(new_spin_key);
-		new_enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod * new_spin1 / chem_motif_groups[site1].size() : 0.0;
+		new_enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod * new_spin1 / spin_motif_groups[site1].size() : 0.0;
 		rule_itr = rule_map_spin.find(old_spin_key);
-		old_enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod * new_spin2 / chem_motif_groups[site1].size() : 0.0;
+		old_enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod * new_spin2 / spin_motif_groups[site1].size() : 0.0;
 	}
 
-	//new and old energy for site2
+	// new and old energy for site2
 	// for chemestry motifs
 	for (int i = 0; i < chem_motif_groups[site2].size(); i++) {
 		string new_chem_key = "0." + to_string(i);
@@ -125,7 +125,7 @@ float Algo2::eval_atom_flip(int site1, int site2) {
 			}
 			else {
 				new_chem_key += "." + to_string(new_spec2);
-				old_chem_key += "." + to_string(new_spec1);
+				old_chem_key += "." + to_string(new_spec1);        
 			}
 		}
 		rule_itr = rule_map_chem.find(new_chem_key);
@@ -302,6 +302,10 @@ void Algo2::run() {
 	rng.seed(ss);
 	std::uniform_real_distribution<double> unif(0, 1);
 
+	std::random_device dev;
+	std::mt19937 rng2(dev());
+	std::uniform_int_distribution<std::mt19937::result_type> rand_atom(0, sim_cell.numb_atoms);
+
 	// start MC loop
 	cout << "entering main loop\n";
 	for (float temp = temp1; (temp2 - temp) * inc_dir >= 0; temp += temp_inc) {
@@ -310,12 +314,13 @@ void Algo2::run() {
 		flip_count = 0.0;
 		flip_count2 = 0.0;
 
+		// Do passes for atom flips  
 		for (int pass = 0; pass < passes; pass++) {
 			for (int site = 0; site < numb_atoms; site++) {
 				bool same_atom = true;
 				int rand_site;
 				while (same_atom == true) {
-					rand_site = rand() % numb_atoms;
+					rand_site = rand_atom(rng2);
 					if (rand_site != site) {
 						if (find(sim_cell.atom_list[rand_site].allowed_species.begin(), sim_cell.atom_list[rand_site].allowed_species.end(), chem_list[rand_site]) != sim_cell.atom_list[rand_site].allowed_species.end()) { same_atom = false; }
 					}
@@ -389,7 +394,7 @@ void Algo2::run() {
 				}
 			}
 		}
-		e_avg /= double(numb_atoms * numb_atoms * 0.8 * sub_passes * passes);
+		e_avg /= double(numb_atoms * numb_atoms * 0.8 * (sub_passes + passes));
 		var_e = rs_C.Variance();
 		var_spin = rs_X.Variance();
 		Cmag = var_e / (Kb * double(pow(temp, 2)));
@@ -435,6 +440,10 @@ float Algo2::init_SRO(vector<vector<int>>& neigh_ind_list, vector<vector<float>>
 	rng.seed(ss);
 	std::uniform_real_distribution<double> unif(0, 1);
 
+	std::random_device dev;
+	std::mt19937 rng2(dev());
+	std::uniform_int_distribution<std::mt19937::result_type> rand_atom(0, sim_cell.numb_atoms);
+
 	// begin SRO MC run //
 	float sro_final = 0;
 	float sro_initial = 0;
@@ -455,7 +464,7 @@ float Algo2::init_SRO(vector<vector<int>>& neigh_ind_list, vector<vector<float>>
 				// Flip Species
 				if (chem_list[site] != 0) {
 					int rand_index = site;
-					while (rand_index == site or chem_list[rand_index] == 0) { rand_index = rand() % sim_cell.numb_atoms; }
+					while (rand_index == site or chem_list[rand_index] == 0) { rand_index = rand_atom(rng2); }
 					int old_species_site = chem_list[site];
 					int old_species_rand = chem_list[rand_index];
 					if (old_species_site != old_species_rand) {

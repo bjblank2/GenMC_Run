@@ -351,6 +351,17 @@ void SimCell::initSimCell(string POSCAR_file, Session& session) {
 	vector<int> _species_list;
 	cout << "Making supercell\n";
 	make_supercell(session);
+	if (species_init == "RANDOM") {
+		cout << "Randomizing species\n";
+		randomizeSpecies(session);
+	}
+	//else if (species_init == "ordered") {
+	//	cout << "Ordering species\n";
+	//	orderSpecies(session);
+	//}
+	//else {
+	//	cout << "Error: species_init not recognized\n";
+	//}
 }
 
 // atom object inside SimCell class. used as a container for information about single atoms. Standard constructor and get/set functions are used
@@ -426,4 +437,11 @@ void SimCell::Atom::setSpecies(int _species) {
 
 void SimCell::Atom::setPhase(int _phase) {
 	phase = _phase;
+}
+
+void SimCell::randomizeSpecies(Session& session) {
+	for (int i = 0; i < numb_atoms; i++) {
+		int rand_index = rand() % numb_atoms;
+
+	}
 }

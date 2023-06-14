@@ -67,8 +67,10 @@ public:
 	void initSimCell(string POSCAR_file, Session& session);
 	void fillUnitCell(string POSCAR_file, Session& session);
 	void make_supercell(Session& sess);
+	void randomizeSpecies(Session& sess);
 	void setNeighborDists(vector<float>& dist_list);
 	float findAtomDists(int atom1, int atom2);
 	float bc_dist(vector<float>& pos1, vector<float>& pos2);
+
 };
 #endif

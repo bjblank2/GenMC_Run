@@ -49,7 +49,7 @@ vector<float> Rule::GetDists() {
 }
 
 int test(){
-    return 1
+    return 1;
 }
 //bool Rule::IsRuleChem(vector<int> test_deco, vector<float> test_dists) {
 //	if (type != 0) { return false; }

@@ -12,5 +12,5 @@ void Sim::start() {
 	if (session.algo == 0) { return; }
 	else if (session.algo == 1) { Algo1 algo(session, sim_cell); algo.run(); }
 	else if (session.algo == 2) { Algo2 algo(session, sim_cell); algo.run(); }
-	//else if (session.algo == -2) { debug_run(); }
+//	else if (session.algo == -1) { ; }
 }

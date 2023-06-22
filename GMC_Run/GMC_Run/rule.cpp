@@ -48,55 +48,55 @@ vector<float> Rule::GetDists() {
 	return dists;
 }
 
-bool Rule::IsRuleChem(vector<int> test_deco, vector<float> test_dists) {
-	if (type != 0) { return false; }
-	else if (test_dists.size() != dists.size() or test_deco.size() != test_deco.size()) { return false; }
-	else {
-		for (int i = 0; i < test_dists.size(); i++) { test_dists[i] = round(test_dists[i] * 100000) / 100000; }
-		for (int i = 0; i < dists.size(); i++) { dists[i] = round(dists[i] * 100000) / 100000; }
-		if (motif.size() == 1) {
-			if (test_deco[0] != deco[0]) { return false; }
-			else { return true; }
-		}
-		else if (motif.size() == 2) {
-			if (test_dists[0] == dists[0]) {
-				if (test_deco[0] == deco[0] and test_deco[1] == deco[1]) { return true; }
-				else if (test_deco[0] == deco[1] and test_deco[1] == deco[0]) { return true; }
-				else { return false; }
-			}
-			else { return false; }
-		}
-		else if (deco.size() == 3) {
-			if (test_deco[0] == deco[0] and test_deco[1] == deco[1] and test_deco[2] == deco[2] and test_dists[0] == dists[0] and test_dists[1] == dists[1] and test_dists[2] == dists[2]) { return true; }
-			else if (test_deco[0] == deco[0] and test_deco[2] == deco[1] and test_deco[1] == deco[2] and test_dists[1] == dists[0] and test_dists[0] == dists[1] and test_dists[2] == dists[2]) { return true; }
-			else if (test_deco[1] == deco[0] and test_deco[0] == deco[1] and test_deco[2] == deco[2] and test_dists[0] == dists[0] and test_dists[2] == dists[1] and test_dists[1] == dists[2]) { return true; }
-			else if (test_deco[1] == deco[0] and test_deco[2] == deco[1] and test_deco[0] == deco[2] and test_dists[2] == dists[0] and test_dists[0] == dists[1] and test_dists[1] == dists[2]) { return true; }
-			else if (test_deco[2] == deco[0] and test_deco[0] == deco[1] and test_deco[1] == deco[2] and test_dists[1] == dists[0] and test_dists[2] == dists[1] and test_dists[0] == dists[2]) { return true; }
-			else if (test_deco[2] == deco[0] and test_deco[1] == deco[1] and test_deco[0] == deco[2] and test_dists[2] == dists[0] and test_dists[1] == dists[1] and test_dists[0] == dists[2]) { return true; }
-			else { return false; }
-		}
-	}
-}
-
-bool Rule::IsRuleSpin(vector<int> test_deco, vector<float> test_dists) {
-	if (type != 1) { return false; }
-	else if (test_dists.size() != dists.size() or test_deco.size() != test_deco.size()) { return false; }
-	else {
-		if (motif.size() == 1) {
-			if (test_deco[0] != deco[0]) { return false; }
-			else { return true; }
-		}
-		else if (motif.size() == 2) {
-			if (test_dists[0] == dists[0]) {
-				if (test_deco[0] == deco[0] and test_deco[1] == deco[1]) { return true; }
-				else if (test_deco[0] == deco[1] and test_deco[1] == deco[0]) { return true; }
-				else { return false; }
-			}
-			else { return false; }
-		}
-		else if (motif.size() == 3) {
-			if (test_deco[0] == deco[0] and test_deco[1] == deco[1] and test_deco[2] == deco[2] and test_dists[0] == dists[0] and test_dists[1] == dists[1] and test_dists[2] == dists[2]) { return true; }
-			else { return false; }
-		}
-	}
-}
+//bool Rule::IsRuleChem(vector<int> test_deco, vector<float> test_dists) {
+//	if (type != 0) { return false; }
+//	else if (test_dists.size() != dists.size() or test_deco.size() != test_deco.size()) { return false; }
+//	else {
+//		for (int i = 0; i < test_dists.size(); i++) { test_dists[i] = round(test_dists[i] * 100000) / 100000; }
+//		for (int i = 0; i < dists.size(); i++) { dists[i] = round(dists[i] * 100000) / 100000; }
+//		if (motif.size() == 1) {
+//			if (test_deco[0] != deco[0]) { return false; }
+//			else { return true; }
+//		}
+//		else if (motif.size() == 2) {
+//			if (test_dists[0] == dists[0]) {
+//				if (test_deco[0] == deco[0] and test_deco[1] == deco[1]) { return true; }
+//				else if (test_deco[0] == deco[1] and test_deco[1] == deco[0]) { return true; }
+//				else { return false; }
+//			}
+//			else { return false; }
+//		}
+//		else if (deco.size() == 3) {
+//			if (test_deco[0] == deco[0] and test_deco[1] == deco[1] and test_deco[2] == deco[2] and test_dists[0] == dists[0] and test_dists[1] == dists[1] and test_dists[2] == dists[2]) { return true; }
+//			else if (test_deco[0] == deco[0] and test_deco[2] == deco[1] and test_deco[1] == deco[2] and test_dists[1] == dists[0] and test_dists[0] == dists[1] and test_dists[2] == dists[2]) { return true; }
+//			else if (test_deco[1] == deco[0] and test_deco[0] == deco[1] and test_deco[2] == deco[2] and test_dists[0] == dists[0] and test_dists[2] == dists[1] and test_dists[1] == dists[2]) { return true; }
+//			else if (test_deco[1] == deco[0] and test_deco[2] == deco[1] and test_deco[0] == deco[2] and test_dists[2] == dists[0] and test_dists[0] == dists[1] and test_dists[1] == dists[2]) { return true; }
+//			else if (test_deco[2] == deco[0] and test_deco[0] == deco[1] and test_deco[1] == deco[2] and test_dists[1] == dists[0] and test_dists[2] == dists[1] and test_dists[0] == dists[2]) { return true; }
+//			else if (test_deco[2] == deco[0] and test_deco[1] == deco[1] and test_deco[0] == deco[2] and test_dists[2] == dists[0] and test_dists[1] == dists[1] and test_dists[0] == dists[2]) { return true; }
+//			else { return false; }
+//		}
+//	}
+//}
+//
+//bool Rule::IsRuleSpin(vector<int> test_deco, vector<float> test_dists) {
+//	if (type != 1) { return false; }
+//	else if (test_dists.size() != dists.size() or test_deco.size() != test_deco.size()) { return false; }
+//	else {
+//		if (motif.size() == 1) {
+//			if (test_deco[0] != deco[0]) { return false; }
+//			else { return true; }
+//		}
+//		else if (motif.size() == 2) {
+//			if (test_dists[0] == dists[0]) {
+//				if (test_deco[0] == deco[0] and test_deco[1] == deco[1]) { return true; }
+//				else if (test_deco[0] == deco[1] and test_deco[1] == deco[0]) { return true; }
+//				else { return false; }
+//			}
+//			else { return false; }
+//		}
+//		else if (motif.size() == 3) {
+//			if (test_deco[0] == deco[0] and test_deco[1] == deco[1] and test_deco[2] == deco[2] and test_dists[0] == dists[0] and test_dists[1] == dists[1] and test_dists[2] == dists[2]) { return true; }
+//			else { return false; }
+//		}
+//	}
+//}

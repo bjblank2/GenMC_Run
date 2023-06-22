@@ -7,21 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3DC03E2A2A44E6140016BA25 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E292A44E6140016BA25 /* main.cpp */; };
-		3DC03E452A44E6320016BA25 /* run_sim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E302A44E6320016BA25 /* run_sim.cpp */; };
-		3DC03E462A44E6320016BA25 /* monte_carlo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E322A44E6320016BA25 /* monte_carlo.cpp */; };
-		3DC03E472A44E6320016BA25 /* rule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E332A44E6320016BA25 /* rule.cpp */; };
-		3DC03E482A44E6320016BA25 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E362A44E6320016BA25 /* utils.cpp */; };
-		3DC03E492A44E6320016BA25 /* algo1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E372A44E6320016BA25 /* algo1.cpp */; };
-		3DC03E4A2A44E6320016BA25 /* running_stat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E382A44E6320016BA25 /* running_stat.cpp */; };
-		3DC03E4B2A44E6320016BA25 /* session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E392A44E6320016BA25 /* session.cpp */; };
-		3DC03E4C2A44E6320016BA25 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E3C2A44E6320016BA25 /* main.cpp */; };
-		3DC03E4D2A44E6320016BA25 /* sim_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E432A44E6320016BA25 /* sim_cell.cpp */; };
-		3DC03E4E2A44E6320016BA25 /* algo2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E442A44E6320016BA25 /* algo2.cpp */; };
+		3DC03E772A44E9D90016BA25 /* running_stat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E632A44E9D90016BA25 /* running_stat.cpp */; };
+		3DC03E782A44E9D90016BA25 /* rule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E652A44E9D90016BA25 /* rule.cpp */; };
+		3DC03E792A44E9D90016BA25 /* algo2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E662A44E9D90016BA25 /* algo2.cpp */; };
+		3DC03E7A2A44E9D90016BA25 /* algo1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E672A44E9D90016BA25 /* algo1.cpp */; };
+		3DC03E7B2A44E9D90016BA25 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E692A44E9D90016BA25 /* main.cpp */; };
+		3DC03E7C2A44E9D90016BA25 /* monte_carlo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E6E2A44E9D90016BA25 /* monte_carlo.cpp */; };
+		3DC03E7D2A44E9D90016BA25 /* run_sim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E6F2A44E9D90016BA25 /* run_sim.cpp */; };
+		3DC03E7E2A44E9D90016BA25 /* session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E702A44E9D90016BA25 /* session.cpp */; };
+		3DC03E7F2A44E9D90016BA25 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E722A44E9D90016BA25 /* utils.cpp */; };
+		3DC03E802A44E9D90016BA25 /* sim_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E752A44E9D90016BA25 /* sim_cell.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3DC03E242A44E6140016BA25 /* CopyFiles */ = {
+		3DC03E562A44E9BD0016BA25 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -33,31 +32,30 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3DC03E262A44E6140016BA25 /* genmc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = genmc; sourceTree = BUILT_PRODUCTS_DIR; };
-		3DC03E292A44E6140016BA25 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		3DC03E302A44E6320016BA25 /* run_sim.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = run_sim.cpp; path = ../run_sim.cpp; sourceTree = "<group>"; };
-		3DC03E312A44E6320016BA25 /* run_sim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = run_sim.h; path = ../run_sim.h; sourceTree = "<group>"; };
-		3DC03E322A44E6320016BA25 /* monte_carlo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = monte_carlo.cpp; path = ../monte_carlo.cpp; sourceTree = "<group>"; };
-		3DC03E332A44E6320016BA25 /* rule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rule.cpp; path = ../rule.cpp; sourceTree = "<group>"; };
-		3DC03E342A44E6320016BA25 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utils.h; path = ../utils.h; sourceTree = "<group>"; };
-		3DC03E352A44E6320016BA25 /* algo1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = algo1.h; path = ../algo1.h; sourceTree = "<group>"; };
-		3DC03E362A44E6320016BA25 /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = utils.cpp; path = ../utils.cpp; sourceTree = "<group>"; };
-		3DC03E372A44E6320016BA25 /* algo1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = algo1.cpp; path = ../algo1.cpp; sourceTree = "<group>"; };
-		3DC03E382A44E6320016BA25 /* running_stat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = running_stat.cpp; path = ../running_stat.cpp; sourceTree = "<group>"; };
-		3DC03E392A44E6320016BA25 /* session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = session.cpp; path = ../session.cpp; sourceTree = "<group>"; };
-		3DC03E3A2A44E6320016BA25 /* algo2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = algo2.h; path = ../algo2.h; sourceTree = "<group>"; };
-		3DC03E3B2A44E6320016BA25 /* session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = session.h; path = ../session.h; sourceTree = "<group>"; };
-		3DC03E3C2A44E6320016BA25 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../main.cpp; sourceTree = "<group>"; };
-		3DC03E3D2A44E6320016BA25 /* monte_carlo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = monte_carlo.h; path = ../monte_carlo.h; sourceTree = "<group>"; };
-		3DC03E402A44E6320016BA25 /* rule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rule.h; path = ../rule.h; sourceTree = "<group>"; };
-		3DC03E412A44E6320016BA25 /* running_stat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = running_stat.h; path = ../running_stat.h; sourceTree = "<group>"; };
-		3DC03E422A44E6320016BA25 /* sim_cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sim_cell.h; path = ../sim_cell.h; sourceTree = "<group>"; };
-		3DC03E432A44E6320016BA25 /* sim_cell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sim_cell.cpp; path = ../sim_cell.cpp; sourceTree = "<group>"; };
-		3DC03E442A44E6320016BA25 /* algo2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = algo2.cpp; path = ../algo2.cpp; sourceTree = "<group>"; };
+		3DC03E582A44E9BD0016BA25 /* genmc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = genmc; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DC03E622A44E9D90016BA25 /* rule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rule.h; path = ../../rule.h; sourceTree = "<group>"; };
+		3DC03E632A44E9D90016BA25 /* running_stat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = running_stat.cpp; path = ../../running_stat.cpp; sourceTree = "<group>"; };
+		3DC03E652A44E9D90016BA25 /* rule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rule.cpp; path = ../../rule.cpp; sourceTree = "<group>"; };
+		3DC03E662A44E9D90016BA25 /* algo2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = algo2.cpp; path = ../../algo2.cpp; sourceTree = "<group>"; };
+		3DC03E672A44E9D90016BA25 /* algo1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = algo1.cpp; path = ../../algo1.cpp; sourceTree = "<group>"; };
+		3DC03E682A44E9D90016BA25 /* algo1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = algo1.h; path = ../../algo1.h; sourceTree = "<group>"; };
+		3DC03E692A44E9D90016BA25 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../main.cpp; sourceTree = "<group>"; };
+		3DC03E6A2A44E9D90016BA25 /* run_sim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = run_sim.h; path = ../../run_sim.h; sourceTree = "<group>"; };
+		3DC03E6B2A44E9D90016BA25 /* algo2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = algo2.h; path = ../../algo2.h; sourceTree = "<group>"; };
+		3DC03E6D2A44E9D90016BA25 /* running_stat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = running_stat.h; path = ../../running_stat.h; sourceTree = "<group>"; };
+		3DC03E6E2A44E9D90016BA25 /* monte_carlo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = monte_carlo.cpp; path = ../../monte_carlo.cpp; sourceTree = "<group>"; };
+		3DC03E6F2A44E9D90016BA25 /* run_sim.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = run_sim.cpp; path = ../../run_sim.cpp; sourceTree = "<group>"; };
+		3DC03E702A44E9D90016BA25 /* session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = session.cpp; path = ../../session.cpp; sourceTree = "<group>"; };
+		3DC03E712A44E9D90016BA25 /* sim_cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sim_cell.h; path = ../../sim_cell.h; sourceTree = "<group>"; };
+		3DC03E722A44E9D90016BA25 /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = utils.cpp; path = ../../utils.cpp; sourceTree = "<group>"; };
+		3DC03E732A44E9D90016BA25 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utils.h; path = ../../utils.h; sourceTree = "<group>"; };
+		3DC03E742A44E9D90016BA25 /* session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = session.h; path = ../../session.h; sourceTree = "<group>"; };
+		3DC03E752A44E9D90016BA25 /* sim_cell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sim_cell.cpp; path = ../../sim_cell.cpp; sourceTree = "<group>"; };
+		3DC03E762A44E9D90016BA25 /* monte_carlo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = monte_carlo.h; path = ../../monte_carlo.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3DC03E232A44E6140016BA25 /* Frameworks */ = {
+		3DC03E552A44E9BD0016BA25 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -67,45 +65,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3DC03E1D2A44E6130016BA25 = {
+		3DC03E4F2A44E9BD0016BA25 = {
 			isa = PBXGroup;
 			children = (
-				3DC03E372A44E6320016BA25 /* algo1.cpp */,
-				3DC03E352A44E6320016BA25 /* algo1.h */,
-				3DC03E442A44E6320016BA25 /* algo2.cpp */,
-				3DC03E3A2A44E6320016BA25 /* algo2.h */,
-				3DC03E3C2A44E6320016BA25 /* main.cpp */,
-				3DC03E322A44E6320016BA25 /* monte_carlo.cpp */,
-				3DC03E3D2A44E6320016BA25 /* monte_carlo.h */,
-				3DC03E332A44E6320016BA25 /* rule.cpp */,
-				3DC03E402A44E6320016BA25 /* rule.h */,
-				3DC03E302A44E6320016BA25 /* run_sim.cpp */,
-				3DC03E312A44E6320016BA25 /* run_sim.h */,
-				3DC03E382A44E6320016BA25 /* running_stat.cpp */,
-				3DC03E412A44E6320016BA25 /* running_stat.h */,
-				3DC03E392A44E6320016BA25 /* session.cpp */,
-				3DC03E3B2A44E6320016BA25 /* session.h */,
-				3DC03E432A44E6320016BA25 /* sim_cell.cpp */,
-				3DC03E422A44E6320016BA25 /* sim_cell.h */,
-				3DC03E362A44E6320016BA25 /* utils.cpp */,
-				3DC03E342A44E6320016BA25 /* utils.h */,
-				3DC03E282A44E6140016BA25 /* genmc */,
-				3DC03E272A44E6140016BA25 /* Products */,
+				3DC03E5A2A44E9BD0016BA25 /* genmc */,
+				3DC03E592A44E9BD0016BA25 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		3DC03E272A44E6140016BA25 /* Products */ = {
+		3DC03E592A44E9BD0016BA25 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3DC03E262A44E6140016BA25 /* genmc */,
+				3DC03E582A44E9BD0016BA25 /* genmc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3DC03E282A44E6140016BA25 /* genmc */ = {
+		3DC03E5A2A44E9BD0016BA25 /* genmc */ = {
 			isa = PBXGroup;
 			children = (
-				3DC03E292A44E6140016BA25 /* main.cpp */,
+				3DC03E672A44E9D90016BA25 /* algo1.cpp */,
+				3DC03E682A44E9D90016BA25 /* algo1.h */,
+				3DC03E662A44E9D90016BA25 /* algo2.cpp */,
+				3DC03E6B2A44E9D90016BA25 /* algo2.h */,
+				3DC03E692A44E9D90016BA25 /* main.cpp */,
+				3DC03E6E2A44E9D90016BA25 /* monte_carlo.cpp */,
+				3DC03E762A44E9D90016BA25 /* monte_carlo.h */,
+				3DC03E652A44E9D90016BA25 /* rule.cpp */,
+				3DC03E622A44E9D90016BA25 /* rule.h */,
+				3DC03E6F2A44E9D90016BA25 /* run_sim.cpp */,
+				3DC03E6A2A44E9D90016BA25 /* run_sim.h */,
+				3DC03E632A44E9D90016BA25 /* running_stat.cpp */,
+				3DC03E6D2A44E9D90016BA25 /* running_stat.h */,
+				3DC03E702A44E9D90016BA25 /* session.cpp */,
+				3DC03E742A44E9D90016BA25 /* session.h */,
+				3DC03E752A44E9D90016BA25 /* sim_cell.cpp */,
+				3DC03E712A44E9D90016BA25 /* sim_cell.h */,
+				3DC03E722A44E9D90016BA25 /* utils.cpp */,
+				3DC03E732A44E9D90016BA25 /* utils.h */,
 			);
 			path = genmc;
 			sourceTree = "<group>";
@@ -113,13 +110,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3DC03E252A44E6140016BA25 /* genmc */ = {
+		3DC03E572A44E9BD0016BA25 /* genmc */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3DC03E2D2A44E6140016BA25 /* Build configuration list for PBXNativeTarget "genmc" */;
+			buildConfigurationList = 3DC03E5F2A44E9BD0016BA25 /* Build configuration list for PBXNativeTarget "genmc" */;
 			buildPhases = (
-				3DC03E222A44E6140016BA25 /* Sources */,
-				3DC03E232A44E6140016BA25 /* Frameworks */,
-				3DC03E242A44E6140016BA25 /* CopyFiles */,
+				3DC03E542A44E9BD0016BA25 /* Sources */,
+				3DC03E552A44E9BD0016BA25 /* Frameworks */,
+				3DC03E562A44E9BD0016BA25 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -127,24 +124,24 @@
 			);
 			name = genmc;
 			productName = genmc;
-			productReference = 3DC03E262A44E6140016BA25 /* genmc */;
+			productReference = 3DC03E582A44E9BD0016BA25 /* genmc */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		3DC03E1E2A44E6130016BA25 /* Project object */ = {
+		3DC03E502A44E9BD0016BA25 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
-					3DC03E252A44E6140016BA25 = {
+					3DC03E572A44E9BD0016BA25 = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
 				};
 			};
-			buildConfigurationList = 3DC03E212A44E6140016BA25 /* Build configuration list for PBXProject "genmc" */;
+			buildConfigurationList = 3DC03E532A44E9BD0016BA25 /* Build configuration list for PBXProject "genmc" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -152,39 +149,38 @@
 				en,
 				Base,
 			);
-			mainGroup = 3DC03E1D2A44E6130016BA25;
-			productRefGroup = 3DC03E272A44E6140016BA25 /* Products */;
+			mainGroup = 3DC03E4F2A44E9BD0016BA25;
+			productRefGroup = 3DC03E592A44E9BD0016BA25 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3DC03E252A44E6140016BA25 /* genmc */,
+				3DC03E572A44E9BD0016BA25 /* genmc */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3DC03E222A44E6140016BA25 /* Sources */ = {
+		3DC03E542A44E9BD0016BA25 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DC03E4B2A44E6320016BA25 /* session.cpp in Sources */,
-				3DC03E2A2A44E6140016BA25 /* main.cpp in Sources */,
-				3DC03E4C2A44E6320016BA25 /* main.cpp in Sources */,
-				3DC03E482A44E6320016BA25 /* utils.cpp in Sources */,
-				3DC03E492A44E6320016BA25 /* algo1.cpp in Sources */,
-				3DC03E4A2A44E6320016BA25 /* running_stat.cpp in Sources */,
-				3DC03E472A44E6320016BA25 /* rule.cpp in Sources */,
-				3DC03E4D2A44E6320016BA25 /* sim_cell.cpp in Sources */,
-				3DC03E4E2A44E6320016BA25 /* algo2.cpp in Sources */,
-				3DC03E452A44E6320016BA25 /* run_sim.cpp in Sources */,
-				3DC03E462A44E6320016BA25 /* monte_carlo.cpp in Sources */,
+				3DC03E7E2A44E9D90016BA25 /* session.cpp in Sources */,
+				3DC03E772A44E9D90016BA25 /* running_stat.cpp in Sources */,
+				3DC03E782A44E9D90016BA25 /* rule.cpp in Sources */,
+				3DC03E7D2A44E9D90016BA25 /* run_sim.cpp in Sources */,
+				3DC03E7A2A44E9D90016BA25 /* algo1.cpp in Sources */,
+				3DC03E7B2A44E9D90016BA25 /* main.cpp in Sources */,
+				3DC03E7F2A44E9D90016BA25 /* utils.cpp in Sources */,
+				3DC03E802A44E9D90016BA25 /* sim_cell.cpp in Sources */,
+				3DC03E792A44E9D90016BA25 /* algo2.cpp in Sources */,
+				3DC03E7C2A44E9D90016BA25 /* monte_carlo.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		3DC03E2B2A44E6140016BA25 /* Debug */ = {
+		3DC03E5D2A44E9BD0016BA25 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -242,7 +238,7 @@
 			};
 			name = Debug;
 		};
-		3DC03E2C2A44E6140016BA25 /* Release */ = {
+		3DC03E5E2A44E9BD0016BA25 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -293,7 +289,7 @@
 			};
 			name = Release;
 		};
-		3DC03E2E2A44E6140016BA25 /* Debug */ = {
+		3DC03E602A44E9BD0016BA25 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -303,7 +299,7 @@
 			};
 			name = Debug;
 		};
-		3DC03E2F2A44E6140016BA25 /* Release */ = {
+		3DC03E612A44E9BD0016BA25 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -316,25 +312,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3DC03E212A44E6140016BA25 /* Build configuration list for PBXProject "genmc" */ = {
+		3DC03E532A44E9BD0016BA25 /* Build configuration list for PBXProject "genmc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3DC03E2B2A44E6140016BA25 /* Debug */,
-				3DC03E2C2A44E6140016BA25 /* Release */,
+				3DC03E5D2A44E9BD0016BA25 /* Debug */,
+				3DC03E5E2A44E9BD0016BA25 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3DC03E2D2A44E6140016BA25 /* Build configuration list for PBXNativeTarget "genmc" */ = {
+		3DC03E5F2A44E9BD0016BA25 /* Build configuration list for PBXNativeTarget "genmc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3DC03E2E2A44E6140016BA25 /* Debug */,
-				3DC03E2F2A44E6140016BA25 /* Release */,
+				3DC03E602A44E9BD0016BA25 /* Debug */,
+				3DC03E612A44E9BD0016BA25 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 3DC03E1E2A44E6130016BA25 /* Project object */;
+	rootObject = 3DC03E502A44E9BD0016BA25 /* Project object */;
 }

@@ -21,4 +21,4 @@ int main(void) {
 	for (int i = 0; i < sim_cell.numb_atoms; i++) { cout << "numb neighbors: " << sim_cell.atom_list[i].getNumbNeighbors(i,sim_cell) << "\n"; }
 	sim.start();
 	return 0;
-}//test
+}

@@ -207,14 +207,13 @@ void Algo2::run() {
 	// create seperate output file to avoid race condition
 	string file_name = "OUTPUT";
 	bool file_exists = true;
-	int outFile_count = 0;
 	while (file_exists == true) {
 		const char* c_file = file_name.c_str();
 		int fd = open(c_file, O_WRONLY | O_CREAT | O_EXCL, S_IRUSR | S_IWUSR);
 		if (fd < 0) {
 			// file exists or otherwise uncreatable
-			outFile_count += 1;
-			file_name = "OUTPUT" + to_string(outFile_count);
+			outfile_count += 1;
+			file_name = "OUTPUT" + to_string(outfile_count);
 		}
 		else {
 			file_exists = false;
@@ -413,7 +412,7 @@ void Algo2::run() {
 		rs_X.Clear();
 	}
 	cout << " MC Finished\n";
-	print_state();
+	print_state(temp2);
 	Output.close();
 }
 
@@ -611,7 +610,7 @@ void Algo2::fill_CMG(vector<vector<int>>& neigh_ind_list) {
 	}
 }
 
-void Algo2::print_state() {
+void Algo2::print_state(float temp) {
 	vector<int> perm;
 	vector<int> temp_spec;
 	vector<float> temp_spin;
@@ -627,7 +626,12 @@ void Algo2::print_state() {
 	sort_vect(temp_spin, perm);
 	sort_vect(temp_pos, perm);
 	sort_vect(temp_spec, perm);
+
 	ofstream OUT_file;
+	string temp_str = to_string(temp);
+	temp_str = replace_char(temp_str, '.', '_');
+	string file_name = "CONTCAR" + to_string(outfile_count) + temp_str;
+	OUT_file.open("state.txt");
 	OUT_file.open("CONTCAR");
 	if (OUT_file.is_open()) {
 		OUT_file << "Alloy of";

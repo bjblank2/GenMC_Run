@@ -26,6 +26,7 @@ using namespace std;
 
 class Algo2 {
 public:
+	int outfile_count = 0;
 	SimCell sim_cell;
 	Session session;
 	const double Kb = 0.00008617333262; // Boltzmann constant
@@ -43,7 +44,7 @@ public:
 	void run();
 	void fill_CMG(vector<vector<int>>& neigh_ind_list);
 	void fill_SMG(vector<vector<int>>& neigh_ind_list);
-	void print_state();
+	void print_state(float temdp);
 	bool bc_check(vector<float> check_vect, vector<float>& pos);
 	float init_SRO(vector<vector<int>>& neigh_ind_list, vector<vector<float>>& neigh_dist_list);
 	float calc_struct(int site, vector<vector<int>>& neigh_ind_list, vector<vector<float>>& neigh_dist_list);

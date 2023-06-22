@@ -11,6 +11,7 @@
 #include <sstream>
 using namespace std;
 
+string replace_char(string s, char c1, char c2);
 void sort_vect(vector<int>& vect, vector<int>& perm);
 void sort_vect(vector<float>& vect, vector<int>& perm);
 void sort_vect(vector<vector<int>>& vect, vector<int>& perm);

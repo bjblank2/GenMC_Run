@@ -48,6 +48,9 @@ vector<float> Rule::GetDists() {
 	return dists;
 }
 
+int test() {
+	return 2;
+}
 //bool Rule::IsRuleChem(vector<int> test_deco, vector<float> test_dists) {
 //	if (type != 0) { return false; }
 //	else if (test_dists.size() != dists.size() or test_deco.size() != test_deco.size()) { return false; }

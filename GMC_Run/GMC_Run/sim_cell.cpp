@@ -309,13 +309,6 @@ void SimCell::setNeighborDists(vector<float>& dist_list) {
 				}
 			}
 		}
-		if (atom_list[i].neighbors.size() != 12) {
-			cout << "problem at atom " << i + 1 << ": ";
-			for (int j = 0; j < atom_list[i].neighbors.size(); j++) {
-				cout << atom_list[i].neighbors[j] + 1 << " ";
-			}
-			cout << "\n";
-		}
 	}
 }
 

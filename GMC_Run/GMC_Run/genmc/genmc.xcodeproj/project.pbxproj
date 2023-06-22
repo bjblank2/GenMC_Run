@@ -18,6 +18,7 @@
 		3DC03E7F2A44E9D90016BA25 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E722A44E9D90016BA25 /* utils.cpp */; };
 		3DC03E802A44E9D90016BA25 /* sim_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E752A44E9D90016BA25 /* sim_cell.cpp */; };
 		3DC03E8B2A44F3890016BA25 /* function_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E892A44F3890016BA25 /* function_test.cpp */; };
+		3DC03E942A44FB340016BA25 /* algo3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E922A44FB340016BA25 /* algo3.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +56,8 @@
 		3DC03E762A44E9D90016BA25 /* monte_carlo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = monte_carlo.h; path = ../../monte_carlo.h; sourceTree = "<group>"; };
 		3DC03E882A44F3560016BA25 /* function_test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = function_test.h; path = ../../function_test.h; sourceTree = "<group>"; };
 		3DC03E892A44F3890016BA25 /* function_test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = function_test.cpp; path = ../../function_test.cpp; sourceTree = "<group>"; };
+		3DC03E922A44FB340016BA25 /* algo3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = algo3.cpp; path = ../../algo3.cpp; sourceTree = "<group>"; };
+		3DC03E932A44FB340016BA25 /* algo3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = algo3.h; path = ../../algo3.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +90,8 @@
 		3DC03E5A2A44E9BD0016BA25 /* genmc */ = {
 			isa = PBXGroup;
 			children = (
+				3DC03E922A44FB340016BA25 /* algo3.cpp */,
+				3DC03E932A44FB340016BA25 /* algo3.h */,
 				3DC03E882A44F3560016BA25 /* function_test.h */,
 				3DC03E672A44E9D90016BA25 /* algo1.cpp */,
 				3DC03E682A44E9D90016BA25 /* algo1.h */,
@@ -177,6 +182,7 @@
 				3DC03E7A2A44E9D90016BA25 /* algo1.cpp in Sources */,
 				3DC03E7B2A44E9D90016BA25 /* main.cpp in Sources */,
 				3DC03E7F2A44E9D90016BA25 /* utils.cpp in Sources */,
+				3DC03E942A44FB340016BA25 /* algo3.cpp in Sources */,
 				3DC03E802A44E9D90016BA25 /* sim_cell.cpp in Sources */,
 				3DC03E792A44E9D90016BA25 /* algo2.cpp in Sources */,
 				3DC03E7C2A44E9D90016BA25 /* monte_carlo.cpp in Sources */,

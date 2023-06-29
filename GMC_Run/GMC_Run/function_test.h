@@ -32,4 +32,4 @@ public:
     void run();
 };
 
-#endif /* function_test_h */
+#endif

@@ -158,7 +158,7 @@ void SimCell::make_supercell(Session& sess) {
 				for (int m = 0; m < unit_cell.size(); m++) {
 					vector<float> uc_pos; for (int unit_i = 0; unit_i < 3; unit_i++) { uc_pos.push_back(unit_cell[m].pos[unit_i]); }
 					vector<float> shifted_pos;
-					shifted_pos = pos_shift(uc_pos, current_cell);
+					shifted_pos = vect_add(uc_pos, current_cell);
 					new_atom_pos = pos_transform(shifted_pos, unit_lat_vect);
 					if (sess.spin_init[0] == 'F') { spin = vect_max(sess.spin_states[unit_cell[m].getSpecies()]); }
 					else if (sess.spin_init[0] == 'R') {
@@ -193,7 +193,7 @@ void SimCell::make_supercell(Session& sess) {
 			if (poscar_comp[i] * sup_cell[0] * sup_cell[1] * sup_cell[2] != species_numbs[i]) { poscar_flag = false; }
 		}
 		if (poscar_flag == false) {
-			cout << "The POSCAR and INPUT files have diffrent compositions. Using POSCAR for initialization\n";
+			cout << "The POSCAR and INPUT files have diffrent compositions. Using POSCAR for initialization\n"; //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			species_numbs.clear();
 			for (int i = 0; i < poscar_comp.size(); i++) {
 				species_numbs.push_back(poscar_comp[i] * sup_cell[0] * sup_cell[0] * sup_cell[2]);
@@ -243,35 +243,35 @@ float SimCell::bc_dist(vector<float>& pos1, vector<float>& pos2) {
 	for (int a : dir) {
 		for (int i = 0; i < 3; i++) {
 			lc_shift = scale_vect(lat_vect[i], a);
-			bc_pos = pos_shift(pos2, lc_shift);
+			bc_pos = vect_add(pos2, lc_shift);
 			dists.push_back(pos_dist(pos1, bc_pos));
 		}
 		for (int b : dir) {
 			lc_shift = scale_vect(lat_vect[0], a);
-			bc_pos = pos_shift(pos2, lc_shift);
+			bc_pos = vect_add(pos2, lc_shift);
 			lc_shift = scale_vect(lat_vect[1], b);
-			bc_pos = pos_shift(bc_pos, lc_shift);
+			bc_pos = vect_add(bc_pos, lc_shift);
 			dists.push_back(pos_dist(pos1, bc_pos));
 
 			lc_shift = scale_vect(lat_vect[0], a);
-			bc_pos = pos_shift(pos2, lc_shift);
+			bc_pos = vect_add(pos2, lc_shift);
 			lc_shift = scale_vect(lat_vect[2], b);
-			bc_pos = pos_shift(bc_pos, lc_shift);
+			bc_pos = vect_add(bc_pos, lc_shift);
 			dists.push_back(pos_dist(pos1, bc_pos));
 
 			lc_shift = scale_vect(lat_vect[1], a);
-			bc_pos = pos_shift(pos2, lc_shift);
+			bc_pos = vect_add(pos2, lc_shift);
 			lc_shift = scale_vect(lat_vect[2], b);
-			bc_pos = pos_shift(bc_pos, lc_shift);
+			bc_pos = vect_add(bc_pos, lc_shift);
 			dists.push_back(pos_dist(pos1, bc_pos));
 
 			for (int c : dir) {
 				lc_shift = scale_vect(lat_vect[0], a);
-				bc_pos = pos_shift(pos2, lc_shift);
+				bc_pos = vect_add(pos2, lc_shift);
 				lc_shift = scale_vect(lat_vect[1], b);
-				bc_pos = pos_shift(bc_pos, lc_shift);
+				bc_pos = vect_add(bc_pos, lc_shift);
 				lc_shift = scale_vect(lat_vect[2], c);
-				bc_pos = pos_shift(bc_pos, lc_shift);
+				bc_pos = vect_add(bc_pos, lc_shift);
 				dists.push_back(pos_dist(pos1, bc_pos));
 			}
 		}

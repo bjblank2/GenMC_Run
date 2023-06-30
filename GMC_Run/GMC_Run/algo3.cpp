@@ -5,12 +5,43 @@ Algo3::Algo3(void) {}
 Algo3::Algo3(Session& _session, SimCell& _sim_cell) {
 	session = _session;
 	sim_cell = _sim_cell;
+	session.fill_sro_list();
+	int max_sro_type = 0;
+	bool zero_ind_check = false;
+	for (int i = 0; i < session.sro_rule_list.size(); i++) {
+		max_sro_type = (session.sro_rule_list[i].GetType() > max_sro_type) ? session.sro_rule_list[i].GetType() : max_sro_type;
+		if (session.sro_rule_list[i].GetType() == 0) {
+			zero_ind_check = true;
+		}
+	}
+	for (int i = 0; i < max_sro_type + 1; i++) {
+		sro_list.push_back(0);
+		sro_flip.push_back(0);
+	}
+
 	if (session.numb_subpasses < 1) {
 		cout << "_______________________________________________________________________________" << endl;
 		cout << "Possible Error: Algo3 has been given 0 subpasses per main pass" << endl;
 		cout << "This implies that no seperate spin flips are made which is likely not phisical." << endl;
 		cout << "This is probably not what you want..." << endl;
 		cout << "_______________________________________________________________________________" << endl;
+	}
+
+	if (zero_ind_check != true) {
+		cout << "_______________________________________________________________________________" << endl;
+		cout << "Possible Error: Algo3 has been given SRO types that are not zero-indexed" << endl;
+		cout << "This will result in inccorect tracking of all SRO parameters" << endl;
+		cout << "_______________________________________________________________________________" << endl;
+	}
+}
+
+void Algo3::eval_lat_sro() {
+	vector<int> site_sro;
+	for (int site = 0; site < sim_cell.numb_atoms; site++) {
+		site_sro = eval_site_sro(site);
+		for (int i = 0; i < site_sro.size(); i++) {
+			sro_list[i] += site_sro[i];
+		}
 	}
 }
 
@@ -70,6 +101,8 @@ float Algo3::eval_atom_flip(int site1, int site2) {
 	float old_enrg = 0;
 	float new_spin1 = spin_list[site1];
 	float new_spin2 = spin_list[site2];
+	vector<int> old_site_sro(sro_list.size(), 0);
+	vector<int> new_site_sro(sro_list.size(), 0);
 	map<string, float>::iterator rule_itr;
 	// new and old enrgey for site1
 	// for chemestry motifs
@@ -88,8 +121,10 @@ float Algo3::eval_atom_flip(int site1, int site2) {
 		}
 		rule_itr = rule_map_chem.find(new_chem_key);
 		new_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second / chem_motif_groups[site1].size() : 0.0;
+		if (rule_itr != rule_map_sro.end()) { new_site_sro[rule_itr->second] += 1; }
 		rule_itr = rule_map_chem.find(old_chem_key);
 		old_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second / chem_motif_groups[site1].size() : 0.0;
+		if (rule_itr != rule_map_sro.end()) { old_site_sro[rule_itr->second] += 1; }
 	}
 	// for spin motifs
 	for (int i = 0; i < spin_motif_groups[site1].size(); i++) {
@@ -130,8 +165,11 @@ float Algo3::eval_atom_flip(int site1, int site2) {
 		}
 		rule_itr = rule_map_chem.find(new_chem_key);
 		new_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second / chem_motif_groups[site2].size() : 0.0;
+		if (rule_itr != rule_map_sro.end()) { new_site_sro[rule_itr->second] += 1; }
 		rule_itr = rule_map_chem.find(old_chem_key);
 		old_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second / chem_motif_groups[site2].size() : 0.0;
+		if (rule_itr != rule_map_sro.end()) { old_site_sro[rule_itr->second] += 1; }
+
 	}
 	// for spin motifs
 	for (int i = 0; i < spin_motif_groups[site2].size(); i++) {
@@ -154,6 +192,8 @@ float Algo3::eval_atom_flip(int site1, int site2) {
 		rule_itr = rule_map_spin.find(old_spin_key);
 		old_enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod * new_spin1 / spin_motif_groups[site2].size() : 0.0;
 	}
+	old_site_sro = scale_vect(old_site_sro, -1);
+	sro_flip = vect_add(new_site_sro,  old_site_sro);
 	return (new_enrg - old_enrg);
 }
 
@@ -257,11 +297,17 @@ void Algo3::run() {
 			if (find(spin_atoms.begin(), spin_atoms.end(), atom) == spin_atoms.end()) { spin_atoms.push_back(atom); }
 		}
 	}
+	for (SRO rule : session.sro_rule_list) {
+		rule_key = to_string(0) + "." + to_string(rule.motif_ind);
+		for (int i = 0; i < rule.deco.size(); i++) { rule_key += "." + to_string(rule.deco[i]); }
+		rule_map_sro.insert(pair<string, float>(rule_key, rule.GetType())); 
+	}
 
 
 	// fill motif group lists
 	fill_CMG(neigh_ind_list);
 	fill_SMG(neigh_ind_list);
+	fill_SROMG(neigh_ind_list);
 
 	// initalize system with desired SRO
 	Output << "EQ passes: " << session.eq_passes << ", EQ Temp: " << session.sro_temp << "\n";
@@ -335,11 +381,11 @@ void Algo3::run() {
 				spin_list[rand_site] = old_site_spin;
 				// Evaluate energy change
 				e_flip = eval_atom_flip(site, rand_site);
-				if (e_flip < 0) { flip_count += 1; }
+				if (e_flip < 0) { flip_count += 1; vect_add(sro_list, sro_flip); }
 				else {
 					keep_rand = unif(rng);
 					keep_prob = exp(-1 / (Kb * temp) * (e_flip));
-					if (keep_rand < keep_prob) { flip_count2 += 1; }
+					if (keep_rand < keep_prob) { flip_count2 += 1; vect_add(sro_list, sro_flip); }
 					else { 
 						chem_list[site] = old_site_chem;
 						spin_list[site] = old_site_spin;	
@@ -406,6 +452,7 @@ void Algo3::run() {
 			<< var_spin << ", "
 			<< Cmag << ", "
 			<< Xmag << ", "
+			<< sro_list[0] << ", "
 			<< flip_count << ", "
 			<< flip_count2 << "\n";
 		rs_C.Clear();
@@ -416,85 +463,84 @@ void Algo3::run() {
 	Output.close();
 }
 
-float Algo3::calc_struct(int site, vector<vector<int>>& neigh_ind_list, vector<vector<float>>& neigh_dist_list) {
-	int site_species = chem_list[site];
-	int count = 0;
-	if (site_species == 2) {
-		for (int i = 0; i < neigh_dist_list[site].size(); i++) {
-			if (neigh_dist_list[site][i] == 0.5 or neigh_dist_list[site][i] == 0.75) {
-				if (chem_list[neigh_ind_list[site][i]] == 1) {
-					count += 1;
-				}
-			}
+vector<int> Algo3::eval_site_sro(int site) {
+	vector<int> site_sro(sro_list.size(), 0);
+	map<string, float>::iterator rule_itr;
+	for (int i = 0; i < sro_motif_groups[site].size(); i++) {
+		string rule_key = "0.";
+		rule_key += to_string(i);
+		for (int j : sro_motif_groups[site][i]) {
+			rule_key += "." + to_string(chem_list[j]);
 		}
+		rule_itr = rule_map_sro.find(rule_key);
+		if (rule_itr != rule_map_sro.end()) { sro_list[rule_itr->second] += 1; }
 	}
-	return count / 6.0;
+	return site_sro;
 }
 
-float Algo3::init_SRO(vector<vector<int>>& neigh_ind_list, vector<vector<float>>& neigh_dist_list) {
-	// setup rng
-	std::mt19937_64 rng;
-	uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-	std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
-	rng.seed(ss);
-	std::uniform_real_distribution<double> unif(0, 1);
-
-	std::random_device dev;
-	std::mt19937 rng2(dev());
-	std::uniform_int_distribution<std::mt19937::result_type> rand_atom(0, sim_cell.numb_atoms);
-
-	// begin SRO MC run //
-	float sro_final = 0;
-	float sro_initial = 0;
-	float sro_site_new = 0;
-	float sro_site_old = 0;
-	float sro_site_flip = 0;
-	float sro_flip = 0;
-	float keep_rand = 0;
-	float keep_prob = 0;
-
-	for (int i = 0; i < sim_cell.numb_atoms; i++) {
-		sro_initial += calc_struct(i, neigh_ind_list, neigh_dist_list) / sim_cell.species_numbs[2];
-	}
-	if (session.eq_passes > 0) {
-		cout << "Setting SRO\n";
-		for (int i = 0; i < session.eq_passes; i++) {
-			for (int site = 0; site < sim_cell.numb_atoms; site++) {
-				// Flip Species
-				if (chem_list[site] != 0) {
-					int rand_index = site;
-					while (rand_index == site or chem_list[rand_index] == 0) { rand_index = rand_atom(rng2); }
-					int old_species_site = chem_list[site];
-					int old_species_rand = chem_list[rand_index];
-					if (old_species_site != old_species_rand) {
-						sro_site_old = calc_struct(site, neigh_ind_list, neigh_dist_list);
-						sro_site_old += calc_struct(rand_index, neigh_ind_list, neigh_dist_list);
-						chem_list[site] = old_species_rand;
-						chem_list[rand_index] = old_species_site;
-						sro_site_new = calc_struct(site, neigh_ind_list, neigh_dist_list);
-						sro_site_new += calc_struct(rand_index, neigh_ind_list, neigh_dist_list);
-						sro_site_flip = 2 * (sro_site_new - sro_site_old) / sim_cell.species_numbs[2];
-						sro_flip = abs((sro_site_flip + sro_initial) - session.sro_target) - abs(sro_initial - session.sro_target);
-						if (sro_flip < 0) { sro_initial += sro_site_flip; }
-						else {
-							keep_rand = unif(rng);
-							keep_prob = exp(-1 / (Kb * session.sro_temp) * (sro_flip));
-							if (keep_rand < keep_prob) { sro_initial += sro_site_flip; }
-							else {
-								chem_list[site] = old_species_site;
-								chem_list[rand_index] = old_species_rand;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	for (int i = 0; i < sim_cell.numb_atoms; i++) {
-		sro_final += calc_struct(i, neigh_ind_list, neigh_dist_list) / sim_cell.species_numbs[2];
-	}
-	return sro_final;
-}
+//float Algo3::init_SRO(vector<vector<int>>& neigh_ind_list, vector<vector<float>>& neigh_dist_list) {
+//	// setup rng
+//	std::mt19937_64 rng;
+//	uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+//	std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
+//	rng.seed(ss);
+//	std::uniform_real_distribution<double> unif(0, 1);
+//
+//	std::random_device dev;
+//	std::mt19937 rng2(dev());
+//	std::uniform_int_distribution<std::mt19937::result_type> rand_atom(0, sim_cell.numb_atoms);
+//
+//	// begin SRO MC run //
+//	float sro_final = 0;
+//	float sro_initial = 0;
+//	float sro_site_new = 0;
+//	float sro_site_old = 0;
+//	float sro_site_flip = 0;
+//	float sro_flip = 0;
+//	float keep_rand = 0;
+//	float keep_prob = 0;
+//
+//	for (int i = 0; i < sim_cell.numb_atoms; i++) {
+//		sro_initial += calc_struct(i, neigh_ind_list, neigh_dist_list) / sim_cell.species_numbs[2];
+//	}
+//	if (session.eq_passes > 0) {
+//		cout << "Setting SRO\n";
+//		for (int i = 0; i < session.eq_passes; i++) {
+//			for (int site = 0; site < sim_cell.numb_atoms; site++) {
+//				// Flip Species
+//				if (chem_list[site] != 0) {
+//					int rand_index = site;
+//					while (rand_index == site or chem_list[rand_index] == 0) { rand_index = rand_atom(rng2); }
+//					int old_species_site = chem_list[site];
+//					int old_species_rand = chem_list[rand_index];
+//					if (old_species_site != old_species_rand) {
+//						sro_site_old = calc_struct(site, neigh_ind_list, neigh_dist_list);
+//						sro_site_old += calc_struct(rand_index, neigh_ind_list, neigh_dist_list);
+//						chem_list[site] = old_species_rand;
+//						chem_list[rand_index] = old_species_site;
+//						sro_site_new = calc_struct(site, neigh_ind_list, neigh_dist_list);
+//						sro_site_new += calc_struct(rand_index, neigh_ind_list, neigh_dist_list);
+//						sro_site_flip = 2 * (sro_site_new - sro_site_old) / sim_cell.species_numbs[2];
+//						sro_flip = abs((sro_site_flip + sro_initial) - session.sro_target) - abs(sro_initial - session.sro_target);
+//						if (sro_flip < 0) { sro_initial += sro_site_flip; }
+//						else {
+//							keep_rand = unif(rng);
+//							keep_prob = exp(-1 / (Kb * session.sro_temp) * (sro_flip));
+//							if (keep_rand < keep_prob) { sro_initial += sro_site_flip; }
+//							else {
+//								chem_list[site] = old_species_site;
+//								chem_list[rand_index] = old_species_rand;
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
+//	for (int i = 0; i < sim_cell.numb_atoms; i++) {
+//		sro_final += calc_struct(i, neigh_ind_list, neigh_dist_list) / sim_cell.species_numbs[2];
+//	}
+//	return sro_final;
 
 bool Algo3::bc_check(vector<float> check_vect, vector<float>& pos) {
 	bool bc_test = false;
@@ -506,35 +552,35 @@ bool Algo3::bc_check(vector<float> check_vect, vector<float>& pos) {
 	for (int a : dir) {
 		for (int i = 0; i < 3; i++) {
 			lc_shift = scale_vect(sim_cell.lat_vect[i], a);
-			bc_pos = pos_shift(pos, lc_shift);
+			bc_pos = vect_add(pos, lc_shift);
 			bc_shifts.push_back(bc_pos);
 		}
 		for (int b : dir) {
 			lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-			bc_pos = pos_shift(pos, lc_shift);
+			bc_pos = vect_add(pos, lc_shift);
 			lc_shift = scale_vect(sim_cell.lat_vect[1], b);
-			bc_pos = pos_shift(bc_pos, lc_shift);
+			bc_pos = vect_add(bc_pos, lc_shift);
 			bc_shifts.push_back(bc_pos);
 
 			lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-			bc_pos = pos_shift(pos, lc_shift);
+			bc_pos = vect_add(pos, lc_shift);
 			lc_shift = scale_vect(sim_cell.lat_vect[2], b);
-			bc_pos = pos_shift(bc_pos, lc_shift);
+			bc_pos = vect_add(bc_pos, lc_shift);
 			bc_shifts.push_back(bc_pos);
 
 			lc_shift = scale_vect(sim_cell.lat_vect[1], a);
-			bc_pos = pos_shift(pos, lc_shift);
+			bc_pos = vect_add(pos, lc_shift);
 			lc_shift = scale_vect(sim_cell.lat_vect[2], b);
-			bc_pos = pos_shift(bc_pos, lc_shift);
+			bc_pos = vect_add(bc_pos, lc_shift);
 			bc_shifts.push_back(bc_pos);
 
 			for (int c : dir) {
 				lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-				bc_pos = pos_shift(pos, lc_shift);
+				bc_pos = vect_add(pos, lc_shift);
 				lc_shift = scale_vect(sim_cell.lat_vect[1], b);
-				bc_pos = pos_shift(bc_pos, lc_shift);
+				bc_pos = vect_add(bc_pos, lc_shift);
 				lc_shift = scale_vect(sim_cell.lat_vect[2], c);
-				bc_pos = pos_shift(bc_pos, lc_shift);
+				bc_pos = vect_add(bc_pos, lc_shift);
 				bc_shifts.push_back(bc_pos);
 			}
 		}
@@ -560,7 +606,7 @@ void Algo3::fill_SMG(vector<vector<int>>& neigh_ind_list) {
 				for (vector<float> shift : rule.motif) {
 					if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
 					else {
-						new_pos = pos_shift(pos_list[i], shift);
+						new_pos = vect_add(pos_list[i], shift);
 						for (int neigh : neigh_ind_list[i]) {
 							int x = 0;
 							if (bc_check(pos_list[neigh], new_pos)) {
@@ -591,7 +637,7 @@ void Algo3::fill_CMG(vector<vector<int>>& neigh_ind_list) {
 				for (vector<float> shift : rule.motif) {
 					if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
 					else {
-						new_pos = pos_shift(pos_list[i], shift);
+						new_pos = vect_add(pos_list[i], shift);
 						for (int neigh : neigh_ind_list[i]) {
 							int x = 0;
 							if (bc_check(pos_list[neigh], new_pos)) {
@@ -606,6 +652,37 @@ void Algo3::fill_CMG(vector<vector<int>>& neigh_ind_list) {
 			}
 		}
 		chem_motif_groups.push_back(motifs);
+		motifs.clear();
+	}
+}
+
+void Algo3::fill_SROMG(vector<vector<int>>& neigh_ind_list) {
+	vector<int> deco_group;
+	vector<float> new_pos { 0.0, 0.0, 0.0 };
+	vector<float> self_site { 0.0, 0.0, 0.0 };
+	vector<vector<int>> motifs;
+	int last_ind = -1;
+	for (int i = 0; i < sim_cell.numb_atoms; i++) {
+		for (SRO rule : session.sro_rule_list) {
+			if (last_ind != rule.motif_ind) {
+				for (vector<float> shift : rule.motif) {
+					if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
+					else {
+						new_pos = vect_add(pos_list[i], shift);
+						for (int neigh : neigh_ind_list[i]) {
+							int x = 0;
+							if (bc_check(pos_list[neigh], new_pos)) {
+								deco_group.push_back(neigh);
+							}
+						}
+					}
+				}
+				motifs.push_back(deco_group);
+				deco_group.clear();
+				last_ind = rule.motif_ind;
+			}
+		}
+		sro_motif_groups.push_back(motifs);
 		motifs.clear();
 	}
 }

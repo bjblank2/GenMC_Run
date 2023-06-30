@@ -10,6 +10,7 @@
 #include <algorithm>
 #include "utils.h"
 #include "rule.h"
+#include "sro.h"
 using namespace std;
 
 class Session
@@ -32,6 +33,7 @@ public:
 	float intercept = 0;
 	string structure_file;
 	string rules_file;
+	string sro_file;
 	string sim_type;
 	string phase_init;
 	string spin_init;
@@ -43,6 +45,7 @@ public:
 	vector<string> species_str;
 	vector<Rule> spin_rule_list;
 	vector<Rule> chem_rule_list;
+	vector<SRO> sro_rule_list;
 	vector<vector<float>> spin_states;
 	vector<vector<vector<float>>> motif_list;
 
@@ -54,6 +57,7 @@ public:
 	void _copy(Session& _session);
 	void add_spin_states(string input_file);
 	void fill_rule_list();
+	void fill_sro_list();
 	void find_unique_dists();
 };
 #endif

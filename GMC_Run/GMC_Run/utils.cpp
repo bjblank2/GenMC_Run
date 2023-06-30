@@ -40,15 +40,35 @@ vector<string> split(string str)
 	return results;
 }
 
-vector<float> pos_shift(vector<float>& vect1, vector<float>& vect2){
-    vector<float> temp;
-    for (int i = 0; i < 3; i++) {
+vector<int> vect_add(vector<int>& vect1, vector<int>& vect2) {
+    if (vect1.size() != vect2.size()) {
+		cout << "Error: vectors must have the same size" << endl;
+		exit(1);
+	}
+    vector<int> temp;
+    for (int i = 0; i < vect1.size(); i++) {
         temp.push_back(vect1[i] + vect2[i]);
     }
     return temp;
 }
 
-vector<float> pos_shift(vector<float>& vect1, float vect2[3]) {
+vector<float> vect_add(vector<float>& vect1, vector<float>& vect2){
+    if (vect1.size() != vect2.size()) {
+        cout << "Error: vectors must have the same size" << endl;
+        exit(1);
+    }
+    vector<float> temp;
+    for (int i = 0; i < vect1.size(); i++) {
+        temp.push_back(vect1[i] + vect2[i]);
+    }
+    return temp;
+}
+
+vector<float> vect_add(vector<float>& vect1, float vect2[3]) {
+    if (vect1.size() != 3) {
+        cout << "Error: vectors must have the same size" << endl;
+        exit(1);
+    }
     vector<float> temp;
     for (int i = 0; i < 3; i++) {
         temp.push_back(vect1[i] + vect2[i]);
@@ -100,7 +120,6 @@ float vect_mat(vector<float>& vect) {
     for (float i : vect) { if (i > max) { max = i; } }
     return max;
 }
-
 
 int kron_del(int int1, int int2) {
     if (int1 == int2) { return 1; }
@@ -211,7 +230,13 @@ vector<float> pos_transform(vector<float>& pos, vector<vector<float>>& trans) {
 }
 
 vector<float> scale_vect(vector<float>& vect, float numb) {
-    vector<float> new_vect { 0.0, 0.0, 0.0 };
+    vector<float> new_vect(vect.size(), 0.0);
+    for (int i = 0; i < 3; i++) { new_vect[i] = numb * vect[i]; }
+    return new_vect;
+}
+
+vector<int> scale_vect(vector<int>& vect, int numb) {
+    vector<int> new_vect(vect.size(), 0);
     for (int i = 0; i < 3; i++) { new_vect[i] = numb * vect[i]; }
     return new_vect;
 }

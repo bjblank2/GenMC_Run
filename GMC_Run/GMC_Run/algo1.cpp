@@ -343,35 +343,35 @@ bool Algo1::bc_check(vector<float> check_vect, vector<float>& pos) {
 	for (int a : dir) {
 		for (int i = 0; i < 3; i++) {
 			lc_shift = scale_vect(sim_cell.lat_vect[i], a);
-			bc_pos = pos_shift(pos, lc_shift);
+			bc_pos = vect_add(pos, lc_shift);
 			bc_shifts.push_back(bc_pos);
 		}
 		for (int b : dir) {
 			lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-			bc_pos = pos_shift(pos, lc_shift);
+			bc_pos = vect_add(pos, lc_shift);
 			lc_shift = scale_vect(sim_cell.lat_vect[1], b);
-			bc_pos = pos_shift(bc_pos, lc_shift);
+			bc_pos = vect_add(bc_pos, lc_shift);
 			bc_shifts.push_back(bc_pos);
 
 			lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-			bc_pos = pos_shift(pos, lc_shift);
+			bc_pos = vect_add(pos, lc_shift);
 			lc_shift = scale_vect(sim_cell.lat_vect[2], b);
-			bc_pos = pos_shift(bc_pos, lc_shift);
+			bc_pos = vect_add(bc_pos, lc_shift);
 			bc_shifts.push_back(bc_pos);
 
 			lc_shift = scale_vect(sim_cell.lat_vect[1], a);
-			bc_pos = pos_shift(pos, lc_shift);
+			bc_pos = vect_add(pos, lc_shift);
 			lc_shift = scale_vect(sim_cell.lat_vect[2], b);
-			bc_pos = pos_shift(bc_pos, lc_shift);
+			bc_pos = vect_add(bc_pos, lc_shift);
 			bc_shifts.push_back(bc_pos);
 
 			for (int c : dir) {
 				lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-				bc_pos = pos_shift(pos, lc_shift);
+				bc_pos = vect_add(pos, lc_shift);
 				lc_shift = scale_vect(sim_cell.lat_vect[1], b);
-				bc_pos = pos_shift(bc_pos, lc_shift);
+				bc_pos = vect_add(bc_pos, lc_shift);
 				lc_shift = scale_vect(sim_cell.lat_vect[2], c);
-				bc_pos = pos_shift(bc_pos, lc_shift);
+				bc_pos = vect_add(bc_pos, lc_shift);
 				bc_shifts.push_back(bc_pos);
 			}
 		}
@@ -397,7 +397,7 @@ void Algo1::fill_SMG(vector<vector<int>>& neigh_ind_list) {
 				for (vector<float> shift : rule.motif) {
 					if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
 					else {
-						new_pos = pos_shift(pos_list[i], shift);
+						new_pos = vect_add(pos_list[i], shift);
 						for (int neigh : neigh_ind_list[i]) {
 							int x = 0;
 							if (bc_check(pos_list[neigh], new_pos)) {
@@ -428,7 +428,7 @@ void Algo1::fill_CMG(vector<vector<int>>& neigh_ind_list) {
 				for (vector<float> shift : rule.motif) {
 					if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
 					else {
-						new_pos = pos_shift(pos_list[i], shift);
+						new_pos = vect_add(pos_list[i], shift);
 						for (int neigh : neigh_ind_list[i]) {
 							int x = 0;
 							if (bc_check(pos_list[neigh], new_pos)) {

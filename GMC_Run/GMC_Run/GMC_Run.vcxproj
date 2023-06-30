@@ -77,8 +77,11 @@
   <ItemGroup>
     <ClCompile Include="algo1.cpp" />
     <ClCompile Include="algo2.cpp" />
+    <ClCompile Include="algo3.cpp" />
+    <ClCompile Include="function_test.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="run_sim.cpp" />
+    <ClCompile Include="sro.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="monte_carlo.cpp" />
     <ClCompile Include="rule.cpp" />
@@ -89,7 +92,10 @@
   <ItemGroup>
     <ClInclude Include="algo1.h" />
     <ClInclude Include="algo2.h" />
+    <ClInclude Include="algo3.h" />
+    <ClInclude Include="function_test.h" />
     <ClInclude Include="run_sim.h" />
+    <ClInclude Include="sro.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="monte_carlo.h" />
     <ClInclude Include="rule.h" />

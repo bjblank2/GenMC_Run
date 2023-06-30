@@ -188,9 +188,9 @@ void SimCell::make_supercell(Session& sess) {
 	numb_atoms = atom_list.size();
 	if (sess.use_poscar == true) {
 		bool poscar_flag = true;
-		if (poscar_comp.size() != species_numbs.size()) { poscar_flag == false; }
+		if (poscar_comp.size() != species_numbs.size()) { poscar_flag = false; }
 		for (int i = 0; i < min(poscar_comp.size(), species_numbs.size()); i++) {
-			if (poscar_comp[i] * sup_cell[0] * sup_cell[0] * sup_cell[2] != species_numbs[i]) { poscar_flag = false; }
+			if (poscar_comp[i] * sup_cell[0] * sup_cell[1] * sup_cell[2] != species_numbs[i]) { poscar_flag = false; }
 		}
 		if (poscar_flag == false) {
 			cout << "The POSCAR and INPUT files have diffrent compositions. Using POSCAR for initialization\n";
@@ -302,7 +302,7 @@ void SimCell::setNeighborDists(vector<float>& dist_list) {
 			added = 0;
 			// add to neighbor distance list and neighbor index list if the distance is relevent
 			for (int k = 0; k < dist_list.size(); k++) {
-				if (fabs(dist - dist_list[k]) <= .0001) {
+				if (fcomp(dist, dist_list[k])) {
 					atom_list[i].neighbor_dists.push_back(dist);
 					atom_list[i].neighbors.push_back(j);
 					added = 1;

@@ -139,7 +139,8 @@ void Algo1::run() {
 			neigh_dist_list[i][j] = sim_cell.atom_list[i].getNeighborDist(j, sim_cell);
 		}
 	}
-
+    
+    cout << "making rule maps\n";
 	// make rule_maps for easy lookup
 	string rule_key;
 	for (Rule rule : session.chem_rule_list) {
@@ -156,16 +157,10 @@ void Algo1::run() {
 		}
 	}
 
-
+    cout << "making chem/spin group lists\n";
 	// fill motif group lists
 	fill_CMG(neigh_ind_list);
 	fill_SMG(neigh_ind_list);
-
-	// initalize system with desired SRO
-	Output << "EQ passes: " << session.eq_passes << ", EQ Temp: " << session.sro_temp << "\n";
-	Output << "SRO Target: " << session.sro_target << "\n";
-	cout << "SRO Target: " << session.sro_target << "\n";
-	cout << "Starting Real MC\n";
 
 	// Begin MC
 	float init_enrg = eval_lat();

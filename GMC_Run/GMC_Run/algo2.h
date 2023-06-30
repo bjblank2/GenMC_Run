@@ -30,7 +30,7 @@ public:
 	SimCell sim_cell;
 	Session session;
 	const double Kb = 0.00008617333262; // Boltzmann constant
-	const double uB = .000057883818012; // Bhor magnaton 
+	const double uB = 0.00005788381806; // Bohr magnaton
 	vector<int> chem_list;
 	vector<float> spin_list;
 	vector<vector<float>> pos_list;
@@ -46,14 +46,12 @@ public:
 	void fill_SMG(vector<vector<int>>& neigh_ind_list);
 	void print_state(float temdp);
 	bool bc_check(vector<float> check_vect, vector<float>& pos);
-	float init_SRO(vector<vector<int>>& neigh_ind_list, vector<vector<float>>& neigh_dist_list);
-	float calc_struct(int site, vector<vector<int>>& neigh_ind_list, vector<vector<float>>& neigh_dist_list);
 	float eval_lat();
 	float eval_lat_spin();
 	float eval_site_spin(int site);
 	float eval_site_chem(int site);
 	float eval_spin_flip(int site, float old_spin);
-	float eval_atom_flip(int site1, int site2);
+	float eval_atom_flip(int site1, float old_spin1, int site2, float old_spin2);
 };
 
 #endif

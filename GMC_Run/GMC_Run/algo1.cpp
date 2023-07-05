@@ -17,7 +17,7 @@ float Algo1::eval_site_chem(int site) {
 			rule_key += "." + to_string(chem_list[j]);
 		}
 		rule_itr = rule_map_chem.find(rule_key);
-		enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second : 0.0;
+		enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second / chem_motif_groups[site].size() : 0.0;
 	}
 	return enrg;
 }
@@ -34,7 +34,7 @@ float Algo1::eval_site_spin(int site) {
 			spin_prod *= spin_list[j];
 		}
 		rule_itr = rule_map_spin.find(rule_key);
-		enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod : 0.0;
+		enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod / spin_motif_groups[site].size() : 0.0;
 	}
 	return enrg;
 }
@@ -51,7 +51,7 @@ float Algo1::eval_spin_flip(int site, float old_spin) {
 			if (j != site) { spin_prod *= spin_list[j]; }
 		}
 		rule_itr = rule_map_spin.find(rule_key);
-		enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod) / spin_motif_groups[site].size() : 0.0;
+		enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod : 0.0;
 	}
 	return (enrg * spin_list[site] - enrg * old_spin);
 }
@@ -229,13 +229,14 @@ void Algo1::run() {
 					if (pass >= passes * .2) {
 						e_avg += init_enrg;
 						rs_C.Push(init_enrg);
-						spin_avg += init_spin / (pow(numb_atoms, 2) * 0.8 * passes);
+						spin_avg += init_spin;
 						rs_X.Push(init_spin);
 					}
 				}
 			}
 		}
-		e_avg /= double(numb_atoms * numb_atoms * 0.8 * passes);
+		e_avg /= double(pow(numb_atoms, 2) * 0.8 * passes);
+        spin_avg /= double(pow(numb_atoms, 2) * 0.8 * passes);
 		var_e = rs_C.Variance();
 		var_spin = rs_X.Variance();
 		Cmag = var_e / (Kb * double(pow(temp, 2)));
@@ -399,7 +400,6 @@ void Algo1::fill_SMG(vector<vector<int>>& neigh_ind_list) {
 					else {
 						new_pos = vect_add(pos_list[i], shift);
 						for (int neigh : neigh_ind_list[i]) {
-							int x = 0;
 							if (bc_check(pos_list[neigh], new_pos)) {
 								deco_group.push_back(neigh);
 							}
@@ -430,7 +430,6 @@ void Algo1::fill_CMG(vector<vector<int>>& neigh_ind_list) {
 					else {
 						new_pos = vect_add(pos_list[i], shift);
 						for (int neigh : neigh_ind_list[i]) {
-							int x = 0;
 							if (bc_check(pos_list[neigh], new_pos)) {
 								deco_group.push_back(neigh);
 							}

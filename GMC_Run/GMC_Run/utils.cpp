@@ -259,7 +259,7 @@ float dot_pos(vector<float>& vect1, vector<float>& vect2) {
 }
 
 float pos_dist(vector<float> pos1, vector<float> pos2) {
-    float dist;
+    float dist = 0.0;
     for (int i = 0; i < 3; i++) { dist += pow(pos1[i] - pos2[i], 2); }
     return sqrt(dist);
 }

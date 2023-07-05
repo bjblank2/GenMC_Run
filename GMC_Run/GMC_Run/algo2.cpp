@@ -303,7 +303,6 @@ void Algo2::print_state(float temp) {
 	sort_vect(temp_spin, perm);
 	sort_vect(temp_pos, perm);
 	sort_vect(temp_spec, perm);
-
 	ofstream OUT_file;
 	string temp_str = to_string(temp);
 	temp_str = replace_char(temp_str, '.', 'p');

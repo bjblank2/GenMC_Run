@@ -125,10 +125,10 @@ void SimCell::fillUnitCell(string POSCAR_file, Session& sess) {
 	for (int i = 0; i < pos_list_f.size(); i++) {
 		unit_cell.push_back(Atom(i, species_list[i], 0, 0, pos_list_f[i], pos_species_f[i]));
 	}
-	cout << "unit cell read\n";
+	cout << "Unit cell read\n";
 }
 
-// make a super cell (simulation cell) from the unit cell 
+// make a supercell (simulation cell) from the unit cell
 void SimCell::make_supercell(Session& sess) {
 	int x = sup_cell[0];
 	int y = sup_cell[1];
@@ -148,7 +148,7 @@ void SimCell::make_supercell(Session& sess) {
 	std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
 	rng.seed(ss);
 	std::uniform_real_distribution<double> unif(0, 1);
-	cout << " looping through super cell deminsions\n";
+	cout << "Looping through supercell deminsions\n";
 	for (int i = 0; i < x; i++) {
 		for (int j = 0; j < y; j++) {
 			for (int k = 0; k < z; k++) {

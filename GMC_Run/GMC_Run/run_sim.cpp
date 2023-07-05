@@ -8,7 +8,7 @@ Sim::Sim(Session& _session, SimCell& _sim_cell) {
 }
 
 void Sim::start() {
-	cout << "using algo " << session.algo << "\n";
+	cout << "Using algo " << session.algo << "\n";
 	if (session.algo == 0) { return; }
 	else if (session.algo == 1) { Algo1 algo(session, sim_cell); algo.run(); }
 	else if (session.algo == 2) { Algo2 algo(session, sim_cell); algo.run(); }

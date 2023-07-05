@@ -387,8 +387,7 @@ void Algo2::run() {
     Output << "Phase: " << sim_cell.phase_init;
     Output << "Composition: ";
     for (int i = 0; i < sim_cell.species_numbs.size(); i++) { Output << sim_cell.species_numbs[i] << ", "; }
-    Output << "\n";    Output << "MC atom-flip passes: " << session.numb_passes << ", ";
-    Output << "\n";    Output << "MC spin-flip passes: " << session.numb_subpasses << "\n";
+    Output << "\n";    Output << "MC passes: " << session.numb_passes << ", ";
     Output << "Beginning MC EQ run using Algo2\n";
     
     cout << "Making neighbor index list\n";
@@ -402,7 +401,7 @@ void Algo2::run() {
         }
     }
     
-    cout << "Making rule_maps\n";
+    cout << "Making rule maps\n";
     // make rule_maps for easy lookup
     string rule_key;
     for (Rule rule : session.chem_rule_list) {
@@ -429,7 +428,7 @@ void Algo2::run() {
     cout << "evaluated lattice total energy: " << init_enrg / numb_atoms << "\n";
     float init_spin_cont = eval_lat_spin();
     cout << "evaluated spin contribution: " << init_spin_cont / numb_atoms << "\n";
-    Output << "Initial total energy, spin energy \n";
+    Output << "initial total energy, spin energy\n";
     Output << init_enrg / numb_atoms << ", " << init_spin_cont / numb_atoms << "\n";
     Output << "temp, enrg, mag, var_e, var_spin, Cmag, Xmag, flip_count, flip_count2 \n";
     float init_spin = 0.0;
@@ -444,8 +443,7 @@ void Algo2::run() {
             init_spin += spin_list[site];
         }
     }
-    cout << "spins counted\n";
-    cout << "spin is " << init_spin / numb_atoms << " per atom\n";
+    cout << "initial spin is " << init_spin / numb_atoms << " per atom\n";
     float inc_dir = 1;
     if (signbit(temp2 - temp1) == 1) { inc_dir = -1; }
 
@@ -473,9 +471,9 @@ void Algo2::run() {
         flip_count2 = 0.0;
         for (int pass = 0; pass < passes; pass++) {
             for (int site = 0; site < numb_atoms; site++) {
-                cout << "pass: " << pass << " " << "site: " << site;
+                cout << "temp:" << temp << " pass: " << pass << " site: " << site;
                 // Do the pass for atom swaps
-                if (rand_method(rng2) < passes * 0.333333) {
+                if (rand_method(rng2) < passes * 0) {
                     cout << " method1 ";
                     same_atom = true;
                     while (same_atom == true) {
@@ -509,7 +507,7 @@ void Algo2::run() {
                     }
                 }
                 // Do the pass for spin flips
-                else if (rand_method(rng2) < passes * 0.666667) {
+                else if (rand_method(rng2) < passes * 1.01) {
                     cout << " method2 ";
                     if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
                         // Flip Spin

@@ -252,7 +252,7 @@ void Session::fill_rule_list(){
 			rule_lines.push_back(rule_line);
 		}
 		rule_list_file.close();
-		cout << "Read rule file\n";
+		cout << "Reading rule file\n";
 		int chem_motif_ind = 0;
 		int spin_motif_ind = 0;
 		bool intercept_flag = false;
@@ -320,7 +320,7 @@ void Session::fill_rule_list(){
 				}
 			}
 		}
-		cout << "Filled Rule_list\n";
+		cout << "Rule list filled\n";
 	}
 	else cout << "*ERROR* Unable to open rule file\n";
 	

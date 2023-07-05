@@ -241,7 +241,6 @@ void Algo2::fill_SMG(vector<vector<int>>& neigh_ind_list) {
 					else {
 						new_pos = vect_add(pos_list[i], shift);
 						for (int neigh : neigh_ind_list[i]) {
-							int x = 0;
 							if (bc_check(pos_list[neigh], new_pos)) {
 								deco_group.push_back(neigh);
 							}
@@ -475,9 +474,10 @@ void Algo2::run() {
         flip_count2 = 0.0;
         for (int pass = 0; pass < passes; pass++) {
             for (int site = 0; site < numb_atoms; site++) {
-                cout << "pass: " << pass << " " << "site: " << site << "\n";
+                cout << "pass: " << pass << " " << "site: " << site;
                 // Do the pass for atom swaps
                 if (rand_method(rng2) < passes * 0.333333) {
+                    cout << " method1 ";
                     same_atom = true;
                     while (same_atom == true) {
                         rand_site = rand_atom(rng1);
@@ -511,6 +511,7 @@ void Algo2::run() {
                 }
                 // Do the pass for spin flips
                 else if (rand_method(rng2) < passes * 0.666667) {
+                    cout << " method2 ";
                     if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
                         // Flip Spin
                         old_spin = spin_list[site];
@@ -536,6 +537,7 @@ void Algo2::run() {
                 }
                 // Do the pass for atom swaps and randomly set spins
                 else {
+                    cout << " method3 ";
                     same_atom = true;
                     while (same_atom == true) {
                         rand_site = rand_atom(rng1);
@@ -629,6 +631,6 @@ void Algo2::run() {
         rs_X.Clear();
     }
     cout << " MC Finished\n";
-    print_state(temp2);
+//    print_state(temp2);
     Output.close();
 }

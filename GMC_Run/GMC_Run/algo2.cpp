@@ -24,7 +24,8 @@ float Algo2::eval_site_chem(int site) {
 			rule_key += "." + to_string(chem_list[j]);
 		}
 		rule_itr = rule_map_chem.find(rule_key);
-		enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second / chem_motif_groups[site].size() : 0.0;
+//		enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second / chem_motif_groups[site].size() : 0.0;
+        enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second : 0.0;
 	}
 	return enrg;
 }
@@ -41,7 +42,8 @@ float Algo2::eval_site_spin(int site) {
 			spin_prod *= spin_list[j];
 		}
 		rule_itr = rule_map_spin.find(rule_key);
-		enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second / spin_motif_groups[site].size() * spin_prod : 0.0;
+//		enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second / spin_motif_groups[site].size() * spin_prod : 0.0;
+        enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod : 0.0;
 	}
 	return enrg;
 }
@@ -58,7 +60,7 @@ float Algo2::eval_spin_flip(int site, float old_spin) {
 			if (j != site) { spin_prod *= spin_list[j]; }
 		}
 		rule_itr = rule_map_spin.find(rule_key);
-		enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod) : 0.0;
+		enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod * spin_motif_groups[site].size()) : 0.0;
 	}
 	return (enrg * spin_list[site] - enrg * old_spin);
 }
@@ -88,9 +90,9 @@ float Algo2::eval_atom_flip(int site1, float old_spin1, int site2, float old_spi
 			}
 		}
 		rule_itr = rule_map_chem.find(new_chem_key);
-		new_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second : 0.0;
+		new_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second * chem_motif_groups[site1].size() : 0.0;
 		rule_itr = rule_map_chem.find(old_chem_key);
-		old_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second : 0.0;
+		old_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second * chem_motif_groups[site1].size() : 0.0;
 	}
 	// for spin motifs
 	for (int i = 0; i < spin_motif_groups[site1].size(); i++) {
@@ -109,9 +111,9 @@ float Algo2::eval_atom_flip(int site1, float old_spin1, int site2, float old_spi
 			}
 		}
 		rule_itr = rule_map_spin.find(new_spin_key);
-		new_enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod * new_spin1 : 0.0;
+		new_enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod * new_spin1 * spin_motif_groups[site1].size()) : 0.0;
 		rule_itr = rule_map_spin.find(old_spin_key);
-		old_enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod * old_spin1 : 0.0;
+		old_enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod * old_spin1 * spin_motif_groups[site1].size()) : 0.0;
 	}
 
 	// new and old energy for site2
@@ -130,9 +132,9 @@ float Algo2::eval_atom_flip(int site1, float old_spin1, int site2, float old_spi
 			}
 		}
 		rule_itr = rule_map_chem.find(new_chem_key);
-		new_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second : 0.0;
+		new_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second * chem_motif_groups[site2].size() : 0.0;
 		rule_itr = rule_map_chem.find(old_chem_key);
-		old_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second : 0.0;
+		old_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second * chem_motif_groups[site2].size() : 0.0;
 	}
 	// for spin motifs
 	for (int i = 0; i < spin_motif_groups[site2].size(); i++) {
@@ -151,9 +153,9 @@ float Algo2::eval_atom_flip(int site1, float old_spin1, int site2, float old_spi
 			}
 		}
 		rule_itr = rule_map_spin.find(new_spin_key);
-		new_enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod * new_spin2 : 0.0;
+		new_enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod * new_spin2 * spin_motif_groups[site2].size()) : 0.0;
 		rule_itr = rule_map_spin.find(old_spin_key);
-		old_enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second * spin_prod * old_spin2 : 0.0;
+		old_enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod * old_spin2 * spin_motif_groups[site2].size()) : 0.0;
 	}
 	return (new_enrg - old_enrg);
 }

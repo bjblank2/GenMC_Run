@@ -351,6 +351,10 @@ void Algo1::run() {
     ofstream Output;
     Output.open(c_file);
 
+    // Output energy and spin for convergence test
+    ofstream Output_converge;
+    Output_converge.open("converge.txt");
+    
     Output << "Phase: " << sim_cell.phase_init;
     Output << "Composition: ";
     for (int i = 0; i < sim_cell.species_numbs.size(); i++) { Output << sim_cell.species_numbs[i] << ", "; }
@@ -437,7 +441,7 @@ void Algo1::run() {
                     while (spin_same == true) {
                         spin_rand = unif(rng);
                         for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[site]].size(); it_spin_state++) {
-                            if (spin_rand > float(it_spin_state) * 1.0 / float(spin_states[chem_list[site]].size())) { new_spin = spin_states[chem_list[site]][it_spin_state]; }
+                            if (spin_rand > float(it_spin_state) / float(spin_states[chem_list[site]].size())) { new_spin = spin_states[chem_list[site]][it_spin_state]; }
                         }
                         if (new_spin != old_spin) { spin_same = false; }
                     }
@@ -452,6 +456,7 @@ void Algo1::run() {
                         else { spin_list[site] = old_spin; e_flip = 0.0; spin_flip = 0; }
 
                     }
+                    Output_converge << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
                     init_enrg += e_flip;
                     init_spin += spin_flip;
                     if (pass >= passes * .2) {

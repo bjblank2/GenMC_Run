@@ -97,7 +97,6 @@
 				3D5B7EA92A53FC26009C7ED4 /* sro.h */,
 				3DC03E922A44FB340016BA25 /* algo3.cpp */,
 				3DC03E932A44FB340016BA25 /* algo3.h */,
-				3DC03E882A44F3560016BA25 /* function_test.h */,
 				3DC03E672A44E9D90016BA25 /* algo1.cpp */,
 				3DC03E682A44E9D90016BA25 /* algo1.h */,
 				3DC03E662A44E9D90016BA25 /* algo2.cpp */,
@@ -118,6 +117,7 @@
 				3DC03E722A44E9D90016BA25 /* utils.cpp */,
 				3DC03E732A44E9D90016BA25 /* utils.h */,
 				3DC03E892A44F3890016BA25 /* function_test.cpp */,
+				3DC03E882A44F3560016BA25 /* function_test.h */,
 			);
 			path = genmc;
 			sourceTree = "<group>";

@@ -64,6 +64,8 @@ float Algo2::eval_spin_flip(int site, float old_spin) {
 }
 
 float Algo2::eval_atom_flip(int site) {
+    // evaluate the chem+spin energy of a given site with double/triple/... counting
+    // to evaluate energy change of an atom flip, just compare the energy before and after the flip
     map<string, float>::iterator rule_itr;
     float enrg = 0.0;
     for (int i = 0; i < chem_motif_groups[site].size(); i++) {
@@ -83,7 +85,8 @@ float Algo2::eval_atom_flip(int site) {
             spin_prod *= spin_list[j];
         }
         rule_itr = rule_map_spin.find(spin_key);
-        if (rule_itr != rule_map_spin.end()) {enrg += rule_itr->second * spin_prod;}
+        enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod) : 0.0;
+        // if (rule_itr != rule_map_spin.end()) {enrg += rule_itr->second * spin_prod;}
     }
     return enrg;
 }
@@ -155,6 +158,11 @@ bool Algo2::bc_check(vector<float> check_vect, vector<float>& pos) {
         }
     }
     return bc_test;
+}
+
+bool Algo2::pbc_check(vector<float> check_vect, vector<float> &pos) {
+    bool pbc_check = false;
+    return pbc_check;
 }
 
 void Algo2::fill_SMG(vector<vector<int>>& neigh_ind_list) {
@@ -356,8 +364,7 @@ void Algo2::run() {
 //        }
 //        cout << ":" << rule_key << "\n";
 //    }
-
-//    int site = 0;
+//
 //    for (int i = 0; i < spin_motif_groups[site].size(); i++) {
 //            string rule_key = "1.";
 //            rule_key += to_string(i);
@@ -418,7 +425,7 @@ void Algo2::run() {
                 float spin_flip = 0.0;
                 int method_index = rand_method(rng);
                 // Do the pass for spin flips
-                if ( method_index < passes * 0.0) {
+                if ( method_index < passes * 0.33) {
                     Output_converge << "method1 ";
                     if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
                         // Flip Spin
@@ -456,44 +463,44 @@ void Algo2::run() {
                         }
                     }
                 }
-                // Test on atom flip
-                else if (method_index < passes * 1.01) {
-                    std::uniform_int_distribution<int> rand_x(0, 2);
-                    int x = rand_x(rng);
-                    Output_converge << "methodx ";
-                    same_atom = true;
-                    while (same_atom == true) {
-                        x = rand_x(rng);
-                        if (chem_list[site] != x) {same_atom = false;}
-                        }
-                    int old_site_chem = chem_list[site];
-                    float old_enrg = eval_atom_flip(site);
-                    // Flip atom for site
-                    chem_list[site] = x;
-                    float new_enrg = eval_atom_flip(site);
-                    e_flip = new_enrg - old_enrg;
-                    if (e_flip < 0) { flip_count += 1; }
-                    else {
-                        keep_rand = unif(rng);
-                        keep_prob = exp(-1 / (Kb * temp) * (e_flip));
-                        if (keep_rand < keep_prob) { flip_count2 += 1; }
-                        else {
-                            chem_list[site] = old_site_chem;
-                            e_flip = 0.0; }
-                    }
-                    // Record the enrg and spin changes
-                    init_enrg += e_flip;
-                    init_spin += spin_flip;
-                    Output_converge << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
-                    if (pass >= passes * 0.5) {
-                        e_avg += init_enrg;
-                        rs_C.Push(init_enrg);
-                        spin_avg += init_spin;
-                        rs_X.Push(init_spin);
-                    }
-                }
+//                // Test on atom flip
+//                else if (method_index < passes * 1.01) {
+//                    std::uniform_int_distribution<int> rand_x(0, 2);
+//                    int x = rand_x(rng);
+//                    Output_converge << "methodx ";
+//                    same_atom = true;
+//                    while (same_atom == true) {
+//                        x = rand_x(rng);
+//                        if (chem_list[site] != x) {same_atom = false;}
+//                        }
+//                    int old_site_chem = chem_list[site];
+//                    float old_enrg = eval_atom_flip(site);
+//                    // Flip atom for site
+//                    chem_list[site] = x;
+//                    float new_enrg = eval_atom_flip(site);
+//                    e_flip = new_enrg - old_enrg;
+//                    if (e_flip < 0) { flip_count += 1; }
+//                    else {
+//                        keep_rand = unif(rng);
+//                        keep_prob = exp(-1 / (Kb * temp) * (e_flip));
+//                        if (keep_rand < keep_prob) { flip_count2 += 1; }
+//                        else {
+//                            chem_list[site] = old_site_chem;
+//                            e_flip = 0.0; }
+//                    }
+//                    // Record the enrg and spin changes
+//                    init_enrg += e_flip;
+//                    init_spin += spin_flip;
+//                    Output_converge << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
+//                    if (pass >= passes * 0.5) {
+//                        e_avg += init_enrg;
+//                        rs_C.Push(init_enrg);
+//                        spin_avg += init_spin;
+//                        rs_X.Push(init_spin);
+//                    }
+//                }
                 // Do the pass for atom swaps
-                else if (method_index < passes * 1.51) {
+                else if (method_index < passes * 0.67) {
                     Output_converge << "method2 ";
                     same_atom = true;
                     while (same_atom == true) {

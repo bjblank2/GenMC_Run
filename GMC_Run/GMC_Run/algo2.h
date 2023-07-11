@@ -46,6 +46,7 @@ public:
 	void fill_SMG(vector<vector<int>>& neigh_ind_list);
 	void print_state(float temdp);
 	bool bc_check(vector<float> check_vect, vector<float>& pos);
+    bool pbc_check(vector<float> check_vect, vector<float>& pos);
 	float eval_lat();
 	float eval_lat_spin();
 	float eval_site_spin(int site);

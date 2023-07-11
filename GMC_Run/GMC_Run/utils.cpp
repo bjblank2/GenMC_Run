@@ -280,3 +280,44 @@ bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol) {
 	}
 	return true;
 }
+
+
+
+vector<float> cart_to_frac(vector<float> pos, vector<vector<float>> lat_vec) {
+    vector<float> new_pos {0, 0, 0};
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++){
+            new_pos[i] += pos[i] * lat_vec[j][i];
+        }
+    }
+        
+    return new_pos;
+}
+ 
+vector<float> frac_to_cart(vector<float> pos, vector<vector<float>> lat_vec) {
+    vector<float> new_pos {0, 0, 0};
+    
+    return new_pos;
+}
+
+
+//vector<float> matrix_inv(Matrix33d m) {
+//    // computes the inverse of a matrix m
+//    double det = m(0, 0) * (m(1, 1) * m(2, 2) - m(2, 1) * m(1, 2)) -
+//                 m(0, 1) * (m(1, 0) * m(2, 2) - m(1, 2) * m(2, 0)) +
+//                 m(0, 2) * (m(1, 0) * m(2, 1) - m(1, 1) * m(2, 0));
+//
+//    double invdet = 1 / det;
+//
+//    Matrix33d minv; // inverse of matrix m
+//    minv(0, 0) = (m(1, 1) * m(2, 2) - m(2, 1) * m(1, 2)) * invdet;
+//    minv(0, 1) = (m(0, 2) * m(2, 1) - m(0, 1) * m(2, 2)) * invdet;
+//    minv(0, 2) = (m(0, 1) * m(1, 2) - m(0, 2) * m(1, 1)) * invdet;
+//    minv(1, 0) = (m(1, 2) * m(2, 0) - m(1, 0) * m(2, 2)) * invdet;
+//    minv(1, 1) = (m(0, 0) * m(2, 2) - m(0, 2) * m(2, 0)) * invdet;
+//    minv(1, 2) = (m(1, 0) * m(0, 2) - m(0, 0) * m(1, 2)) * invdet;
+//    minv(2, 0) = (m(1, 0) * m(2, 1) - m(2, 0) * m(1, 1)) * invdet;
+//    minv(2, 1) = (m(2, 0) * m(0, 1) - m(0, 0) * m(2, 1)) * invdet;
+//    minv(2, 2) = (m(0, 0) * m(1, 1) - m(1, 0) * m(0, 1)) * invdet;
+//    
+//}

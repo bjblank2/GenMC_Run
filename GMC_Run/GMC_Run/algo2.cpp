@@ -24,7 +24,7 @@ float Algo2::eval_site_chem(int site) {
 			rule_key += "." + to_string(chem_list[j]);
 		}
 		rule_itr = rule_map_chem.find(rule_key);
-		enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second / chem_motif_groups[site].size() : 0.0;
+		enrg += (rule_itr != rule_map_chem.end()) ? (rule_itr->second / chem_motif_groups[site][i].size()) : 0.0;
 	}
 	return enrg;
 }
@@ -41,7 +41,7 @@ float Algo2::eval_site_spin(int site) {
 			spin_prod *= spin_list[j];
 		}
 		rule_itr = rule_map_spin.find(rule_key);
-		enrg += (rule_itr != rule_map_spin.end()) ? rule_itr->second / spin_motif_groups[site].size() * spin_prod : 0.0;
+		enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod / spin_motif_groups[site][i].size()) : 0.0;
 	}
 	return enrg;
 }
@@ -58,104 +58,34 @@ float Algo2::eval_spin_flip(int site, float old_spin) {
 			if (j != site) { spin_prod *= spin_list[j]; }
 		}
 		rule_itr = rule_map_spin.find(rule_key);
-		enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod * spin_motif_groups[site].size()) : 0.0;
+		enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod) : 0.0;
 	}
 	return (enrg * spin_list[site] - enrg * old_spin);
 }
 
-float Algo2::eval_atom_flip(int site1, float old_spin1, int site2, float old_spin2) {
-	int new_spec1 = chem_list[site1];
-	int new_spec2 = chem_list[site2];
-    float new_spin1 = spin_list[site1];
-    float new_spin2 = spin_list[site2];
-    float new_enrg = 0;
-    float old_enrg = 0;
-	map<string, float>::iterator rule_itr;
-	// new and old enrgey for site1
-	// for each chem motifs
-	for (int i = 0; i < chem_motif_groups[site1].size(); i++) {
-		string new_chem_key = "0." + to_string(i);
-		string old_chem_key = "0." + to_string(i);
-        //for each site in the motif
-		for (int j : chem_motif_groups[site1][i]) {
-			if (j != site1) {
-				new_chem_key += "." + to_string(chem_list[j]);
-				old_chem_key += "." + to_string(chem_list[j]);
-			}
-			else {
-				new_chem_key += "." + to_string(new_spec1);
-				old_chem_key += "." + to_string(new_spec2);
-			}
-		}
-		rule_itr = rule_map_chem.find(new_chem_key);
-		new_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second : 0.0;
-		rule_itr = rule_map_chem.find(old_chem_key);
-		old_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second : 0.0;
-	}
-	// for spin motifs
-	for (int i = 0; i < spin_motif_groups[site1].size(); i++) {
-		float spin_prod = 1;
-		string new_spin_key = "1." + to_string(i);
-		string old_spin_key = "1." + to_string(i);
-		for (int j : spin_motif_groups[site1][i]) {
-			if (j != site1) {
-				new_spin_key += "." + to_string(chem_list[j]);
-				old_spin_key += "." + to_string(chem_list[j]);
-				spin_prod *= spin_list[j];
-			}
-			else {
-				new_spin_key += "." + to_string(new_spec1);
-				old_spin_key += "." + to_string(new_spec2);
-			}
-		}
-		rule_itr = rule_map_spin.find(new_spin_key);
-		new_enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod * new_spin1) : 0.0;
-		rule_itr = rule_map_spin.find(old_spin_key);
-		old_enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod * old_spin1) : 0.0;
-	}
-
-	// new and old energy for site2
-	// for chem motifs
-	for (int i = 0; i < chem_motif_groups[site2].size(); i++) {
-		string new_chem_key = "0." + to_string(i);
-		string old_chem_key = "0." + to_string(i);
-		for (int j : chem_motif_groups[site2][i]) {
-			if (j != site2) {
-				new_chem_key += "." + to_string(chem_list[j]);
-				old_chem_key += "." + to_string(chem_list[j]);
-			}
-			else {
-				new_chem_key += "." + to_string(new_spec2);
-				old_chem_key += "." + to_string(new_spec1);        
-			}
-		}
-		rule_itr = rule_map_chem.find(new_chem_key);
-		new_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second : 0.0;
-		rule_itr = rule_map_chem.find(old_chem_key);
-		old_enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second : 0.0;
-	}
-	// for spin motifs
-	for (int i = 0; i < spin_motif_groups[site2].size(); i++) {
-		float spin_prod = 1;
-		string new_spin_key = "1." + to_string(i);
-		string old_spin_key = "1." + to_string(i);
-		for (int j : spin_motif_groups[site2][i]) {
-			if (j != site2) {
-				new_spin_key += "." + to_string(chem_list[j]);
-				old_spin_key += "." + to_string(chem_list[j]);
-				spin_prod *= spin_list[j];
-			}
-			else {
-				new_spin_key += "." + to_string(new_spec2);
-				old_spin_key += "." + to_string(new_spec1);
-			}
-		}
-		rule_itr = rule_map_spin.find(new_spin_key);
-		new_enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod * new_spin2) : 0.0;
-		rule_itr = rule_map_spin.find(old_spin_key);
-		old_enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod * old_spin2) : 0.0;
-	}
-	return (new_enrg - old_enrg);
+float Algo2::eval_atom_flip(int site) {
+    map<string, float>::iterator rule_itr;
+    float enrg = 0.0;
+    for (int i = 0; i < chem_motif_groups[site].size(); i++) {
+        string chem_key = "0." + to_string(i);
+        for (int j : chem_motif_groups[site][i]) {
+            chem_key += "." + to_string(chem_list[j]);
+        }
+        rule_itr = rule_map_chem.find(chem_key);
+        enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second : 0.0;
+        // if (rule_itr != rule_map_chem.end()) {enrg += rule_itr->second;}
+    }
+    for (int i = 0; i < spin_motif_groups[site].size(); i++) {
+        float spin_prod = 1;
+        string spin_key = "1." + to_string(i);
+        for (int j : spin_motif_groups[site][i]) {
+            spin_key += "." + to_string(chem_list[j]);
+            spin_prod *= spin_list[j];
+        }
+        rule_itr = rule_map_spin.find(spin_key);
+        if (rule_itr != rule_map_spin.end()) {enrg += rule_itr->second * spin_prod;}
+    }
+    return enrg;
 }
 
 float Algo2::eval_lat() {
@@ -176,115 +106,115 @@ float Algo2::eval_lat_spin() {
 }
 
 bool Algo2::bc_check(vector<float> check_vect, vector<float>& pos) {
-	bool bc_test = false;
-	vector<int> dir { -1, 1 };
-	vector<float> bc_pos { 0, 0, 0 };
-	vector<float> lc_shift { 0, 0, 0 };
-	vector<vector<float>> bc_shifts { pos };
+    bool bc_test = false;
+    vector<int> dir { -1, 1 };
+    vector<float> bc_pos { 0, 0, 0 };
+    vector<float> lc_shift { 0, 0, 0 };
+    vector<vector<float>> bc_shifts { pos };
 
-	for (int a : dir) {
-		for (int i = 0; i < 3; i++) {
-			lc_shift = scale_vect(sim_cell.lat_vect[i], a);
-			bc_pos = vect_add(pos, lc_shift);
-			bc_shifts.push_back(bc_pos);
-		}
-		for (int b : dir) {
-			lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-			bc_pos = vect_add(pos, lc_shift);
-			lc_shift = scale_vect(sim_cell.lat_vect[1], b);
-			bc_pos = vect_add(bc_pos, lc_shift);
-			bc_shifts.push_back(bc_pos);
+    for (int a : dir) {
+        for (int i = 0; i < 3; i++) {
+            lc_shift = scale_vect(sim_cell.lat_vect[i], a);
+            bc_pos = vect_add(pos, lc_shift);
+            bc_shifts.push_back(bc_pos);
+        }
+        for (int b : dir) {
+            lc_shift = scale_vect(sim_cell.lat_vect[0], a);
+            bc_pos = vect_add(pos, lc_shift);
+            lc_shift = scale_vect(sim_cell.lat_vect[1], b);
+            bc_pos = vect_add(bc_pos, lc_shift);
+            bc_shifts.push_back(bc_pos);
 
-			lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-			bc_pos = vect_add(pos, lc_shift);
-			lc_shift = scale_vect(sim_cell.lat_vect[2], b);
-			bc_pos = vect_add(bc_pos, lc_shift);
-			bc_shifts.push_back(bc_pos);
+            lc_shift = scale_vect(sim_cell.lat_vect[0], a);
+            bc_pos = vect_add(pos, lc_shift);
+            lc_shift = scale_vect(sim_cell.lat_vect[2], b);
+            bc_pos = vect_add(bc_pos, lc_shift);
+            bc_shifts.push_back(bc_pos);
 
-			lc_shift = scale_vect(sim_cell.lat_vect[1], a);
-			bc_pos = vect_add(pos, lc_shift);
-			lc_shift = scale_vect(sim_cell.lat_vect[2], b);
-			bc_pos = vect_add(bc_pos, lc_shift);
-			bc_shifts.push_back(bc_pos);
+            lc_shift = scale_vect(sim_cell.lat_vect[1], a);
+            bc_pos = vect_add(pos, lc_shift);
+            lc_shift = scale_vect(sim_cell.lat_vect[2], b);
+            bc_pos = vect_add(bc_pos, lc_shift);
+            bc_shifts.push_back(bc_pos);
 
-			for (int c : dir) {
-				lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-				bc_pos = vect_add(pos, lc_shift);
-				lc_shift = scale_vect(sim_cell.lat_vect[1], b);
-				bc_pos = vect_add(bc_pos, lc_shift);
-				lc_shift = scale_vect(sim_cell.lat_vect[2], c);
-				bc_pos = vect_add(bc_pos, lc_shift);
-				bc_shifts.push_back(bc_pos);
-			}
-		}
-	}
-	for (vector<float> check : bc_shifts) {
-		if (pos_comp(check, check_vect)) {
-			bc_test = true;
-			break;
-		}
-	}
-	return bc_test;
+            for (int c : dir) {
+                lc_shift = scale_vect(sim_cell.lat_vect[0], a);
+                bc_pos = vect_add(pos, lc_shift);
+                lc_shift = scale_vect(sim_cell.lat_vect[1], b);
+                bc_pos = vect_add(bc_pos, lc_shift);
+                lc_shift = scale_vect(sim_cell.lat_vect[2], c);
+                bc_pos = vect_add(bc_pos, lc_shift);
+                bc_shifts.push_back(bc_pos);
+            }
+        }
+    }
+    for (vector<float> check : bc_shifts) {
+        if (pos_comp(check, check_vect)) {
+            bc_test = true;
+            break;
+        }
+    }
+    return bc_test;
 }
 
 void Algo2::fill_SMG(vector<vector<int>>& neigh_ind_list) {
-	vector<int> deco_group;
-	vector<float> new_pos { 0.0, 0.0, 0.0 };
-	vector<float> self_site { 0.0, 0.0, 0.0 };
-	vector<vector<int>> motifs;
-	int last_ind = -1;
-	for (int i = 0; i < sim_cell.numb_atoms; i++) {
-		for (Rule rule : session.spin_rule_list) {
-			if (last_ind != rule.motif_ind) {
-				for (vector<float> shift : rule.motif) {
-					if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
-					else {
-						new_pos = vect_add(pos_list[i], shift);
-						for (int neigh : neigh_ind_list[i]) {
-							if (bc_check(pos_list[neigh], new_pos)) {
-								deco_group.push_back(neigh);
-							}
-						}
-					}
-				}
-				motifs.push_back(deco_group);
-				deco_group.clear();
-				last_ind = rule.motif_ind;
-			}
-		}
-		spin_motif_groups.push_back(motifs);
-		motifs.clear();
-	}
+    vector<int> deco_group;
+    vector<float> new_pos { 0.0, 0.0, 0.0 };
+    vector<float> self_site { 0.0, 0.0, 0.0 };
+    vector<vector<int>> motifs;
+    int last_ind = -1;
+    for (int i = 0; i < sim_cell.numb_atoms; i++) {
+        for (Rule rule : session.spin_rule_list) {
+            if (last_ind != rule.motif_ind) {
+                for (vector<float> shift : rule.motif) {
+                    if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
+                    else {
+                        new_pos = vect_add(pos_list[i], shift);
+                        for (int neigh : neigh_ind_list[i]) {
+                            if (bc_check(pos_list[neigh], new_pos)) {
+                                deco_group.push_back(neigh);
+                            }
+                        }
+                    }
+                }
+                motifs.push_back(deco_group);
+                deco_group.clear();
+                last_ind = rule.motif_ind;
+            }
+        }
+        spin_motif_groups.push_back(motifs);
+        motifs.clear();
+    }
 }
 
 void Algo2::fill_CMG(vector<vector<int>>& neigh_ind_list) {
-	vector<int> deco_group;
-	vector<float> new_pos { 0.0, 0.0, 0.0 };
-	vector<float> self_site { 0.0, 0.0, 0.0 };
-	vector<vector<int>> motifs;
-	int last_ind = -1;
-	for (int i = 0; i < sim_cell.numb_atoms; i++) {
-		for (Rule rule : session.chem_rule_list) {
-			if (last_ind != rule.motif_ind) {
-				for (vector<float> shift : rule.motif) {
-					if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
-					else {
-						new_pos = vect_add(pos_list[i], shift);
-						for (int neigh : neigh_ind_list[i]) {
-							if (bc_check(pos_list[neigh], new_pos)) {
-								deco_group.push_back(neigh);
-							}
-						}
-					}
-				}
-				motifs.push_back(deco_group);
-				deco_group.clear();
-				last_ind = rule.motif_ind;
-			}
-		}
-		chem_motif_groups.push_back(motifs);
-		motifs.clear();
-	}
+    vector<int> deco_group;
+    vector<float> new_pos { 0.0, 0.0, 0.0 };
+    vector<float> self_site { 0.0, 0.0, 0.0 };
+    vector<vector<int>> motifs;
+    int last_ind = -1;
+    for (int i = 0; i < sim_cell.numb_atoms; i++) {
+        for (Rule rule : session.chem_rule_list) {
+            if (last_ind != rule.motif_ind) {
+                for (vector<float> shift : rule.motif) {
+                    if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
+                    else {
+                        new_pos = vect_add(pos_list[i], shift);
+                        for (int neigh : neigh_ind_list[i]) {
+                            if (bc_check(pos_list[neigh], new_pos)) {
+                                deco_group.push_back(neigh);
+                            } // this might not be initialized properly!
+                        }
+                    }
+                }
+                motifs.push_back(deco_group);
+                deco_group.clear();
+                last_ind = rule.motif_ind;
+            }
+        }
+        chem_motif_groups.push_back(motifs);
+        motifs.clear();
+    }
 }
 
 void Algo2::print_state(float temp) {
@@ -330,15 +260,9 @@ void Algo2::print_state(float temp) {
 }
 
 void Algo2::run() {
-    //declare variables
+    // declare variables
     int rand_site = 0;
     float rand_spin = 0.0;
-    float old_spin = 0;
-    float new_spin = 0;
-    int old_site_chem = 0;
-    float old_site_spin = 0.0;
-    int old_rand_site_chem = 0;
-    float old_rand_site_spin = 0.0;
     bool same_spin;
     bool same_atom;
     float Cmag = 0.0;
@@ -358,7 +282,7 @@ void Algo2::run() {
     vector<vector<int>> neigh_ind_list(numb_atoms, vector<int>(sim_cell.atom_list[0].getNumbNeighbors(0, sim_cell), 0));
     vector<int> spin_atoms; // atomic species that can have spin
 
-    // create seperate output file to avoid race condition
+    // Create seperate output file to avoid race condition
     string file_name = "OUTPUT";
     bool file_exists = true;
     while (file_exists == true) {
@@ -388,8 +312,8 @@ void Algo2::run() {
     Output << "\n";    Output << "MC passes: " << session.numb_passes << ", ";
     Output << "Beginning MC EQ run using Algo2\n";
     
-    cout << "Making neighbor index list\n";
-    // make atom_list more acessable for species and spin and neighbors
+    cout << "Making atom list and neighbor index list\n";
+    // Make atom_list more acessable for species and spin and neighbors
     for (int i = 0; i < sim_cell.numb_atoms; i++) {
         chem_list.push_back(sim_cell.atom_list[i].getSpecies());
         spin_list.push_back(sim_cell.atom_list[i].getSpin());
@@ -400,7 +324,7 @@ void Algo2::run() {
     }
     
     cout << "Making rule maps\n";
-    // make rule_maps for easy lookup
+    // Make rule_maps for easy lookup
     string rule_key;
     for (Rule rule : session.chem_rule_list) {
         rule_key = to_string(rule.GetType()) + "." + to_string(rule.motif_ind);
@@ -412,17 +336,41 @@ void Algo2::run() {
         for (int i = 0; i < rule.deco.size(); i++) { rule_key += "." + to_string(rule.deco[i]); }
         rule_map_spin.insert(pair<string, float>(rule_key, rule.GetEnrgCont()));
         for (int atom : rule.deco) {
-            if (find(spin_atoms.begin(), spin_atoms.end(), atom) == spin_atoms.end()) { spin_atoms.push_back(atom); }
+            if (find(spin_atoms.begin(), spin_atoms.end(), atom) == spin_atoms.end()) { spin_atoms.push_back(atom); } // initialize spin_atoms
         }
     }
     
-    cout << "Making chem/spin group lists\n";
-    // fill motif group lists
+    cout << "Making chem/spin motif group lists\n";
+    // Fill motif group lists
     fill_CMG(neigh_ind_list);
     fill_SMG(neigh_ind_list);
     
+//    CMG/SMG might be inaccurate!
+//    int site = 0;
+//    for (int i = 0; i < chem_motif_groups[site].size(); i++) {
+//        string rule_key = "0.";
+//        rule_key += to_string(i);
+//        for (int j : chem_motif_groups[site][i]) {
+//            cout << j << ", ";
+//            rule_key += "." + to_string(chem_list[j]);
+//        }
+//        cout << ":" << rule_key << "\n";
+//    }
+
+//    int site = 0;
+//    for (int i = 0; i < spin_motif_groups[site].size(); i++) {
+//            string rule_key = "1.";
+//            rule_key += to_string(i);
+//            for (int j : spin_motif_groups[site][i]) {
+//                cout << j << ", ";
+//                rule_key += "." + to_string(chem_list[j]);
+//            }
+//            cout << ":" << rule_key << "\n";
+//        }
+    
     // Begin MC
     float init_enrg = eval_lat();
+    Output_converge << eval_lat() << ", " << init_enrg << "\n";
     cout << "Evaluated total energy: " << init_enrg / numb_atoms << "\n";
     float init_spin_enrg = eval_lat_spin();
     cout << "Evaluated spin energy: " << init_spin_enrg / numb_atoms << "\n";
@@ -434,7 +382,6 @@ void Algo2::run() {
     float var_e = 0.0;
     RunningStat rs_C;
     RunningStat rs_X;
-    //RunningStat init_enrg_R;
     cout << "Counting spins...\n";
     for (int site = 0; site < numb_atoms; site++) {
         if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
@@ -451,42 +398,38 @@ void Algo2::run() {
     std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
     rng.seed(ss);
     std::uniform_real_distribution<double> unif(0, 1);
-    // setup rng for random site choices
-//    std::random_device dev;
-//    std::mt19937_64 rng1(dev());
-    std::uniform_int_distribution<int> rand_atom(0, sim_cell.numb_atoms);
-    //setup rng for random methods of atom swap/spin flip
-    std::uniform_int_distribution<int> rand_method(0, passes);
-
-    // start MC loop
-    cout << unif(rng);
+    // std::random_device dev;
+    // std::mt19937_64 rng1(dev());
+    // setup rng for random site choices and random methods of atom swap/spin flip
+    std::uniform_int_distribution<int> rand_atom(0, sim_cell.numb_atoms - 1);
+    std::uniform_int_distribution<int> rand_method(0, passes - 1);
+    
+    // Start MC loop
     cout << "Entering main loop\n";
-    cout << "???";
     for (float temp = temp1; (temp2 - temp) * inc_dir >= 0; temp += temp_inc) {
-        cout << "temp:" << temp;
         float e_avg = 0.0;
         float spin_avg = 0.0;
         int flip_count = 0;
         int flip_count2 = 0;
+        int real_move = 0;
         for (int pass = 0; pass < passes; pass++) {
-            cout << " pass: " << pass;
             for (int site = 0; site < numb_atoms; site++) {
-                cout << " site: " << site;
                 float e_flip = 0.0;
                 float spin_flip = 0.0;
-                // Do the pass for spin flips
                 int method_index = rand_method(rng);
-                if ( method_index < passes * 1.01) {
-                    cout << " method1 ";
+                // Do the pass for spin flips
+                if ( method_index < passes * 0.0) {
                     Output_converge << "method1 ";
                     if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
                         // Flip Spin
-                        old_spin = spin_list[site];
+                        float old_spin = spin_list[site];
+                        float new_spin = 0.0;
                         same_spin = true;
                         while (same_spin == true) {
                             rand_spin = unif(rng);
                             for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[site]].size(); it_spin_state++) {
-                                if (rand_spin > float(it_spin_state) / float(spin_states[chem_list[site]].size())) { new_spin = spin_states[chem_list[site]][it_spin_state]; }
+                                if (rand_spin > float(it_spin_state) / float(spin_states[chem_list[site]].size())) {
+                                    new_spin = spin_states[chem_list[site]][it_spin_state]; }
                             }
                             if (new_spin != old_spin) { same_spin = false; }
                         }
@@ -500,11 +443,57 @@ void Algo2::run() {
                             if (keep_rand < keep_prob) { flip_count2 += 1; }
                             else {spin_list[site] = old_spin; e_flip = 0.0; spin_flip = 0.0; }
                         }
+                        // Record the enrg and spin changes
+                        init_enrg += e_flip;
+                        init_spin += spin_flip;
+                        Output_converge << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
+                        if (pass >= passes * 0.5) {
+                            real_move += 1;
+                            e_avg += init_enrg;
+                            rs_C.Push(init_enrg);
+                            spin_avg += init_spin;
+                            rs_X.Push(init_spin);
+                        }
+                    }
+                }
+                // Test on atom flip
+                else if (method_index < passes * 1.01) {
+                    std::uniform_int_distribution<int> rand_x(0, 2);
+                    int x = rand_x(rng);
+                    Output_converge << "methodx ";
+                    same_atom = true;
+                    while (same_atom == true) {
+                        x = rand_x(rng);
+                        if (chem_list[site] != x) {same_atom = false;}
+                        }
+                    int old_site_chem = chem_list[site];
+                    float old_enrg = eval_atom_flip(site);
+                    // Flip atom for site
+                    chem_list[site] = x;
+                    float new_enrg = eval_atom_flip(site);
+                    e_flip = new_enrg - old_enrg;
+                    if (e_flip < 0) { flip_count += 1; }
+                    else {
+                        keep_rand = unif(rng);
+                        keep_prob = exp(-1 / (Kb * temp) * (e_flip));
+                        if (keep_rand < keep_prob) { flip_count2 += 1; }
+                        else {
+                            chem_list[site] = old_site_chem;
+                            e_flip = 0.0; }
+                    }
+                    // Record the enrg and spin changes
+                    init_enrg += e_flip;
+                    init_spin += spin_flip;
+                    Output_converge << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
+                    if (pass >= passes * 0.5) {
+                        e_avg += init_enrg;
+                        rs_C.Push(init_enrg);
+                        spin_avg += init_spin;
+                        rs_X.Push(init_spin);
                     }
                 }
                 // Do the pass for atom swaps
-                else if (method_index < passes * 0.666667) {
-                    cout << " method2 ";
+                else if (method_index < passes * 1.51) {
                     Output_converge << "method2 ";
                     same_atom = true;
                     while (same_atom == true) {
@@ -513,19 +502,25 @@ void Algo2::run() {
                             if (find(sim_cell.atom_list[rand_site].allowed_species.begin(), sim_cell.atom_list[rand_site].allowed_species.end(), chem_list[site]) != sim_cell.atom_list[rand_site].allowed_species.end() && find(sim_cell.atom_list[site].allowed_species.begin(), sim_cell.atom_list[site].allowed_species.end(), chem_list[rand_site]) != sim_cell.atom_list[site].allowed_species.end()) {
                                 if (chem_list[site] != chem_list[rand_site]) { same_atom = false;}
                             }
+                            // if (chem_list[site] != chem_list[rand_site]) { same_atom = false;}
                         }
                     }
-                    // Swap atoms
-                    old_site_chem = chem_list[site];
-                    old_site_spin = spin_list[site];
-                    old_rand_site_chem = chem_list[rand_site];
-                    old_rand_site_spin = spin_list[rand_site];
+                    int old_site_chem = chem_list[site];
+                    float old_site_spin = spin_list[site];
+                    int old_rand_site_chem = chem_list[rand_site];
+                    float old_rand_site_spin = spin_list[rand_site];
+                    // Flip atom for site
+                    float old_enrg = eval_atom_flip(site);
                     chem_list[site] = old_rand_site_chem;
                     spin_list[site] = old_rand_site_spin;
+                    float new_enrg = eval_atom_flip(site);
+                    e_flip += new_enrg - old_enrg;
+                    // Flip atom for rand_site
+                    old_enrg = eval_atom_flip(rand_site);
                     chem_list[rand_site] = old_site_chem;
                     spin_list[rand_site] = old_site_spin;
-                    // Evaluate energy change
-                    e_flip = eval_atom_flip(site, old_site_spin, rand_site, old_rand_site_spin);
+                    new_enrg = eval_atom_flip(rand_site);
+                    e_flip += new_enrg - old_enrg;
                     if (e_flip < 0) { flip_count += 1; }
                     else {
                         keep_rand = unif(rng);
@@ -538,10 +533,19 @@ void Algo2::run() {
                             spin_list[rand_site] = old_rand_site_spin;
                             e_flip = 0.0; }
                     }
+                    // Record the enrg and spin changes
+                    init_enrg += e_flip;
+                    init_spin += spin_flip;
+                    Output_converge << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
+                    if (pass >= passes * 0.5) {
+                        e_avg += init_enrg;
+                        rs_C.Push(init_enrg);
+                        spin_avg += init_spin;
+                        rs_X.Push(init_spin);
+                    }
                 }
                 // Do the pass for atom swaps and randomly set spins
                 else {
-                    cout << " method3 ";
                     Output_converge << "method3 ";
                     same_atom = true;
                     while (same_atom == true) {
@@ -552,46 +556,54 @@ void Algo2::run() {
                             }
                         }
                     }
-                    old_site_chem = chem_list[site];
-                    old_site_spin = spin_list[site];
-                    old_rand_site_chem = chem_list[rand_site];
-                    old_rand_site_spin = spin_list[rand_site];
-                    // swap for site
+                    int old_site_chem = chem_list[site];
+                    float old_site_spin = spin_list[site];
+                    int old_rand_site_chem = chem_list[rand_site];
+                    float old_rand_site_spin = spin_list[rand_site];
+                    // Flip atom for site
+                    float old_enrg = eval_atom_flip(site);
                     chem_list[site] = old_rand_site_chem;
                     spin_list[site] = old_rand_site_spin;
                     // Flip spin for site
                     if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
-                        old_spin = spin_list[site];
+                        float old_spin1 = spin_list[site];
+                        float new_spin1 = spin_list[site];
                         same_spin = true;
                         while (same_spin == true) {
                             rand_spin = unif(rng);
                             for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[site]].size(); it_spin_state++) {
-                                if (rand_spin > float(it_spin_state) * 1.0 / float(spin_states[chem_list[site]].size())) { new_spin = spin_states[chem_list[site]][it_spin_state]; }
+                                if (rand_spin > float(it_spin_state) / float(spin_states[chem_list[site]].size())) {
+                                    new_spin1 = spin_states[chem_list[site]][it_spin_state]; }
                             }
-                            if (new_spin != old_spin) { same_spin = false; }
+                            if (new_spin1 != old_spin1) { same_spin = false; }
                         }
-                        spin_list[site] = new_spin;
-                        spin_flip += new_spin - old_spin;
+                        spin_list[site] = new_spin1;
+                        spin_flip += new_spin1 - old_spin1;
                     }
-                    //swap for rand_site
+                    float new_enrg = eval_atom_flip(site);
+                    e_flip += new_enrg - old_enrg;
+                    // Flip atom for rand_site
+                    old_enrg = eval_atom_flip(rand_site);
                     chem_list[rand_site] = old_site_chem;
                     spin_list[rand_site] = old_site_spin;
                     // Flip spin for rand_site
-                    if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
-                        old_spin = spin_list[rand_site];
+                    if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[rand_site]) != spin_atoms.end()) {
+                        float old_spin2 = spin_list[rand_site];
+                        float new_spin2 = spin_list[rand_site];
                         same_spin = true;
                         while (same_spin == true) {
                             rand_spin = unif(rng);
                             for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[rand_site]].size(); it_spin_state++) {
-                                if (rand_spin > float(it_spin_state) * 1.0 / float(spin_states[chem_list[rand_site]].size())) { new_spin = spin_states[chem_list[rand_site]][it_spin_state]; }
+                                if (rand_spin > float(it_spin_state) / float(spin_states[chem_list[rand_site]].size())) {
+                                    new_spin2 = spin_states[chem_list[rand_site]][it_spin_state]; }
                             }
-                            if (new_spin != old_spin) { same_spin = false; }
+                            if (new_spin2 != old_spin2) { same_spin = false; }
                         }
-                        spin_list[rand_site] = new_spin;
-                        spin_flip += new_spin - old_spin;
+                        spin_list[rand_site] = new_spin2;
+                        spin_flip += new_spin2 - old_spin2;
                     }
-                    // Evaluate energy change
-                    e_flip = eval_atom_flip(site, old_site_spin, rand_site, old_rand_site_spin);
+                    new_enrg = eval_atom_flip(rand_site);
+                    e_flip += new_enrg - old_enrg;
                     if (e_flip < 0) { flip_count += 1; }
                     else {
                         keep_rand = unif(rng);
@@ -605,16 +617,16 @@ void Algo2::run() {
                             e_flip = 0.0;
                             spin_flip = 0.0; }
                     }
-                }
-                // record the enrg and spin changes
-                Output_converge << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
-                init_enrg += e_flip;
-                init_spin += spin_flip;
-                if (pass >= passes * 0.5) {
-                    e_avg += init_enrg;
-                    rs_C.Push(init_enrg);
-                    spin_avg += init_spin;
-                    rs_X.Push(init_spin);
+                    // Record the enrg and spin changes
+                    init_enrg += e_flip;
+                    init_spin += spin_flip;
+                    Output_converge << eval_lat() << "; " << init_enrg << ", " <<  init_spin << "\n";
+                    if (pass >= passes * 0.5) {
+                        e_avg += init_enrg;
+                        rs_C.Push(init_enrg);
+                        spin_avg += init_spin;
+                        rs_X.Push(init_spin);
+                    }
                 }
             }
         }
@@ -638,6 +650,6 @@ void Algo2::run() {
         rs_X.Clear();
     }
     cout << " MC Finished\n";
-//    print_state(temp2);
+    // print_state(temp2);
     Output.close();
 }

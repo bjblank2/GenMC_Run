@@ -425,7 +425,7 @@ void Algo2::run() {
                 float spin_flip = 0.0;
                 int method_index = rand_method(rng);
                 // Do the pass for spin flips
-                if ( method_index < passes * 0.33) {
+                if ( method_index < passes * 0.0) {
                     Output_converge << "method1 ";
                     if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
                         // Flip Spin
@@ -463,44 +463,71 @@ void Algo2::run() {
                         }
                     }
                 }
-//                // Test on atom flip
-//                else if (method_index < passes * 1.01) {
-//                    std::uniform_int_distribution<int> rand_x(0, 2);
-//                    int x = rand_x(rng);
-//                    Output_converge << "methodx ";
-//                    same_atom = true;
-//                    while (same_atom == true) {
-//                        x = rand_x(rng);
-//                        if (chem_list[site] != x) {same_atom = false;}
-//                        }
-//                    int old_site_chem = chem_list[site];
-//                    float old_enrg = eval_atom_flip(site);
-//                    // Flip atom for site
-//                    chem_list[site] = x;
-//                    float new_enrg = eval_atom_flip(site);
-//                    e_flip = new_enrg - old_enrg;
-//                    if (e_flip < 0) { flip_count += 1; }
-//                    else {
-//                        keep_rand = unif(rng);
-//                        keep_prob = exp(-1 / (Kb * temp) * (e_flip));
-//                        if (keep_rand < keep_prob) { flip_count2 += 1; }
-//                        else {
-//                            chem_list[site] = old_site_chem;
-//                            e_flip = 0.0; }
-//                    }
-//                    // Record the enrg and spin changes
-//                    init_enrg += e_flip;
-//                    init_spin += spin_flip;
-//                    Output_converge << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
-//                    if (pass >= passes * 0.5) {
-//                        e_avg += init_enrg;
-//                        rs_C.Push(init_enrg);
-//                        spin_avg += init_spin;
-//                        rs_X.Push(init_spin);
-//                    }
-//                }
+                // Test on atom flip
+                else if (method_index < passes * 1.01) {
+                    cout << e_flip;
+                    same_atom = true;
+                    while (same_atom == true) {
+                        rand_site = rand_atom(rng);
+                        if (rand_site != site) {same_atom = false;}
+                    }
+                    int old_site_chem = chem_list[site];
+                    float old_site_spin = spin_list[site];
+                    int old_rand_site_chem = chem_list[rand_site];
+                    float old_rand_site_spin = spin_list[rand_site];
+                    // Flip atom for site
+                    float old_enrg = eval_atom_flip(site);
+                    chem_list[site] = old_rand_site_chem;
+                    spin_list[site] = old_rand_site_spin;
+                    if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
+                        float old_spin1 = spin_list[site];
+                        float new_spin1 = spin_list[site];
+                        same_spin = true;
+                        while (same_spin == true) {
+                            rand_spin = unif(rng);
+                            for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[site]].size(); it_spin_state++) {
+                                if (rand_spin > float(it_spin_state) / float(spin_states[chem_list[site]].size())) {
+                                    new_spin1 = spin_states[chem_list[site]][it_spin_state]; }
+                            }
+                            if (new_spin1 != old_spin1) { same_spin = false; }
+                        }
+                        spin_list[site] = new_spin1;
+                        spin_flip += new_spin1 - old_spin1;
+                    }
+                    float new_enrg = eval_atom_flip(site);
+                    e_flip += new_enrg - old_enrg;
+                    // Flip atom for rand_site
+                    old_enrg = eval_atom_flip(rand_site);
+                    chem_list[rand_site] = old_site_chem;
+                    spin_list[rand_site] = old_site_spin;
+                    new_enrg = eval_atom_flip(rand_site);
+                    e_flip += new_enrg - old_enrg;
+                    cout << " " << e_flip << "\n";
+                    if (e_flip < 0) { flip_count += 1; }
+                    else {
+                        keep_rand = unif(rng);
+                        keep_prob = exp(-1 / (Kb * temp) * (e_flip));
+                        if (keep_rand < keep_prob) { flip_count2 += 1; }
+                        else {
+                            chem_list[site] = old_site_chem;
+                            spin_list[site] = old_site_spin;
+                            chem_list[rand_site] = old_rand_site_chem;
+                            spin_list[rand_site] = old_rand_site_spin;
+                            e_flip = 0.0; }
+                    }
+                    // Record the enrg and spin changes
+                    init_enrg += e_flip;
+                    init_spin += spin_flip;
+                    Output_converge << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
+                    if (pass >= passes * 0.5) {
+                        e_avg += init_enrg;
+                        rs_C.Push(init_enrg);
+                        spin_avg += init_spin;
+                        rs_X.Push(init_spin);
+                    }
+                }
                 // Do the pass for atom swaps
-                else if (method_index < passes * 0.67) {
+                else if (method_index < passes * 1.67) {
                     Output_converge << "method2 ";
                     same_atom = true;
                     while (same_atom == true) {
@@ -657,6 +684,6 @@ void Algo2::run() {
         rs_X.Clear();
     }
     cout << " MC Finished\n";
-    // print_state(temp2);
+    print_state(temp2);
     Output.close();
 }

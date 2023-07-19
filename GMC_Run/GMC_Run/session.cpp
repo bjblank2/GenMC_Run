@@ -258,9 +258,9 @@ void Session::fill_rule_list(){
 		bool intercept_flag = false;
 		for (int i = 0; i < rule_lines.size(); i++) {
 			if (rule_lines[i].find('#') != std::string::npos and intercept_flag == false) {
-                cout << enrg.size() << "\n";
+                // cout << enrg.size() << "\n";
 				if (phase.size() == 0) { for (int j = 0; j < enrg.size(); j++) { phase.push_back(0); } }
-				//cout << phase.size() << "  " << type.size() << "\n";
+				// cout << phase.size() << "  " << type.size() << "\n";
 				for (int j = 0; j < enrg.size(); j++) {
 					if (type == 0) { chem_rule_list.push_back(Rule(enrg[j], type, phase[j], deco[j], motif, chem_motif_ind)); }
 					if (type == 1) { spin_rule_list.push_back(Rule(enrg[j], type, phase[j], deco[j], motif, spin_motif_ind)); }

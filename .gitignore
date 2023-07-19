@@ -14,3 +14,7 @@ GMC_Run/.vs/GMC_Run/FileContentIndex/767e2975-873e-4d65-a24e-37de2752c59d.vsidx
 *.opendb
 *.db-wal
 *.ipch
+*.ipch
+*.ipch
+*.db
+GMC_Run/.vs/GMC_Run/v17/.suo

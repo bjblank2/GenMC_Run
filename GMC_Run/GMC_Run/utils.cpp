@@ -281,8 +281,6 @@ bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol) {
 	return true;
 }
 
-
-
 vector<float> cart_to_frac(vector<float> pos, vector<vector<float>> lat_vec) {
     vector<float> new_pos {0, 0, 0};
     for (int i = 0; i < 3; i++) {
@@ -299,7 +297,6 @@ vector<float> frac_to_cart(vector<float> pos, vector<vector<float>> lat_vec) {
     
     return new_pos;
 }
-
 
 //vector<float> matrix_inv(Matrix33d m) {
 //    // computes the inverse of a matrix m

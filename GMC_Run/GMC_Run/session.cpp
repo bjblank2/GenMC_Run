@@ -80,8 +80,8 @@ Session::Session(string input_file) {
 			moments.push_back(1);
 		}
 	}
-	if (species_inds.size() != atom_numbs.size()) { 
-		cout << "*ERROR* number of simulated atoms is unclear\n" << " SPECIES should reflect ATOM_NUMBS\n"; 
+	if (species_inds.size() != atom_numbs.size()) {
+		cout << "*ERROR* number of simulated atoms is unclear\n" << " SPECIES should reflect ATOM_NUMBS\n";
 	}
 }
 
@@ -189,7 +189,7 @@ void Session::fill_sro_list() {
 				motif.clear();
 				deco.clear();
 				type.clear();
-				sro_motif_ind +=1;
+				sro_motif_ind += 1;
 			}
 			setting = split(sro_lines[i], ":");
 			if (setting[0].find("otif") != std::string::npos) {
@@ -221,13 +221,13 @@ void Session::fill_sro_list() {
 				}
 			}
 		}
-		cout << "Filled Rule_list\n";
+		cout << "Filled SRO_list\n";
 	}
-	else cout << "*ERROR* Unable to open rule file\n";
+	else cout << "*ERROR* Unable to open SRO file\n";
 
 }
 
-void Session::fill_rule_list(){
+void Session::fill_rule_list() {
 	vector<float> distances;
 	vector<int> spins;
 	vector<int> species;
@@ -238,10 +238,11 @@ void Session::fill_rule_list(){
 	vector<string> rule_lines;
 	vector<string> setting;
 	vector<string> line;
-	int type=0;
+	string motif_line;
+	int type = 0;
 	vector<float> enrg;
 	vector<int> phase;
-	vector<vector<float>> motif;
+	vector<vector<vector<float>>> motif;
 	vector<vector<int>> deco;
 	ifstream rule_list_file;
 	rule_list_file.open(rules_file, ifstream::in);
@@ -253,37 +254,55 @@ void Session::fill_rule_list(){
 		}
 		rule_list_file.close();
 		cout << "Reading rule file\n";
-		int chem_motif_ind = 0;
-		int spin_motif_ind = 0;
+		int chem_clust_ind = 0;
+		int spin_clust_ind = 0;
 		bool intercept_flag = false;
 		for (int i = 0; i < rule_lines.size(); i++) {
 			if (rule_lines[i].find('#') != std::string::npos and intercept_flag == false) {
-                // cout << enrg.size() << "\n";
+				cout << enrg.size() << "\n";
 				if (phase.size() == 0) { for (int j = 0; j < enrg.size(); j++) { phase.push_back(0); } }
-				// cout << phase.size() << "  " << type.size() << "\n";
-				for (int j = 0; j < enrg.size(); j++) {
-					if (type == 0) { chem_rule_list.push_back(Rule(enrg[j], type, phase[j], deco[j], motif, chem_motif_ind)); }
-					if (type == 1) { spin_rule_list.push_back(Rule(enrg[j], type, phase[j], deco[j], motif, spin_motif_ind)); }
+				//cout << phase.size() << "  " << type.size() << "\n";
+				for (int j = 0; j < motif.size(); j++) {
+					for (int k = 0; k < enrg.size(); k++) {
+						if (type == 0) { chem_rule_list.push_back(Rule(enrg[k], type, phase[k], deco[k], motif[j], chem_clust_ind)); }
+						int x = 0;
+						if (type == 1) { spin_rule_list.push_back(Rule(enrg[k], type, phase[k], deco[k], motif[j], spin_clust_ind)); }
+					}
 				}
 				motif.clear();
 				deco.clear();
-				if (type == 0) { chem_motif_ind += 1; }
-				else if (type == 1) { spin_motif_ind += 1; }
+				if (type == 0) { chem_clust_ind += 1; }
+				else if (type == 1) { spin_clust_ind += 1; }
 				enrg.clear();
 				phase.clear();
 			}
 			setting = split(rule_lines[i], ":");
-			if (setting[0].find("Motif") != std::string::npos) {
+			if (setting[0].find("otif") != std::string::npos) {
 				setting.erase(setting.begin());
 				line = setting;
-				if (line[0].find("nter") != std::string::npos) {
+				if (rule_lines[i].find("nter") != std::string::npos) {
 					intercept_flag = true;
 				}
 				else {
 					intercept_flag = false;
-					for (int j = 0; j < line.size(); j++) {
-						vector<string> pos = split(line[j], ",");
-						motif.push_back({ stof(pos[0]), stof(pos[1]), stof(pos[2]) });
+					bool read_motif = true;
+					int motif_count = 1;
+					vector<vector<float>> sub_motif;
+					while (read_motif == true) {
+						motif_line = rule_lines[i + motif_count];
+						if (motif_line.find_first_of("DTEP") != std::string::npos) {
+							read_motif = false;
+						}
+						else {
+							line = split(motif_line, ":");
+							for (int j = 0; j < line.size(); j++) {
+								vector<string> pos = split(line[j], ",");
+								sub_motif.push_back({ stof(pos[0]), stof(pos[1]), stof(pos[2]) });
+							}
+							motif_count += 1;
+							motif.push_back(sub_motif);
+							sub_motif.clear();
+						}
 					}
 				}
 			}
@@ -300,7 +319,7 @@ void Session::fill_rule_list(){
 				}
 			}
 			else if (setting[0].find("Type") != std::string::npos) {
-					type = stoi(setting[1]);
+				type = stoi(setting[1]);
 			}
 			else if (setting[0].find("Enrg") != std::string::npos) {
 				setting.erase(setting.begin());
@@ -323,10 +342,10 @@ void Session::fill_rule_list(){
 		cout << "Rule list filled\n";
 	}
 	else cout << "*ERROR* Unable to open rule file\n";
-	
+
 }
 
-void Session::find_unique_dists(){
+void Session::find_unique_dists() {
 	// Loop through all mc_rules
 	for (int i = 0; i < chem_rule_list.size(); i++) {
 		for (int j = 0; j < chem_rule_list[i].GetDists().size(); j++) {

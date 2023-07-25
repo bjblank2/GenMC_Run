@@ -289,7 +289,7 @@ void Session::fill_rule_list() {
 
 void Session::find_unique_dists() {
 	// Loop through all mc_rules
-    // unique_dists.push_back(0);
+    unique_dists.push_back(0);
 	for (int i = 0; i < chem_rule_list.size(); i++) {
 		for (int j = 0; j < chem_rule_list[i].GetDists().size(); j++) {
 			if (find(unique_dists.begin(), unique_dists.end(), chem_rule_list[i].GetDists()[j]) == unique_dists.end()) {

@@ -35,6 +35,10 @@ Session::Session(string input_file) {
 		else if (setting[0].compare("SRO_TEMP") == 0) { sro_temp = stof(setting[2]); }
 		else if (setting[0].compare("MAG_EXT") == 0) { mag_ext = stof(setting[2]); }
 		else if (setting[0].compare("SRO_TARGET") == 0) { sro_target = stof(setting[2]); }
+        else if (setting[0].compare("WRITE_CONV") == 0) {
+            if (setting[2].compare("TRUE") == 0){ do_conv_output = true; }
+            else{ do_conv_output = false; }
+        }
 		else if (setting[0].compare("USE_STATES") == 0) {
 			if (setting[2][0] == 'T') { use_states = true; }
 			else { use_states = false; }

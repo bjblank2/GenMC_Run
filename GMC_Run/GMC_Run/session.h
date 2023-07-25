@@ -17,6 +17,7 @@ class Session
 public:
 	bool use_poscar;
 	bool use_states;
+    bool do_conv_output = false;
 	int algo = 0;
 	int numb_passes = 1;
 	int numb_subpasses = 0;

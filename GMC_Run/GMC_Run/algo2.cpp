@@ -401,7 +401,6 @@ void Algo2::run() {
     
     // Begin MC
     float init_enrg = eval_lat();
-    Output_converge << eval_lat() << ", " << init_enrg << "\n";
     cout << "Evaluated total energy: " << init_enrg / numb_atoms << "\n";
     float init_spin_enrg = eval_lat_spin();
     cout << "Evaluated spin energy: " << init_spin_enrg / numb_atoms << "\n";
@@ -449,8 +448,7 @@ void Algo2::run() {
                 float spin_flip = 0.0;
                 int method_index = rand_method(rng);
                 // Do the pass for spin flips
-                if ( method_index < passes * 1.01) {
-                    Output_converge << "method1 ";
+                if ( method_index < passes * 0.33) {
                     if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
                         // Flip Spin
                         float old_spin = spin_list[site];
@@ -477,7 +475,9 @@ void Algo2::run() {
                         // Record the enrg and spin changes
                         init_enrg += e_flip;
                         init_spin += spin_flip;
-                        Output_converge << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
+                        if (session.do_conv_output ) {
+                            Output_converge << "method1 " << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
+                        }
                         if (pass >= passes * 0.5) {
                             real_move += 1;
                             e_avg += init_enrg;
@@ -488,8 +488,7 @@ void Algo2::run() {
                     }
                 }
                 // Do the pass for atom swaps
-                else if (method_index < passes * 1.67) {
-                    Output_converge << "method2 ";
+                else if (method_index < passes * 0.67) {
                     same_atom = true;
                     while (same_atom == true) {
                         rand_site = rand_atom(rng);
@@ -531,7 +530,9 @@ void Algo2::run() {
                     // Record the enrg and spin changes
                     init_enrg += e_flip;
                     init_spin += spin_flip;
-                    Output_converge << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
+                    if (session.do_conv_output ) {
+                        Output_converge << "method2 " << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
+                    }
                     if (pass >= passes * 0.5) {
                         e_avg += init_enrg;
                         rs_C.Push(init_enrg);
@@ -541,7 +542,6 @@ void Algo2::run() {
                 }
                 // Do the pass for atom swaps and randomly set spins
                 else {
-                    Output_converge << "method3 ";
                     same_atom = true;
                     while (same_atom == true) {
                         rand_site = rand_atom(rng);
@@ -615,7 +615,9 @@ void Algo2::run() {
                     // Record the enrg and spin changes
                     init_enrg += e_flip;
                     init_spin += spin_flip;
-                    Output_converge << eval_lat() << "; " << init_enrg << ", " <<  init_spin << "\n";
+                    if (session.do_conv_output ) {
+                        Output_converge << "method3 " << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
+                    }
                     if (pass >= passes * 0.5) {
                         e_avg += init_enrg;
                         rs_C.Push(init_enrg);

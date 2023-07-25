@@ -22,9 +22,9 @@ Rule::Rule(float _enrg_cont, int _type, int _phase, vector<int> _deco, vector<ve
 			}
 		}
 	}
-//    if ( motif.size() == 1 ) {
-//        dists.push_back(0);
-//    }
+    if ( motif.size() == 1 ) {
+        dists.push_back(0);
+    }
 }
 
 //Rule::Rule(Rule& _rule) {

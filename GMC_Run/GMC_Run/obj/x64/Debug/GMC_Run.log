@@ -4,142 +4,6 @@
   Validating architecture
   Starting remote build
   Compiling sources:
-  algo1.cpp
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :  bool fcomp(float a, float b, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :                                                 ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :  bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :                                                                            ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(13,51): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(13,51): warning :   for (int i = 0; i < chem_motif_groups[site].size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(13,51): warning :                                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(20,98): warning : conversion to ‘float’ from ‘std::vector<int>::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(20,8): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(28,51): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(28,51): warning :   for (int i = 0; i < spin_motif_groups[site].size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(28,51): warning :                                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(37,110): warning : conversion to ‘float’ from ‘std::vector<int>::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(37,8): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(45,51): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(45,51): warning :   for (int i = 0; i < spin_motif_groups[site].size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(45,51): warning :                                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(82,50): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(82,50): warning :    for (int i = 0; i < neigh_dist_list[site].size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(82,50): warning :                                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(90,15): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(90,15): warning :   return count / 6.0;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(90,15): warning :                ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(112,92): warning : conversion to ‘float’ from ‘__gnu_cxx::__alloc_traits<std::allocator<int> >::value_type {aka int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(112,92): warning :    sro_initial += calc_struct(i, neigh_ind_list, neigh_dist_list) / sim_cell.species_numbs[2];
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(112,92): warning :                                                                                             ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(131,83): warning : conversion to ‘float’ from ‘__gnu_cxx::__alloc_traits<std::allocator<int> >::value_type {aka int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(131,83): warning :        sro_site_flip = 2 * (sro_site_new - sro_site_old) / sim_cell.species_numbs[2];
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(131,83): warning :                                                                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(135,28): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(135,28): warning :         keep_rand = unif(rng);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(135,28): warning :                             ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(136,65): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(136,65): warning :         keep_prob = exp(-1 / (Kb * session.sro_temp) * (sro_flip));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(136,65): warning :                                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(149,90): warning : conversion to ‘float’ from ‘__gnu_cxx::__alloc_traits<std::allocator<int> >::value_type {aka int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(149,90): warning :    sro_final += calc_struct(i, neigh_ind_list, neigh_dist_list) / sim_cell.species_numbs[2];
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(149,90): warning :                                                                                           ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(163,49): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(163,49): warning :     lc_shift = scale_vect(sim_cell.lat_vect[i], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(163,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(168,49): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(168,49): warning :     lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(168,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(170,49): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(170,49): warning :     lc_shift = scale_vect(sim_cell.lat_vect[1], b);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(170,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(174,49): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(174,49): warning :     lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(174,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(176,49): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(176,49): warning :     lc_shift = scale_vect(sim_cell.lat_vect[2], b);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(176,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(180,49): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(180,49): warning :     lc_shift = scale_vect(sim_cell.lat_vect[1], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(180,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(182,49): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(182,49): warning :     lc_shift = scale_vect(sim_cell.lat_vect[2], b);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(182,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(187,50): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(187,50): warning :      lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(187,50): warning :                                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(189,50): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(189,50): warning :      lc_shift = scale_vect(sim_cell.lat_vect[1], b);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(189,50): warning :                                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(191,50): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(191,50): warning :      lc_shift = scale_vect(sim_cell.lat_vect[2], c);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(191,50): warning :                                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(198,33): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(198,33): warning :    if (pos_comp(check, check_vect)) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(198,33): warning :                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(216,35): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(216,35): warning :       if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(216,35): warning :                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(246,35): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(246,35): warning :       if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(246,35): warning :                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(290,71): warning : conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(290,71): warning :     for (int j = 0; j < 3; j++) { OUT_file << vect[j] * session.shape[i] << " "; }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(290,71): warning :                                                                        ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(295,51): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(295,51): warning :    for (int i = 0; i < sim_cell.species_numbs.size(); i++) { OUT_file << sim_cell.species_numbs[i] << " "; }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(295,51): warning :                                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(354,53): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(354,53): warning :      for (int i = 0; i < sim_cell.species_numbs.size(); i++) { Output << sim_cell.species_numbs[i] << ", "; }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(354,53): warning :                                                      ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(374,44): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(374,44): warning :          for (int i = 0; i < rule.deco.size(); i++) { rule_key += "." + to_string(rule.deco[i]); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(374,44): warning :                                             ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(379,44): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(379,44): warning :          for (int i = 0; i < rule.deco.size(); i++) { rule_key += "." + to_string(rule.deco[i]); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(379,44): warning :                                             ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(393,55): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(395,59): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(397,27): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(397,27): warning :      Output << init_enrg / numb_atoms << ", " << init_spin_enrg / numb_atoms << "\n";
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(397,27): warning :                            ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(397,66): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(397,66): warning :      Output << init_enrg / numb_atoms << ", " << init_spin_enrg / numb_atoms << "\n";
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(397,66): warning :                                                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(411,47): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(411,47): warning :      cout << "Initial spin is " << init_spin / numb_atoms << " per atom\n";
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(411,47): warning :                                                ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(437,45): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(437,45): warning :                          spin_rand = unif(rng);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(437,45): warning :                                              ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(438,103): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(438,103): warning :                          for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[site]].size(); it_spin_state++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(438,103): warning :                                                                                                        ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(448,45): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(448,45): warning :                          keep_rand = unif(rng);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(448,45): warning :                                              ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(449,68): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(449,68): warning :                          keep_prob = exp(-1 / (Kb * temp) * (e_flip));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(449,68): warning :                                                                     ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(466,15): warning : conversion to ‘float’ from ‘__gnu_cxx::__promote_2<int, int, double, double>::__type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(466,15): warning :          e_avg /= double(pow(numb_atoms, 2) * 0.8 * passes);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(466,15): warning :                ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(467,18): warning : conversion to ‘float’ from ‘__gnu_cxx::__promote_2<int, int, double, double>::__type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(467,18): warning :          spin_avg /= double(pow(numb_atoms, 2) * 0.8 * passes);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(467,18): warning :                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(470,22): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(470,22): warning :          Cmag = var_e / (Kb * double(pow(temp, 2)));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(470,22): warning :                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(471,25): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(471,25): warning :          Xmag = var_spin / (Kb * double(pow(temp, 2)));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(471,25): warning :                          ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(313,9): warning : unused variable ‘eq_passes’ [-Wunused-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(313,9): warning :      int eq_passes = session.eq_passes;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(313,9): warning :          ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(314,11): warning : unused variable ‘sro_target’ [-Wunused-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(314,11): warning :      float sro_target = session.sro_target;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo1.cpp(314,11): warning :            ^
   algo2.cpp
 C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
 C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :  bool fcomp(float a, float b, float tol = 0.0001);
@@ -147,768 +11,164 @@ C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48
 C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
 C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :  bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol = 0.0001);
 C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :                                                                            ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(20,51): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(20,51): warning :   for (int i = 0; i < chem_motif_groups[site].size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(20,51): warning :                                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(27,99): warning : conversion to ‘float’ from ‘std::vector<int>::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(27,8): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(35,51): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(35,51): warning :   for (int i = 0; i < spin_motif_groups[site].size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(35,51): warning :                                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(44,111): warning : conversion to ‘float’ from ‘std::vector<int>::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(44,8): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(52,51): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(52,51): warning :   for (int i = 0; i < spin_motif_groups[site].size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(52,51): warning :                                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(61,8): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(71,54): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(71,54): warning :      for (int i = 0; i < chem_motif_groups[site].size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(71,54): warning :                                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(77,14): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(80,54): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(80,54): warning :      for (int i = 0; i < spin_motif_groups[site].size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(80,54): warning :                                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(88,14): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(120,58): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(120,58): warning :              lc_shift = scale_vect(sim_cell.lat_vect[i], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(120,58): warning :                                                           ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(125,58): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(125,58): warning :              lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(125,58): warning :                                                           ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(127,58): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(127,58): warning :              lc_shift = scale_vect(sim_cell.lat_vect[1], b);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(127,58): warning :                                                           ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(131,58): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(131,58): warning :              lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(131,58): warning :                                                           ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(133,58): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(133,58): warning :              lc_shift = scale_vect(sim_cell.lat_vect[2], b);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(133,58): warning :                                                           ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(137,58): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(137,58): warning :              lc_shift = scale_vect(sim_cell.lat_vect[1], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(137,58): warning :                                                           ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(139,58): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(139,58): warning :              lc_shift = scale_vect(sim_cell.lat_vect[2], b);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(139,58): warning :                                                           ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(144,62): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(144,62): warning :                  lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(144,62): warning :                                                               ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(146,62): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(146,62): warning :                  lc_shift = scale_vect(sim_cell.lat_vect[1], b);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(146,62): warning :                                                               ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(148,62): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(148,62): warning :                  lc_shift = scale_vect(sim_cell.lat_vect[2], c);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(148,62): warning :                                                               ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(155,39): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(155,39): warning :          if (pos_comp(check, check_vect)) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(155,39): warning :                                        ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(174,50): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(174,50): warning :                      if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(174,50): warning :                                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(204,50): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(204,50): warning :                      if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(204,50): warning :                                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(251,71): warning : conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(251,71): warning :     for (int j = 0; j < 3; j++) { OUT_file << vect[j] * session.shape[i] << " "; }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(251,71): warning :                                                                        ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(256,51): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(256,51): warning :    for (int i = 0; i < sim_cell.species_numbs.size(); i++) { OUT_file << sim_cell.species_numbs[i] << " "; }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(256,51): warning :                                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(315,53): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(315,53): warning :      for (int i = 0; i < sim_cell.species_numbs.size(); i++) { Output << sim_cell.species_numbs[i] << ", "; }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(315,53): warning :                                                      ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(335,44): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(335,44): warning :          for (int i = 0; i < rule.deco.size(); i++) { rule_key += "." + to_string(rule.deco[i]); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(335,44): warning :                                             ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(340,44): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(340,44): warning :          for (int i = 0; i < rule.deco.size(); i++) { rule_key += "." + to_string(rule.deco[i]); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(340,44): warning :                                             ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(378,55): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(380,59): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(382,27): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(382,27): warning :      Output << init_enrg / numb_atoms << ", " << init_spin_enrg / numb_atoms << "\n";
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(382,27): warning :                            ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(382,66): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(382,66): warning :      Output << init_enrg / numb_atoms << ", " << init_spin_enrg / numb_atoms << "\n";
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(382,66): warning :                                                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(395,47): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(395,47): warning :      cout << "Initial spin is " << init_spin / numb_atoms << " per atom\n";
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(395,47): warning :                                                ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(433,49): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(433,49): warning :                              rand_spin = unif(rng);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(433,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(434,107): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(434,107): warning :                              for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[site]].size(); it_spin_state++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(434,107): warning :                                                                                                            ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(445,49): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(445,49): warning :                              keep_rand = unif(rng);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(445,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(446,72): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(446,72): warning :                              keep_prob = exp(-1 / (Kb * temp) * (e_flip));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(446,72): warning :                                                                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(494,45): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(494,45): warning :                          keep_rand = unif(rng);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(494,45): warning :                                              ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(495,68): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(495,68): warning :                          keep_prob = exp(-1 / (Kb * temp) * (e_flip));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(495,68): warning :                                                                     ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(541,49): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(541,49): warning :                              rand_spin = unif(rng);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(541,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(542,107): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(542,107): warning :                              for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[site]].size(); it_spin_state++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(542,107): warning :                                                                                                            ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(20,54): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(20,54): warning :      for (int i = 0; i < chem_motif_groups[site].size(); i++) {
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(20,54): warning :                                                       ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(22,39): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(22,39): warning :          for (int j =0; j < motif.size(); j++) {
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(22,39): warning :                                        ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(30,82): warning : conversion to ‘float’ from ‘std::vector<int>::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(30,12): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(39,54): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(39,54): warning :      for (int i = 0; i < spin_motif_groups[site].size(); i++) {
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(39,54): warning :                                                       ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(41,40): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(41,40): warning :          for (int j = 0; j < motif.size(); j++) {
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(41,40): warning :                                         ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(51,100): warning : conversion to ‘float’ from ‘std::vector<int>::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(51,18): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(60,51): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(60,51): warning :   for (int i = 0; i < spin_motif_groups[site].size(); i++) {
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(60,51): warning :                                                    ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(62,40): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(62,40): warning :          for (int j = 0; j < motif.size(); j++) {
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(62,40): warning :                                         ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(72,12): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(83,54): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(83,54): warning :      for (int i = 0; i < chem_motif_groups[site].size(); i++) {
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(83,54): warning :                                                       ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(85,39): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(85,39): warning :          for (int j =0; j < motif.size(); j++) {
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(85,39): warning :                                        ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(93,12): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(96,54): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(96,54): warning :      for (int i = 0; i < spin_motif_groups[site].size(); i++) {
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(96,54): warning :                                                       ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(98,40): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(98,40): warning :          for (int j = 0; j < motif.size(); j++) {
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(98,40): warning :                                         ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(108,18): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(140,58): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(140,58): warning :              lc_shift = scale_vect(sim_cell.lat_vect[i], a);
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(140,58): warning :                                                           ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(145,58): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(145,58): warning :              lc_shift = scale_vect(sim_cell.lat_vect[0], a);
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(145,58): warning :                                                           ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(147,58): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(147,58): warning :              lc_shift = scale_vect(sim_cell.lat_vect[1], b);
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(147,58): warning :                                                           ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(151,58): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(151,58): warning :              lc_shift = scale_vect(sim_cell.lat_vect[0], a);
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(151,58): warning :                                                           ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(153,58): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(153,58): warning :              lc_shift = scale_vect(sim_cell.lat_vect[2], b);
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(153,58): warning :                                                           ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(157,58): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(157,58): warning :              lc_shift = scale_vect(sim_cell.lat_vect[1], a);
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(157,58): warning :                                                           ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(159,58): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(159,58): warning :              lc_shift = scale_vect(sim_cell.lat_vect[2], b);
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(159,58): warning :                                                           ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(164,62): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(164,62): warning :                  lc_shift = scale_vect(sim_cell.lat_vect[0], a);
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(164,62): warning :                                                               ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(166,62): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(166,62): warning :                  lc_shift = scale_vect(sim_cell.lat_vect[1], b);
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(166,62): warning :                                                               ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(168,62): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(168,62): warning :                  lc_shift = scale_vect(sim_cell.lat_vect[2], c);
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(168,62): warning :                                                               ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(175,39): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(175,39): warning :          if (pos_comp(check, check_vect)) {
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(175,39): warning :                                        ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(194,35): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(194,35): warning :       if (pos_comp(shift, self_site)) { sites.push_back(atom); }
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(194,35): warning :                                    ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(225,35): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(225,35): warning :       if (pos_comp(shift, self_site)) { sites.push_back(atom); }
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(225,35): warning :                                    ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(273,71): warning : conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ from ‘int’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(273,71): warning :     for (int j = 0; j < 3; j++) { OUT_file << vect[j] * session.shape[i] << " "; }
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(273,71): warning :                                                                        ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(278,51): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(278,51): warning :    for (int i = 0; i < sim_cell.species_numbs.size(); i++) { OUT_file << sim_cell.species_numbs[i] << " "; }
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(278,51): warning :                                                    ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(337,53): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(337,53): warning :      for (int i = 0; i < sim_cell.species_numbs.size(); i++) { Output << sim_cell.species_numbs[i] << ", "; }
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(337,53): warning :                                                      ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(357,44): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(357,44): warning :          for (int i = 0; i < rule.deco.size(); i++) { rule_key += "." + to_string(rule.deco[i]); }
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(357,44): warning :                                             ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(362,44): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(362,44): warning :          for (int i = 0; i < rule.deco.size(); i++) { rule_key += "." + to_string(rule.deco[i]); }
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(362,44): warning :                                             ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(400,55): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(402,59): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(404,27): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(404,27): warning :      Output << init_enrg / numb_atoms << ", " << init_spin_enrg / numb_atoms << "\n";
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(404,27): warning :                            ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(404,66): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(404,66): warning :      Output << init_enrg / numb_atoms << ", " << init_spin_enrg / numb_atoms << "\n";
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(404,66): warning :                                                                   ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(417,47): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(417,47): warning :      cout << "Initial spin is " << init_spin / numb_atoms << " per atom\n";
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(417,47): warning :                                                ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(455,49): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(455,49): warning :                              rand_spin = unif(rng);
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(455,49): warning :                                                  ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(456,107): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(456,107): warning :                              for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[site]].size(); it_spin_state++) {
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(456,107): warning :                                                                                                            ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(467,49): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(467,49): warning :                              keep_rand = unif(rng);
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(467,49): warning :                                                  ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(468,72): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(468,72): warning :                              keep_prob = exp(-1 / (Kb * temp) * (e_flip));
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(468,72): warning :                                                                         ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(516,45): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(516,45): warning :                          keep_rand = unif(rng);
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(516,45): warning :                                              ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(517,68): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(517,68): warning :                          keep_prob = exp(-1 / (Kb * temp) * (e_flip));
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(517,68): warning :                                                                     ^
 C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(563,49): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
 C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(563,49): warning :                              rand_spin = unif(rng);
 C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(563,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(564,112): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(564,112): warning :                              for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[rand_site]].size(); it_spin_state++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(564,112): warning :                                                                                                                 ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(577,45): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(577,45): warning :                          keep_rand = unif(rng);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(577,45): warning :                                              ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(578,68): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(578,68): warning :                          keep_prob = exp(-1 / (Kb * temp) * (e_flip));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(578,68): warning :                                                                     ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(601,15): warning : conversion to ‘float’ from ‘__gnu_cxx::__promote_2<int, int, double, double>::__type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(601,15): warning :          e_avg /= double(pow(numb_atoms, 2) * 0.5 * passes);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(601,15): warning :                ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(602,18): warning : conversion to ‘float’ from ‘__gnu_cxx::__promote_2<int, int, double, double>::__type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(602,18): warning :          spin_avg /= double(pow(numb_atoms, 2) * 0.5 * passes);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(602,18): warning :                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(605,22): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(605,22): warning :          Cmag = var_e / (Kb * double(pow(temp, 2)));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(605,22): warning :                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(606,25): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(606,25): warning :          Xmag = var_spin / (Kb * double(pow(temp, 2)));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(606,25): warning :                          ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(275,9): warning : unused variable ‘sub_passes’ [-Wunused-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(275,9): warning :      int sub_passes = session.numb_subpasses;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(275,9): warning :          ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(276,9): warning : unused variable ‘eq_passes’ [-Wunused-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(276,9): warning :      int eq_passes = session.eq_passes;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(276,9): warning :          ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(277,11): warning : unused variable ‘sro_target’ [-Wunused-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(277,11): warning :      float sro_target = session.sro_target;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(277,11): warning :            ^
-  algo3.cpp
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :  bool fcomp(float a, float b, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :                                                 ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :  bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :                                                                            ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(11,49): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(11,49): warning :   for (int i = 0; i < session.sro_rule_list.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(11,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(42,37): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(42,37): warning :    for (int i = 0; i < site_sro.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(42,37): warning :                                      ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(51,51): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(51,51): warning :   for (int i = 0; i < chem_motif_groups[site].size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(51,51): warning :                                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(58,8): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(66,51): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(66,51): warning :   for (int i = 0; i < spin_motif_groups[site].size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(66,51): warning :                                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(75,8): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(83,51): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(83,51): warning :   for (int i = 0; i < spin_motif_groups[site].size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(83,51): warning :                                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(92,109): warning : conversion to ‘float’ from ‘std::vector<std::vector<int> >::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(92,8): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(109,52): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(109,52): warning :   for (int i = 0; i < chem_motif_groups[site1].size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(109,52): warning :                                                     ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(123,100): warning : conversion to ‘float’ from ‘std::vector<std::vector<int> >::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(123,12): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(124,70): warning : conversion to ‘std::vector<int>::size_type {aka long unsigned int}’ from ‘float’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(124,70): warning :    if (rule_itr != rule_map_sro.end()) { new_site_sro[rule_itr->second] += 1; }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(124,70): warning :                                                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(126,100): warning : conversion to ‘float’ from ‘std::vector<std::vector<int> >::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(126,12): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(127,70): warning : conversion to ‘std::vector<int>::size_type {aka long unsigned int}’ from ‘float’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(127,70): warning :    if (rule_itr != rule_map_sro.end()) { old_site_sro[rule_itr->second] += 1; }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(127,70): warning :                                                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(130,52): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(130,52): warning :   for (int i = 0; i < spin_motif_groups[site1].size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(130,52): warning :                                                     ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(146,124): warning : conversion to ‘float’ from ‘std::vector<std::vector<int> >::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(146,12): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(148,124): warning : conversion to ‘float’ from ‘std::vector<std::vector<int> >::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(148,12): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(153,52): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(153,52): warning :   for (int i = 0; i < chem_motif_groups[site2].size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(153,52): warning :                                                     ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(167,100): warning : conversion to ‘float’ from ‘std::vector<std::vector<int> >::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(167,12): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(168,70): warning : conversion to ‘std::vector<int>::size_type {aka long unsigned int}’ from ‘float’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(168,70): warning :    if (rule_itr != rule_map_sro.end()) { new_site_sro[rule_itr->second] += 1; }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(168,70): warning :                                                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(170,100): warning : conversion to ‘float’ from ‘std::vector<std::vector<int> >::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(170,12): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(171,70): warning : conversion to ‘std::vector<int>::size_type {aka long unsigned int}’ from ‘float’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(171,70): warning :    if (rule_itr != rule_map_sro.end()) { old_site_sro[rule_itr->second] += 1; }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(171,70): warning :                                                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(175,52): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(175,52): warning :   for (int i = 0; i < spin_motif_groups[site2].size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(175,52): warning :                                                     ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(191,124): warning : conversion to ‘float’ from ‘std::vector<std::vector<int> >::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(191,12): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(193,124): warning : conversion to ‘float’ from ‘std::vector<std::vector<int> >::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(193,12): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(269,50): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(269,50): warning :   for (int i = 0; i < sim_cell.species_numbs.size(); i++) { Output << sim_cell.species_numbs[i] << ", "; }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(269,50): warning :                                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(289,38): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(289,38): warning :    for (int i = 0; i < rule.deco.size(); i++) { rule_key += "." + to_string(rule.deco[i]); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(289,38): warning :                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(294,38): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(294,38): warning :    for (int i = 0; i < rule.deco.size(); i++) { rule_key += "." + to_string(rule.deco[i]); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(294,38): warning :                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(302,38): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(302,38): warning :    for (int i = 0; i < rule.deco.size(); i++) { rule_key += "." + to_string(rule.deco[i]); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(302,38): warning :                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(323,24): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(323,24): warning :   Output << init_enrg / numb_atoms + 0 << ", " << init_spin_cont / numb_atoms << "\n";
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(323,24): warning :                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(323,67): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(323,67): warning :   Output << init_enrg / numb_atoms + 0 << ", " << init_spin_cont / numb_atoms << "\n";
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(323,67): warning :                                                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(324,22): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(324,22): warning :   cout << init_enrg / numb_atoms + 0 << ", " << init_spin_cont / numb_atoms << "\n";
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(324,22): warning :                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(324,65): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(324,65): warning :   cout << init_enrg / numb_atoms + 0 << ", " << init_spin_cont / numb_atoms << "\n";
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(324,65): warning :                                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(339,36): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(339,36): warning :   cout << "spin is " << init_spin / numb_atoms << "per atom\n";
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(339,36): warning :                                     ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(368,32): warning : conversion to ‘int’ from ‘std::uniform_int_distribution<long unsigned int>::result_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(368,32): warning :       rand_site = rand_atom(rng2);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(368,32): warning :                                 ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(375,39): warning : conversion to ‘int’ from ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(375,39): warning :      int old_site_spin = spin_list[site];
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(375,39): warning :                                        ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(377,49): warning : conversion to ‘int’ from ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(377,49): warning :      int old_rand_site_spin = spin_list[rand_site];
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(377,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(379,21): warning : conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(379,21): warning :      spin_list[site] = old_rand_site_spin;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(379,21): warning :                      ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(381,26): warning : conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(381,26): warning :      spin_list[rand_site] = old_site_spin;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(381,26): warning :                           ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(386,26): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(386,26): warning :       keep_rand = unif(rng);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(386,26): warning :                           ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(387,49): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(387,49): warning :       keep_prob = exp(-1 / (Kb * temp) * (e_flip));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(387,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(391,23): warning : conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(391,23): warning :        spin_list[site] = old_site_spin;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(391,23): warning :                        ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(393,28): warning : conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(393,28): warning :        spin_list[rand_site] = old_rand_site_spin;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(393,28): warning :                             ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(411,15): warning : conversion to ‘int’ from ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(411,15): warning :       old_spin = spin_list[site];
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(411,15): warning :                ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(414,27): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(414,27): warning :        spin_rand = unif(rng);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(414,27): warning :                            ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(415,85): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(415,85): warning :        for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[site]].size(); it_spin_state++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(415,85): warning :                                                                                      ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(416,108): warning : conversion to ‘int’ from ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(416,108): warning :         if (spin_rand > float(it_spin_state) * 1.0 / float(spin_states[chem_list[site]].size())) { new_spin = spin_states[chem_list[site]][it_spin_state]; }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(416,108): warning :                                                                                                             ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(420,22): warning : conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(420,22): warning :       spin_list[site] = new_spin;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(420,22): warning :                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(421,44): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(421,44): warning :       e_flip = eval_spin_flip(site, old_spin);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(421,44): warning :                                             ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(422,27): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(422,27): warning :       spin_flip = new_spin - old_spin;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(422,27): warning :                            ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(425,27): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(425,27): warning :        keep_rand = unif(rng);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(425,27): warning :                            ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(426,50): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(426,50): warning :        keep_prob = exp(-1 / (Kb * temp) * (e_flip));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(426,50): warning :                                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(428,30): warning : conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(428,30): warning :        else { spin_list[site] = old_spin; e_flip = 0.0; spin_flip = 0; }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(428,30): warning :                               ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(436,16): warning : conversion to ‘float’ from ‘__gnu_cxx::__promote_2<int, int, double, double>::__type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(436,16): warning :        spin_avg += init_spin / (pow(numb_atoms, 2) * 0.8 * sub_passes);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(436,16): warning :                 ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(442,9): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(442,9): warning :    e_avg /= double(numb_atoms * numb_atoms * 0.8 * (sub_passes + passes));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(442,9): warning :          ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(445,16): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(445,16): warning :    Cmag = var_e / (Kb * double(pow(temp, 2)));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(445,16): warning :                 ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(446,19): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(446,19): warning :    Xmag = var_spin / (Kb * double(pow(temp, 2)));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(446,19): warning :                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(233,6): warning : unused variable ‘eq_passes’ [-Wunused-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(233,6): warning :   int eq_passes = session.eq_passes;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(233,6): warning :       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(234,8): warning : unused variable ‘sro_target’ [-Wunused-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(234,8): warning :   float sro_target = session.sro_target;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(234,8): warning :         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(469,50): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(469,50): warning :   for (int i = 0; i < sro_motif_groups[site].size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(469,50): warning :                                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(476,66): warning : conversion to ‘std::vector<int>::size_type {aka long unsigned int}’ from ‘float’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(476,66): warning :    if (rule_itr != rule_map_sro.end()) { sro_list[rule_itr->second] += 1; }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(476,66): warning :                                                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(554,49): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(554,49): warning :     lc_shift = scale_vect(sim_cell.lat_vect[i], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(554,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(559,49): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(559,49): warning :     lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(559,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(561,49): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(561,49): warning :     lc_shift = scale_vect(sim_cell.lat_vect[1], b);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(561,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(565,49): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(565,49): warning :     lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(565,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(567,49): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(567,49): warning :     lc_shift = scale_vect(sim_cell.lat_vect[2], b);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(567,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(571,49): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(571,49): warning :     lc_shift = scale_vect(sim_cell.lat_vect[1], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(571,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(573,49): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(573,49): warning :     lc_shift = scale_vect(sim_cell.lat_vect[2], b);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(573,49): warning :                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(578,50): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(578,50): warning :      lc_shift = scale_vect(sim_cell.lat_vect[0], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(578,50): warning :                                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(580,50): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(580,50): warning :      lc_shift = scale_vect(sim_cell.lat_vect[1], b);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(580,50): warning :                                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(582,50): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(582,50): warning :      lc_shift = scale_vect(sim_cell.lat_vect[2], c);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(582,50): warning :                                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(589,33): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(589,33): warning :    if (pos_comp(check, check_vect)) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(589,33): warning :                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(607,35): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(607,35): warning :       if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(607,35): warning :                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(611,12): warning : unused variable ‘x’ [-Wunused-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(611,12): warning :         int x = 0;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(611,12): warning :             ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(638,35): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(638,35): warning :       if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(638,35): warning :                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(642,12): warning : unused variable ‘x’ [-Wunused-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(642,12): warning :         int x = 0;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(642,12): warning :             ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(669,35): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(669,35): warning :       if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(669,35): warning :                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(673,12): warning : unused variable ‘x’ [-Wunused-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(673,12): warning :         int x = 0;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(673,12): warning :             ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(719,71): warning : conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(719,71): warning :     for (int j = 0; j < 3; j++) { OUT_file << vect[j] * session.shape[i] << " "; }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(719,71): warning :                                                                        ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(724,51): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(724,51): warning :    for (int i = 0; i < sim_cell.species_numbs.size(); i++) { OUT_file << sim_cell.species_numbs[i] << " "; }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo3.cpp(724,51): warning :                                                    ^
-  function_test.cpp
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :  bool fcomp(float a, float b, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :                                                 ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :  bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :                                                                            ^
-  main.cpp
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :  bool fcomp(float a, float b, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :                                                 ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :  bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :                                                                            ^
-  run_sim.cpp
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :  bool fcomp(float a, float b, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :                                                 ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :  bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :                                                                            ^
-  sro.cpp
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :  bool fcomp(float a, float b, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :                                                 ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :  bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :                                                                            ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sro.cpp(13,33): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sro.cpp(13,33): warning :   for (int i = 0; i < motif.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sro.cpp(13,33): warning :                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sro.cpp(14,38): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sro.cpp(14,38): warning :    for (int j = i + 1; j < motif.size(); j++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sro.cpp(14,38): warning :                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sro.cpp(16,43): warning : conversion to ‘float’ from ‘__gnu_cxx::__promote_2<float, double, float, double>::__type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sro.cpp(16,43): warning :     for (int k = 0; k < 3; k++) { new_dist += pow((motif[i][k] - motif[j][k]), 2.0); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sro.cpp(16,43): warning :                                            ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sro.cpp(31,20): warning : conversion to ‘int’ from ‘std::vector<std::vector<float> >::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sro.cpp(31,20): warning :   return motif.size();
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sro.cpp(31,20): warning :                     ^
-  utils.cpp
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :  bool fcomp(float a, float b, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :                                                 ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :  bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :                                                                            ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(4,22): warning : conversion to ‘int’ from ‘std::basic_string<char>::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(4,22): warning :      int l = s.length();
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(4,22): warning :                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(49,36): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(49,36): warning :      for (int i = 0; i < vect1.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(49,36): warning :                                     ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(61,36): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(61,36): warning :      for (int i = 0; i < vect1.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(61,36): warning :                                     ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(82,24): warning : conversion to ‘int’ from ‘__gnu_cxx::__normal_iterator<int*, std::vector<int> >::difference_type {aka long int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(82,24): warning :          int index = it - vect.begin();
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(82,24): warning :                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(93,24): warning : conversion to ‘int’ from ‘__gnu_cxx::__normal_iterator<std::basic_string<char>*, std::vector<std::basic_string<char> > >::difference_type {aka long int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(93,24): warning :          int index = it - vect.begin();
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(93,24): warning :                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(104,24): warning : conversion to ‘int’ from ‘__gnu_cxx::__normal_iterator<float*, std::vector<float> >::difference_type {aka long int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(104,24): warning :          int index = it - vect.begin();
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(104,24): warning :                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(145,34): warning : conversion to ‘float’ from ‘__gnu_cxx::__promote_2<double, int, double, double>::__type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(145,34): warning :      float mult = pow(10.0, digits);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(145,34): warning :                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(159,40): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(159,40): warning :      for (int i = 0; i < vect_temp.size(); ++i) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(159,40): warning :                                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(165,38): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(165,38): warning :      for (int i = 0; i < indices.size(); ++i) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(165,38): warning :                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(175,40): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(175,40): warning :      for (int i = 0; i < vect_temp.size(); ++i) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(175,40): warning :                                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(181,38): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(181,38): warning :      for (int i = 0; i < indices.size(); ++i) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(181,38): warning :                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(191,35): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(191,35): warning :      for (int i = 0; i < vect.size(); ++i) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(191,35): warning :                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(200,35): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(200,35): warning :      for (int i = 0; i < vect.size(); ++i) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(200,35): warning :                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(209,35): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(209,35): warning :      for (int i = 0; i < vect.size(); ++i) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(209,35): warning :                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(218,35): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(218,35): warning :      for (int i = 0; i < vect.size(); ++i) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(218,35): warning :                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(263,40): warning : conversion to ‘float’ from ‘__gnu_cxx::__promote_2<float, int, float, double>::__type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(263,40): warning :      for (int i = 0; i < 3; i++) { dist += pow(pos1[i] - pos2[i], 2); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.cpp(263,40): warning :                                         ^
-  monte_carlo.cpp
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :  bool fcomp(float a, float b, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :                                                 ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :  bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :                                                                            ^
-  rule.cpp
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :  bool fcomp(float a, float b, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :                                                 ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :  bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :                                                                            ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\rule.cpp(15,33): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\rule.cpp(15,33): warning :   for (int i = 0; i < motif.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\rule.cpp(15,33): warning :                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\rule.cpp(16,38): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\rule.cpp(16,38): warning :    for (int j = i + 1; j < motif.size(); j++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\rule.cpp(16,38): warning :                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\rule.cpp(18,43): warning : conversion to ‘float’ from ‘__gnu_cxx::__promote_2<float, double, float, double>::__type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\rule.cpp(18,43): warning :     for (int k = 0; k < 3; k++) { new_dist += pow((motif[i][k] - motif[j][k]), 2.0); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\rule.cpp(18,43): warning :                                            ^
-  running_stat.cpp
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\running_stat.cpp(28,42): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\running_stat.cpp(28,42): warning :          m_newM = m_oldM + (x - m_oldM) / m_n;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\running_stat.cpp(28,42): warning :                                           ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\running_stat.cpp(43,37): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\running_stat.cpp(48,39): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\running_stat.cpp(48,49): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-  session.cpp
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :  bool fcomp(float a, float b, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :                                                 ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :  bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :                                                                            ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(20,39): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(20,39): warning :   for (int i = 0; i < input_lines.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(20,39): warning :                                        ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(53,37): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(53,37): warning :     for (int j = 2; j < setting.size(); j++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(53,37): warning :                                      ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(59,37): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(59,37): warning :     for (int j = 2; j < setting.size(); j++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(59,37): warning :                                      ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(79,39): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(79,39): warning :    for (int i = 0; i < atom_numbs.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(79,39): warning :                                        ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(153,39): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(153,39): warning :   for (int i = 0; i < input_lines.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(153,39): warning :                                        ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(155,36): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(155,36): warning :    for (int j = 0; j < setting.size(); j++) { atom_spin_states.push_back(stof(setting[j])); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(155,36): warning :                                     ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(184,38): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(184,38): warning :    for (int i = 0; i < sro_lines.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(184,38): warning :                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(186,35): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(186,35): warning :      for (int j = 0; j < deco.size(); j++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(186,35): warning :                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(187,72): warning : conversion to ‘int’ from ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(187,72): warning :       sro_rule_list.push_back(SRO(type[j], deco[j], motif, sro_motif_ind));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(187,72): warning :                                                                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(198,35): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(198,35): warning :      for (int j = 0; j < line.size(); j++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(198,35): warning :                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(207,35): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(207,35): warning :      for (int j = 0; j < line.size(); j++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(207,35): warning :                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(210,37): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(210,37): warning :       for (int k = 0; k < specs.size(); k++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(210,37): warning :                                      ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(219,35): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(219,35): warning :      for (int j = 0; j < line.size(); j++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(219,35): warning :                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(260,39): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(260,39): warning :    for (int i = 0; i < rule_lines.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(260,39): warning :                                        ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(263,60): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(263,60): warning :      if (phase.size() == 0) { for (int j = 0; j < enrg.size(); j++) { phase.push_back(0); } }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(263,60): warning :                                                             ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(265,36): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(265,36): warning :      for (int j = 0; j < motif.size(); j++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(265,36): warning :                                     ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(266,36): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(266,36): warning :       for (int k = 0; k < enrg.size(); k++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(266,36): warning :                                     ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(268,11): warning : unused variable ‘x’ [-Wunused-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(268,11): warning :        int x = 0;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(268,11): warning :            ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(298,38): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(298,38): warning :         for (int j = 0; j < line.size(); j++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(298,38): warning :                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(312,35): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(312,35): warning :      for (int j = 0; j < line.size(); j++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(312,35): warning :                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(315,37): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(315,37): warning :       for (int k = 0; k < specs.size(); k++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(315,37): warning :                                      ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(329,36): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(329,36): warning :       for (int j = 0; j < line.size(); j++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(329,36): warning :                                     ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(337,35): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(337,35): warning :      for (int j = 0; j < line.size(); j++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(337,35): warning :                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(234,8): warning : unused variable ‘energy_contribution’ [-Wunused-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(234,8): warning :   float energy_contribution = 0;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(234,8): warning :         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(235,6): warning : unused variable ‘rule_type’ [-Wunused-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(235,6): warning :   int rule_type = 0;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(235,6): warning :       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(236,6): warning : unused variable ‘rule_length’ [-Wunused-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(236,6): warning :   int rule_length = 0;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(236,6): warning :       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(350,42): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(350,42): warning :   for (int i = 0; i < chem_rule_list.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(350,42): warning :                                           ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(351,57): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(351,57): warning :    for (int j = 0; j < chem_rule_list[i].GetDists().size(); j++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(351,57): warning :                                                          ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(357,42): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(357,42): warning :   for (int i = 0; i < spin_rule_list.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(357,42): warning :                                           ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(358,57): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(358,57): warning :    for (int j = 0; j < spin_rule_list[i].GetDists().size(); j++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\session.cpp(358,57): warning :                                                          ^
-  sim_cell.cpp
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :  bool fcomp(float a, float b, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(45,48): warning :                                                 ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :  bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol = 0.0001);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\utils.h(46,75): warning :                                                                            ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(77,124): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(77,124): warning :    unit_LC[i - 2] = sqrt(pow(unit_lat_vect[i - 2][0], 2) + pow(unit_lat_vect[i - 2][1], 2) + pow(unit_lat_vect[i - 2][2], 2));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(77,124): warning :                                                                                                                             ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(80,37): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(80,37): warning :   for (int i = 8; i < pos_lines.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(80,37): warning :                                      ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(88,39): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(88,39): warning :    for (int j = 3; j < pos_list_s.size(); j++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(88,39): warning :                                        ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(104,37): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(104,37): warning :   for (int i = 0; i < comp_line.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(104,37): warning :                                      ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(109,38): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(109,38): warning :   for (int i = 0; i < pos_list_f.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(109,38): warning :                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(125,38): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(125,38): warning :   for (int i = 0; i < pos_list_f.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(125,38): warning :                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(143,34): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(143,34): warning :    LC[i] = unit_LC[i] * sup_cell[i];
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(143,34): warning :                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(144,56): warning : conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(144,56): warning :    lat_vect.push_back({ unit_lat_vect[i][0] * sup_cell[i], unit_lat_vect[i][1] * sup_cell[i], unit_lat_vect[i][2] * sup_cell[i] });
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(144,56): warning :                                                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(144,91): warning : conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(144,91): warning :    lat_vect.push_back({ unit_lat_vect[i][0] * sup_cell[i], unit_lat_vect[i][1] * sup_cell[i], unit_lat_vect[i][2] * sup_cell[i] });
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(144,91): warning :                                                                                            ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(144,126): warning : conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(144,126): warning :    lat_vect.push_back({ unit_lat_vect[i][0] * sup_cell[i], unit_lat_vect[i][1] * sup_cell[i], unit_lat_vect[i][2] * sup_cell[i] });
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(144,126): warning :                                                                                                                               ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(155,21): warning : conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(155,21): warning :      current_cell[0] = i;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(155,21): warning :                      ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(156,21): warning : conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(156,21): warning :      current_cell[1] = j;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(156,21): warning :                      ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(157,21): warning : conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(157,21): warning :      current_cell[2] = k;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(157,21): warning :                      ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(158,40): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(158,40): warning :      for (int m = 0; m < unit_cell.size(); m++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(158,40): warning :                                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(163,97): warning : conversion to ‘int’ from ‘float’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(163,97): warning :       if (sess.spin_init[0] == 'F') { spin = vect_max(sess.spin_states[unit_cell[m].getSpecies()]); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(163,97): warning :                                                                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(170,93): warning : conversion to ‘std::uniform_real_distribution<double>::result_type {aka double}’ from ‘std::vector<float>::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(170,93): warning :         int rand_int = round(unif(rng) * (sess.spin_states[unit_cell[m].getSpecies()].size() - 1));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(170,93): warning :                                                                                              ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(170,97): warning : conversion to ‘int’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(170,97): warning :         int rand_int = round(unif(rng) * (sess.spin_states[unit_cell[m].getSpecies()].size() - 1));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(170,97): warning :                                                                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(171,13): warning : conversion to ‘int’ from ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(171,13): warning :         spin = sess.spin_states[unit_cell[m].getSpecies()][rand_int];
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(171,13): warning :              ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(177,34): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(177,34): warning :        float phase_rand = unif(rng);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(177,34): warning :                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(182,120): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(182,120): warning :       atom_list.push_back(Atom(index, unit_cell[m].getSpecies(), spin, phase, new_atom_pos, unit_cell[m].allowed_species));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(182,120): warning :                                                                                                                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(188,30): warning : conversion to ‘int’ from ‘std::vector<SimCell::Atom>::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(188,30): warning :   numb_atoms = atom_list.size();
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(188,30): warning :                               ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(192,67): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(192,67): warning :    for (int i = 0; i < min(poscar_comp.size(), species_numbs.size()); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(192,67): warning :                                                                    ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(198,41): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(198,41): warning :     for (int i = 0; i < poscar_comp.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(198,41): warning :                                          ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(206,42): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(206,42): warning :    for (int i = 0; i < species_numbs.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(206,42): warning :                                           ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(212,74): warning : conversion to ‘int’ from ‘float’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(212,74): warning :        if (sess.spin_init[0] == 'F') { spin = vect_max(sess.spin_states[i]); }
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(212,74): warning :                                                                           ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(219,70): warning : conversion to ‘std::uniform_real_distribution<double>::result_type {aka double}’ from ‘std::vector<float>::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(219,70): warning :          int rand_int = round(unif(rng) * (sess.spin_states[i].size() - 1));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(219,70): warning :                                                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(219,74): warning : conversion to ‘int’ from ‘double’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(219,74): warning :          int rand_int = round(unif(rng) * (sess.spin_states[i].size() - 1));
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(219,74): warning :                                                                           ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(220,14): warning : conversion to ‘int’ from ‘__gnu_cxx::__alloc_traits<std::allocator<float> >::value_type {aka float}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(220,14): warning :          spin = sess.spin_states[i][rand_int];
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(220,14): warning :               ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(223,32): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(223,32): warning :        atom_list[j].setSpin(spin);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(223,32): warning :                                 ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(140,8): warning : unused variable ‘spin_rand’ [-Wunused-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(140,8): warning :   float spin_rand;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(140,8): warning :         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(245,40): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(245,40): warning :     lc_shift = scale_vect(lat_vect[i], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(245,40): warning :                                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(250,40): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(250,40): warning :     lc_shift = scale_vect(lat_vect[0], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(250,40): warning :                                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(252,40): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(252,40): warning :     lc_shift = scale_vect(lat_vect[1], b);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(252,40): warning :                                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(256,40): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(256,40): warning :     lc_shift = scale_vect(lat_vect[0], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(256,40): warning :                                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(258,40): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(258,40): warning :     lc_shift = scale_vect(lat_vect[2], b);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(258,40): warning :                                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(262,40): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(262,40): warning :     lc_shift = scale_vect(lat_vect[1], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(262,40): warning :                                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(264,40): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(264,40): warning :     lc_shift = scale_vect(lat_vect[2], b);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(264,40): warning :                                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(269,41): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(269,41): warning :      lc_shift = scale_vect(lat_vect[0], a);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(269,41): warning :                                          ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(271,41): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(271,41): warning :      lc_shift = scale_vect(lat_vect[1], b);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(271,41): warning :                                          ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(273,41): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(273,41): warning :      lc_shift = scale_vect(lat_vect[2], c);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(273,41): warning :                                          ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(291,37): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(291,37): warning :   for (int i = 0; i < atom_list.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(291,37): warning :                                      ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(296,38): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(296,38): warning :    for (int j = 0; j < atom_list.size(); j++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(296,38): warning :                                       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(304,39): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(304,39): warning :     for (int k = 0; k < dist_list.size(); k++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(304,39): warning :                                        ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(305,33): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(305,33): warning :      if (fcomp(dist, dist_list[k])) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(305,33): warning :                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(289,6): warning : variable ‘added’ set but not used [-Wunused-but-set-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(289,6): warning :   int added = 0;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(289,6): warning :       ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(317,56): warning : conversion to ‘float’ from ‘std::__iterator_traits<__gnu_cxx::__normal_iterator<int*, std::vector<int> >, true>::difference_type {aka long int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(317,56): warning :   return distance(atom_list[atom1].neighbors.begin(), it);
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(317,56): warning :                                                         ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(333,42): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(333,42): warning :   for (int i = 0; i < _species_numbs.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(333,42): warning :                                           ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(341,34): warning : conversion to ‘float’ from ‘int’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(341,34): warning :    LC[i] = unit_LC[i] * sup_cell[i];
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(341,34): warning :                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(329,7): warning : unused variable ‘use_poscar’ [-Wunused-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(329,7): warning :   bool use_poscar = session.use_poscar;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(329,7): warning :        ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(376,44): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(376,44): warning :   for (int i = 0; i < _allowed_species.size(); i++) {
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(376,44): warning :                                             ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(383,65): warning : conversion to ‘int’ from ‘float’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(383,65): warning :   int neighbor_spin = sim_cell.atom_list[neighbor_index].getSpin();
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(383,65): warning :                                                                  ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(408,50): warning : conversion to ‘int’ from ‘std::vector<int>::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(408,50): warning :   return sim_cell.atom_list[_site].neighbors.size();
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(408,50): warning :                                                   ^
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(437,7): warning : unused variable ‘rand_index’ [-Wunused-variable]
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(437,7): warning :    int rand_index = rand() % numb_atoms;
-C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\sim_cell.cpp(437,7): warning :        ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(564,107): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(564,107): warning :                              for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[site]].size(); it_spin_state++) {
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(564,107): warning :                                                                                                            ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(585,49): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(585,49): warning :                              rand_spin = unif(rng);
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(585,49): warning :                                                  ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(586,112): warning : comparison between signed and unsigned integer expressions [-Wsign-compare]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(586,112): warning :                              for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[rand_site]].size(); it_spin_state++) {
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(586,112): warning :                                                                                                                 ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(599,45): warning : conversion to ‘float’ from ‘std::uniform_real_distribution<double>::result_type {aka double}’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(599,45): warning :                          keep_rand = unif(rng);
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(599,45): warning :                                              ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(600,68): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(600,68): warning :                          keep_prob = exp(-1 / (Kb * temp) * (e_flip));
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(600,68): warning :                                                                     ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(623,15): warning : conversion to ‘float’ from ‘__gnu_cxx::__promote_2<int, int, double, double>::__type {aka double}’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(623,15): warning :          e_avg /= double(pow(numb_atoms, 2) * 0.5 * passes);
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(623,15): warning :                ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(624,18): warning : conversion to ‘float’ from ‘__gnu_cxx::__promote_2<int, int, double, double>::__type {aka double}’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(624,18): warning :          spin_avg /= double(pow(numb_atoms, 2) * 0.5 * passes);
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(624,18): warning :                   ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(627,22): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(627,22): warning :          Cmag = var_e / (Kb * double(pow(temp, 2)));
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(627,22): warning :                       ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(628,25): warning : conversion to ‘float’ from ‘double’ may alter its value [-Wconversion]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(628,25): warning :          Xmag = var_spin / (Kb * double(pow(temp, 2)));
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(628,25): warning :                          ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(297,9): warning : unused variable ‘sub_passes’ [-Wunused-variable]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(297,9): warning :      int sub_passes = session.numb_subpasses;
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(297,9): warning :          ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(298,9): warning : unused variable ‘eq_passes’ [-Wunused-variable]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(298,9): warning :      int eq_passes = session.eq_passes;
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(298,9): warning :          ^
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(299,11): warning : unused variable ‘sro_target’ [-Wunused-variable]
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(299,11): warning :      float sro_target = session.sro_target;
+C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\algo2.cpp(299,11): warning :            ^
   Linking objects
   GMC_Run.vcxproj -> C:\Users\brian\OneDrive\Documents\GitHub\GenMC_Run\GMC_Run\GMC_Run\bin\x64\Debug\GMC_Run.out

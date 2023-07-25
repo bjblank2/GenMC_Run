@@ -159,73 +159,13 @@ void Session::add_spin_states(string input_file) {
 	if (spin_states.size() != atom_numbs.size()) { cout << "Error: atom_numbs not equal to number of lines in spin_states file\n"; }
 }
 
-void Session::fill_sro_list() {
-	vector<float> distances;
-	vector<int> species;
-	vector<float> type;
-	string sro_line;
-	vector<string> sro_lines;
-	vector<string> setting;
-	vector<string> line;
-	vector<vector<float>> motif;
-	vector<vector<int>> deco;
-	ifstream sro_list_file;
-	sro_file = "SRO.in";
-	sro_list_file.open(sro_file, ifstream::in);
-	// Parce rule list txt file
-	if (sro_list_file.is_open()) {
-		while (getline(sro_list_file, sro_line))
-		{
-			sro_lines.push_back(sro_line);
-		}
-		sro_list_file.close();
-		cout << "Read sro file\n";
-		int sro_motif_ind = 0;
-		for (int i = 0; i < sro_lines.size(); i++) {
-			if (sro_lines[i].find('#') != std::string::npos) {
-				for (int j = 0; j < deco.size(); j++) {
-					sro_rule_list.push_back(SRO(type[j], deco[j], motif, sro_motif_ind));
-				}
-				motif.clear();
-				deco.clear();
-				type.clear();
-				sro_motif_ind += 1;
-			}
-			setting = split(sro_lines[i], ":");
-			if (setting[0].find("otif") != std::string::npos) {
-				setting.erase(setting.begin());
-				line = setting;
-				for (int j = 0; j < line.size(); j++) {
-					vector<string> pos = split(line[j], ",");
-					motif.push_back({ stof(pos[0]), stof(pos[1]), stof(pos[2]) });
-				}
-
-			}
-			else if (setting[0].find("eco") != std::string::npos) {
-				setting.erase(setting.begin());
-				line = setting;
-				for (int j = 0; j < line.size(); j++) {
-					vector<string> specs = split(line[j], ",");
-					vector<int>spec = {};
-					for (int k = 0; k < specs.size(); k++) {
-						spec.push_back(stoi(specs[k]));
-					}
-					deco.push_back(spec);
-				}
-			}
-			else if (setting[0].find("ype") != std::string::npos) {
-				setting.erase(setting.begin());
-				line = setting;
-				for (int j = 0; j < line.size(); j++) {
-					type.push_back(stof(line[j]));
-				}
-			}
-		}
-		cout << "Filled SRO_list\n";
-	}
-	else cout << "*ERROR* Unable to open SRO file\n";
-
-}
+//void Session::fill_sro_list() {
+//	for (Rule rule : chem_rule_list) {
+//		if (rule.motif.size() == 2) {
+//			sro_rule_list.push_back(Rule(rule));
+//		}
+//	}
+//}
 
 void Session::fill_rule_list() {
 	vector<float> distances;
@@ -246,7 +186,7 @@ void Session::fill_rule_list() {
 	vector<vector<int>> deco;
 	ifstream rule_list_file;
 	rule_list_file.open(rules_file, ifstream::in);
-	// Parce rule list txt file
+	// Parse rule list txt file
 	if (rule_list_file.is_open()) {
 		while (getline(rule_list_file, rule_line))
 		{
@@ -259,13 +199,15 @@ void Session::fill_rule_list() {
 		bool intercept_flag = false;
 		for (int i = 0; i < rule_lines.size(); i++) {
 			if (rule_lines[i].find('#') != std::string::npos and intercept_flag == false) {
-				cout << enrg.size() << "\n";
+				//cout << enrg.size() << "\n";
 				if (phase.size() == 0) { for (int j = 0; j < enrg.size(); j++) { phase.push_back(0); } }
 				//cout << phase.size() << "  " << type.size() << "\n";
+				if (type == 0) { chem_motif_list.push_back(motif); }
+				if (type == 1) { spin_motif_list.push_back(motif); }
 				for (int j = 0; j < motif.size(); j++) {
 					for (int k = 0; k < enrg.size(); k++) {
 						if (type == 0) { chem_rule_list.push_back(Rule(enrg[k], type, phase[k], deco[k], motif[j], chem_clust_ind)); }
-						int x = 0;
+						// in algo1 and algo2 the motif information stored in the Rule is redundant. It is still stored for future undeveloped algorithms
 						if (type == 1) { spin_rule_list.push_back(Rule(enrg[k], type, phase[k], deco[k], motif[j], spin_clust_ind)); }
 					}
 				}

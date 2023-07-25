@@ -9,7 +9,7 @@ using namespace std;
 // The MC code
 // The paramiters for the MC run ( Composition, Simulation cell size, ect...) are all set in INPUT.txt
 // These settings are read in and stored in the SimCell object. The SimCell object is then reffrenced to set up the actual MC run.
-SimCell sim_cell;
+SimCell sim_cell; // The simulation cell object. This object contains all the information about the simulation cell and the atoms in it.
 int main(void) {
 	Session ses("INPUT"); // settings for MC run from input file
 	if (ses.use_states == true) { ses.add_spin_states("SPIN_STATES"); }

@@ -10,7 +10,6 @@
 #include <algorithm>
 #include "utils.h"
 #include "rule.h"
-#include "sro.h"
 using namespace std;
 
 class Session
@@ -45,10 +44,10 @@ public:
 	vector<string> species_str;
 	vector<Rule> spin_rule_list;
 	vector<Rule> chem_rule_list;
-	vector<SRO> sro_rule_list;
+	vector<Rule> sro_rule_list;
 	vector<vector<float>> spin_states;
-	vector<vector<vector<float>>> motif_list;
-
+	vector<vector<vector<vector<float>>>> chem_motif_list;
+	vector<vector<vector<vector<float>>>> spin_motif_list;
 
 	Session(void);
 	Session(Session& _session);

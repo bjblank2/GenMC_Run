@@ -34,8 +34,8 @@ public:
 	vector<int> chem_list;
 	vector<float> spin_list;
 	vector<vector<float>> pos_list;
-	vector<vector<vector<int>>> spin_motif_groups;
-	vector<vector<vector<int>>> chem_motif_groups;
+	vector<vector<vector<vector<int>>>> spin_motif_groups;
+	vector<vector<vector<vector<int>>>> chem_motif_groups;
 	map <string, float> rule_map_chem;
 	map <string, float> rule_map_spin;
 

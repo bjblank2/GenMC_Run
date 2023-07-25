@@ -12,6 +12,7 @@ Algo2::Algo2(Session& _session, SimCell& _sim_cell) {
 		cout << "This is probably not what you want..." << endl;
 		cout << "_______________________________________________________________________________" << endl;
 	}
+    // warning abuout cell size
 }
 
 float Algo2::eval_site_chem(int site) {

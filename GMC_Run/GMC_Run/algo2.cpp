@@ -190,13 +190,10 @@ void Algo2::fill_SMG(vector<vector<int>>& neigh_ind_list) {
         for (vector<vector<vector<float>>> clust : session.spin_motif_list) {
             for (vector<vector<float>> motif : clust) {
                 for (vector<float> shift : motif) {
-                    cout << "shift: " << shift[0] << "," << shift[1] << "," << shift[2] << "\n";
 					if (pos_comp(shift, self_site)) { sites.push_back(atom); }
                     else {
 						new_pos = vect_add(pos_list[atom], shift);
-                        cout << "newpos: " << new_pos[0] << "," << new_pos[1] << "," << new_pos[2] << "\n";
                         for (int neigh : neigh_ind_list[atom]) {
-                            cout << pos_list[neigh][0] << "," << pos_list[neigh][1] << "," << pos_list[neigh][2] << ";" << neigh << "\n";
                             if (bc_check(pos_list[neigh], new_pos)) {
 								sites.push_back(neigh);
 							}
@@ -383,7 +380,7 @@ void Algo2::run() {
 //                rule_key += to_string(i); // clust_ind
 //                vector<int> group = motif[j];
 //                for ( int k : group ) {
-//                    rule_key += "." + to_string(chem_list[k]); // sites ind
+//                    rule_key += "." + to_string(k); // sites ind
 //                }
 //                cout << "chem" << ":" << rule_key << "\n";
 //            }
@@ -395,7 +392,7 @@ void Algo2::run() {
 //                rule_key += to_string(i);
 //                vector<int> group = motif[j];
 //                for ( int k : group ) {
-//                    rule_key += "." + to_string(chem_list[k]); // sites ind
+//                    rule_key += "." + to_string(k); // sites ind
 //                }
 //                cout << "spin" << ":" << rule_key << "\n";
 //            }
@@ -452,7 +449,7 @@ void Algo2::run() {
                 float spin_flip = 0.0;
                 int method_index = rand_method(rng);
                 // Do the pass for spin flips
-                if ( method_index < passes * 0.33) {
+                if ( method_index < passes * 1.01) {
                     Output_converge << "method1 ";
                     if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
                         // Flip Spin
@@ -491,7 +488,7 @@ void Algo2::run() {
                     }
                 }
                 // Do the pass for atom swaps
-                else if (method_index < passes * 0.67) {
+                else if (method_index < passes * 1.67) {
                     Output_converge << "method2 ";
                     same_atom = true;
                     while (same_atom == true) {

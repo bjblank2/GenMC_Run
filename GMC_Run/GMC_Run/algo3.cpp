@@ -690,7 +690,7 @@ void Algo3::run() {
         //cout << "\n";
         //for (float x : count_avg) { x /= float(0.5 * passes); }
         //vector<float> sro_avg = scale_vect(count_avg, 1/float(0.5 * passes));
-        count_avg = scale_vect(count_avg, 1/float(0.5 * passes));
+        count_avg = scale_vect(count_avg, scale * numb_atoms);
         //for (float x : count_avg) { cout << x << ", "; }
         //cout << "\n";
         var_e = rs_C.Variance();
@@ -709,8 +709,8 @@ void Algo3::run() {
             << flip_count2 << "\n";
         rs_C.Clear();
         rs_X.Clear();
-        SROout << "\n" << temp << ";";
-        for (float x : count_avg) { SROout << x << ", "; }
+        SROout << "\n" << temp << " ";
+        for (float x : count_avg) { SROout << x << " "; }
         SROout << "\n";
         print_state(contcar_name, temp_count);
         temp_count += 1;

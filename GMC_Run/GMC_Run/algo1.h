@@ -44,7 +44,7 @@ public:
 	void run();
 	void fill_CMG(vector<vector<int>>& neigh_ind_list);
 	void fill_SMG(vector<vector<int>>& neigh_ind_list);
-	void print_state(float temdp);
+    void print_state(string contcar_name, int temp);
 	bool bc_check(vector<float> check_vect, vector<float>& pos);
     bool pbc_check(vector<float> check_vect, vector<float>& pos);
 	float eval_lat();

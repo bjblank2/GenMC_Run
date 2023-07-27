@@ -243,46 +243,44 @@ void Algo2::fill_CMG(vector<vector<int>>& neigh_ind_list) {
 	}
 }
 
-void Algo2::print_state(float temp) {
-	vector<int> perm;
-	vector<int> temp_spec;
-	vector<float> temp_spin;
-	vector<vector<float>> temp_pos;
-	temp_spec.assign(chem_list.begin(), chem_list.end());
-	temp_spin.assign(spin_list.begin(), spin_list.end());
-	temp_pos = pos_list;// insert(temp_pos.end(), pos_list.begin(), pos_list.end());
-	perm = vect_permut(temp_spin);
-	sort_vect(temp_spin, perm);
-	sort_vect(temp_pos, perm);
-	sort_vect(temp_spec, perm);
-	perm = vect_permut(temp_spec);
-	sort_vect(temp_spin, perm);
-	sort_vect(temp_pos, perm);
-	sort_vect(temp_spec, perm);
-	ofstream OUT_file;
-	string temp_str = to_string(temp);
-	temp_str = replace_char(temp_str, '.', 'p');
-	string file_name = "CONTCAR" + to_string(outfile_count) + temp_str;
-	OUT_file.open(file_name);
-	if (OUT_file.is_open()) {
-		OUT_file << "Alloy of";
-		for (string spec : session.species_str) { OUT_file << " " << spec; }
-		OUT_file << "\n 1 \n";
-		for (int i = 0; i < 3; i++) {
-			vector<float>vect = sim_cell.unit_lat_vect[i];
-			for (int j = 0; j < 3; j++) { OUT_file << vect[j] * session.shape[i] << " "; }
-			OUT_file << "\n";
-		}
-		for (string spec : session.species_str) { OUT_file << " " << spec; }
-		OUT_file << "\n";
-		for (int i = 0; i < sim_cell.species_numbs.size(); i++) { OUT_file << sim_cell.species_numbs[i] << " "; }
-		OUT_file << "\nCartesian\n";
-		for (int i = 0; i < sim_cell.numb_atoms; i++) {
-			OUT_file << temp_pos[i][0] << " " << temp_pos[i][1] << " " << temp_pos[i][2] << " ";
-			OUT_file << " # " << temp_spec[i] << " " << temp_spin[i] << "\n";
-		}
-	}
-	OUT_file.close();
+void Algo2::print_state(string contcar_name, int temp) {
+    vector<int> perm;
+    vector<int> temp_spec;
+    vector<float> temp_spin;
+    vector<vector<float>> temp_pos;
+    temp_spec.assign(chem_list.begin(), chem_list.end());
+    temp_spin.assign(spin_list.begin(), spin_list.end());
+    temp_pos = pos_list;// insert(temp_pos.end(), pos_list.begin(), pos_list.end());
+    perm = vect_permut(temp_spin);
+    sort_vect(temp_spin, perm);
+    sort_vect(temp_pos, perm);
+    sort_vect(temp_spec, perm);
+    perm = vect_permut(temp_spec);
+    sort_vect(temp_spin, perm);
+    sort_vect(temp_pos, perm);
+    sort_vect(temp_spec, perm);
+    ofstream OUT_file;
+    string file_name = contcar_name + "_" + to_string(temp);
+    OUT_file.open(file_name);
+    if (OUT_file.is_open()) {
+        OUT_file << "Alloy of";
+        for (string spec : session.species_str) { OUT_file << " " << spec; }
+        OUT_file << "\n 1 \n";
+        for (int i = 0; i < 3; i++) {
+            vector<float>vect = sim_cell.unit_lat_vect[i];
+            for (int j = 0; j < 3; j++) { OUT_file << vect[j] * session.shape[i] << " "; }
+            OUT_file << "\n";
+        }
+        for (string spec : session.species_str) { OUT_file << " " << spec; }
+        OUT_file << "\n";
+        for (int i = 0; i < sim_cell.species_numbs.size(); i++) { OUT_file << sim_cell.species_numbs[i] << " "; }
+        OUT_file << "\nCartesian\n";
+        for (int i = 0; i < sim_cell.numb_atoms; i++) {
+            OUT_file << temp_pos[i][0] << " " << temp_pos[i][1] << " " << temp_pos[i][2] << " ";
+            OUT_file << " # " << temp_spec[i] << " " << temp_spin[i] << "\n";
+        }
+    }
+    OUT_file.close();
 }
 
 void Algo2::run() {
@@ -310,6 +308,7 @@ void Algo2::run() {
 
     // Create seperate output file to avoid race condition
     string file_name = "OUTPUT";
+    string contcar_name = "CONTCAR";
     bool file_exists = true;
     while (file_exists == true) {
         const char* c_file = file_name.c_str();
@@ -318,6 +317,7 @@ void Algo2::run() {
             // file exists or otherwise uncreatable
             outfile_count += 1;
             file_name = "OUTPUT" + to_string(outfile_count);
+            contcar_name = "CONTCAR" + to_string(outfile_count);
         }
         else {
             file_exists = false;
@@ -330,7 +330,7 @@ void Algo2::run() {
     
     // Output energy and spin for convergence test
     ofstream Output_converge;
-    Output_converge.open("converge.txt");
+    if ( session.do_conv_output) { Output_converge.open("OUTPUT_CONVERG"); }
 
     Output << "Phase: " << sim_cell.phase_init;
     Output << "Composition: ";
@@ -437,12 +437,12 @@ void Algo2::run() {
     
     // Start MC loop
     cout << "Entering main loop\n";
+    int temp_count = 0;
     for (float temp = temp1; (temp2 - temp) * inc_dir >= 0; temp += temp_inc) {
         float e_avg = 0.0;
         float spin_avg = 0.0;
         int flip_count = 0;
         int flip_count2 = 0;
-        int real_move = 0;
         for (int pass = 0; pass < passes; pass++) {
             for (int site = 0; site < numb_atoms; site++) {
                 float e_flip = 0.0;
@@ -480,7 +480,6 @@ void Algo2::run() {
                             Output_converge << "method1 " << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
                         }
                         if (pass >= passes * 0.5) {
-                            real_move += 1;
                             e_avg += init_enrg;
                             rs_C.Push(init_enrg);
                             spin_avg += init_spin;
@@ -646,7 +645,8 @@ void Algo2::run() {
             << flip_count2 << "\n";
         rs_C.Clear();
         rs_X.Clear();
-        print_state(temp2);
+        print_state(contcar_name, temp_count);
+        temp_count += 1;
     }
     cout << " MC Finished\n";
     Output.close();

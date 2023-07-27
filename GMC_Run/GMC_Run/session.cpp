@@ -35,7 +35,7 @@ Session::Session(string input_file) {
 		else if (setting[0].compare("SRO_TEMP") == 0) { sro_temp = stof(setting[2]); }
 		else if (setting[0].compare("MAG_EXT") == 0) { mag_ext = stof(setting[2]); }
 		else if (setting[0].compare("SRO_TARGET") == 0) { sro_target = stof(setting[2]); }
-        else if (setting[0].compare("WRITE_CONV") == 0) {
+        else if (setting[0].compare("WRITE_CONVERG") == 0) {
             if (setting[2].compare("TRUE") == 0){ do_conv_output = true; }
             else{ do_conv_output = false; }
         }
@@ -73,10 +73,13 @@ Session::Session(string input_file) {
 			shape[1] = stoi(setting[3]);
 			shape[2] = stoi(setting[4]);
 		}
+        else if (setting[0].find("#") != std::string::npos) {
+            continue;
+        }
 		else {
-			cout << "Unrecognised input flag: " << setting[0] << "\n";
+			cout << "Unrecognized input flag: " << setting[0] << "\n";
 		}
-		rules_file = "Rule_file.in";
+		rules_file = "CLUSTERS";
 	}
 	if (moments.size() == 0) {
 		moments.clear();

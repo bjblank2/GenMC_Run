@@ -435,7 +435,7 @@ void Algo1::run() {
             << flip_count2 << "\n";
         rs_C.Clear();
         rs_X.Clear();
-        print_state(contcar_name, temp);
+        print_state(contcar_name, temp_count);
         temp_count += 1;
     }
     cout << " MC Finished\n";

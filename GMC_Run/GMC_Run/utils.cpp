@@ -52,6 +52,18 @@ vector<int> vect_add(vector<int>& vect1, vector<int>& vect2) {
     return temp;
 }
 
+vector<float> vect_subtract(vector<float>& vect1, vector<float>& vect2) {
+    if (vect1.size() != vect2.size()) {
+        cout << "Error: vectors must have the same size" << endl;
+        exit(1);
+    }
+    vector<float> temp;
+    for (int i = 0; i < vect1.size(); i++) {
+        temp.push_back(vect1[i] - vect2[i]);
+    }
+    return temp;
+}
+
 vector<float> vect_add(vector<float>& vect1, vector<float>& vect2){
     if (vect1.size() != vect2.size()) {
         cout << "Error: vectors must have the same size" << endl;
@@ -231,13 +243,13 @@ vector<float> pos_transform(vector<float>& pos, vector<vector<float>>& trans) {
 
 vector<float> scale_vect(vector<float>& vect, float numb) {
     vector<float> new_vect(vect.size(), 0.0);
-    for (int i = 0; i < 3; i++) { new_vect[i] = numb * vect[i]; }
+    for (int i = 0; i < vect.size(); i++) { new_vect[i] = numb * vect[i]; }
     return new_vect;
 }
 
 vector<int> scale_vect(vector<int>& vect, int numb) {
     vector<int> new_vect(vect.size(), 0);
-    for (int i = 0; i < 3; i++) { new_vect[i] = numb * vect[i]; }
+    for (int i = 0; i < vect.size(); i++) { new_vect[i] = numb * vect[i]; }
     return new_vect;
 }
 

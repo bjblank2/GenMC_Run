@@ -12,53 +12,66 @@ Algo2::Algo2(Session& _session, SimCell& _sim_cell) {
 		cout << "This is probably not what you want..." << endl;
 		cout << "_______________________________________________________________________________" << endl;
 	}
+    // warning abuout cell size
 }
 
 float Algo2::eval_site_chem(int site) {
 	float enrg = 0;
 	map<string, float>::iterator rule_itr;
-	for (int i = 0; i < chem_motif_groups[site].size(); i++) {
-		string rule_key = "0.";
-		rule_key += to_string(i);
-		for (int j : chem_motif_groups[site][i]) {
-			rule_key += "." + to_string(chem_list[j]);
-		}
-		rule_itr = rule_map_chem.find(rule_key);
-		enrg += (rule_itr != rule_map_chem.end()) ? (rule_itr->second / chem_motif_groups[site][i].size()) : 0.0;
-	}
+    for (int i = 0; i < chem_motif_groups[site].size(); i++) {
+        vector<vector<int>> motif = chem_motif_groups[site][i];
+        for (int j =0; j < motif.size(); j++) { 
+            string rule_key = "0."; // chem ind
+            rule_key += to_string(i); // clust_ind
+            vector<int> group = motif[j];
+            for ( int k : group ) {
+                rule_key += "." + to_string(chem_list[k]); // sites ind
+            }
+            rule_itr = rule_map_chem.find(rule_key);
+		    enrg += (rule_itr != rule_map_chem.end()) ? (rule_itr->second / group.size()) : 0.0;
+        }
+    }
 	return enrg;
 }
 
 float Algo2::eval_site_spin(int site) {
-	float enrg = 0;
-	map<string, float>::iterator rule_itr;
-	for (int i = 0; i < spin_motif_groups[site].size(); i++) {
-		float spin_prod = 1;
-		string rule_key = "1.";
-		rule_key += to_string(i);
-		for (int j : spin_motif_groups[site][i]) {
-            rule_key += "." + to_string(chem_list[j]);
-			spin_prod *= spin_list[j];
-		}
-		rule_itr = rule_map_spin.find(rule_key);
-		enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod / spin_motif_groups[site][i].size()) : 0.0;
-	}
-	return enrg;
+    float enrg = 0;
+    map<string, float>::iterator rule_itr;
+    for (int i = 0; i < spin_motif_groups[site].size(); i++) {
+        vector<vector<int>> motif = spin_motif_groups[site][i];
+        for (int j = 0; j < motif.size(); j++) {
+            string rule_key = "1."; // spin ind
+            rule_key += to_string(i); // clust_ind
+            vector<int> group = motif[j];
+            float spin_prod = 1;
+            for (int k : group) {
+                rule_key += "." + to_string(chem_list[k]); // sites ind
+                spin_prod *= spin_list[k];
+            }
+            rule_itr = rule_map_spin.find(rule_key);
+            enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod / group.size()) : 0.0;
+        }
+    }
+    return enrg;
 }
 
 float Algo2::eval_spin_flip(int site, float old_spin) {
 	float enrg = 0;
 	map<string, float>::iterator rule_itr;
 	for (int i = 0; i < spin_motif_groups[site].size(); i++) {
-		float spin_prod = 1;
-		string rule_key = "1.";
-		rule_key += to_string(i);
-		for (int j : spin_motif_groups[site][i]) {
-			rule_key += "." + to_string(chem_list[j]);
-			if (j != site) { spin_prod *= spin_list[j]; }
-		}
-		rule_itr = rule_map_spin.find(rule_key);
-		enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod) : 0.0;
+        vector<vector<int>> motif = spin_motif_groups[site][i];
+        for (int j = 0; j < motif.size(); j++) {
+            string rule_key = "1.";
+		    rule_key += to_string(i);
+            vector<int> group = motif[j];
+            float spin_prod = 1;
+            for (int k : group) {
+                rule_key += "." + to_string(chem_list[k]);
+                if (k != site) { spin_prod *= spin_list[k]; }
+            }
+            rule_itr = rule_map_spin.find(rule_key);
+		    enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod) : 0.0;
+        }
 	}
 	return (enrg * spin_list[site] - enrg * old_spin);
 }
@@ -69,24 +82,32 @@ float Algo2::eval_atom_flip(int site) {
     map<string, float>::iterator rule_itr;
     float enrg = 0.0;
     for (int i = 0; i < chem_motif_groups[site].size(); i++) {
-        string chem_key = "0." + to_string(i);
-        for (int j : chem_motif_groups[site][i]) {
-            chem_key += "." + to_string(chem_list[j]);
+        vector<vector<int>> motif = chem_motif_groups[site][i];
+        for (int j =0; j < motif.size(); j++) { 
+            string rule_key = "0."; // chem ind
+            rule_key += to_string(i); // clust_ind
+            vector<int> group = motif[j];
+            for (int k : group ) {
+                rule_key += "." + to_string(chem_list[k]); // sites ind
+            }
+            rule_itr = rule_map_chem.find(rule_key);
+		    enrg += (rule_itr != rule_map_chem.end()) ? (rule_itr->second ) : 0.0;
         }
-        rule_itr = rule_map_chem.find(chem_key);
-        enrg += (rule_itr != rule_map_chem.end()) ? rule_itr->second : 0.0;
-        // if (rule_itr != rule_map_chem.end()) {enrg += rule_itr->second;}
     }
     for (int i = 0; i < spin_motif_groups[site].size(); i++) {
-        float spin_prod = 1;
-        string spin_key = "1." + to_string(i);
-        for (int j : spin_motif_groups[site][i]) {
-            spin_key += "." + to_string(chem_list[j]);
-            spin_prod *= spin_list[j];
+        vector<vector<int>> motif = spin_motif_groups[site][i];
+        for (int j = 0; j < motif.size(); j++) {
+            string rule_key = "1."; // spin ind
+            rule_key += to_string(i); // clust_ind
+            vector<int> group = motif[j];
+            float spin_prod = 1;
+            for (int k : group) {
+                rule_key += "." + to_string(chem_list[k]); // sites ind
+                spin_prod *= spin_list[k];
+            }
+            rule_itr = rule_map_spin.find(rule_key);
+            enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod ) : 0.0;
         }
-        rule_itr = rule_map_spin.find(spin_key);
-        enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod) : 0.0;
-        // if (rule_itr != rule_map_spin.end()) {enrg += rule_itr->second * spin_prod;}
     }
     return enrg;
 }
@@ -154,7 +175,6 @@ bool Algo2::bc_check(vector<float> check_vect, vector<float>& pos) {
     for (vector<float> check : bc_shifts) {
         if (pos_comp(check, check_vect)) {
             bc_test = true;
-//            cout << "\n" << check[0] << ", " << check[1] << ", " << check[2] << "; " << check_vect[0] << ", " << check_vect[1] << ", " << check_vect[2];
             break;
         }
     }
@@ -162,105 +182,105 @@ bool Algo2::bc_check(vector<float> check_vect, vector<float>& pos) {
 }
 
 void Algo2::fill_SMG(vector<vector<int>>& neigh_ind_list) {
-    vector<int> deco_group;
     vector<float> new_pos { 0.0, 0.0, 0.0 };
     vector<float> self_site { 0.0, 0.0, 0.0 };
-    vector<vector<int>> motifs;
-    int last_ind = -1;
-    for (int i = 0; i < sim_cell.numb_atoms; i++) {
-        for (Rule rule : session.spin_rule_list) {
-            if (last_ind != rule.motif_ind) {
-                for (vector<float> shift : rule.motif) {
-                    if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
+    vector<int> sites;
+    vector<vector<int>> groups;
+    vector<vector<vector<int>>> motifs;
+    for (int atom = 0; atom < sim_cell.numb_atoms; atom++) {
+        for (vector<vector<vector<float>>> clust : session.spin_motif_list) {
+            for (vector<vector<float>> motif : clust) {
+                for (vector<float> shift : motif) {
+					if (pos_comp(shift, self_site)) { sites.push_back(atom); }
                     else {
-                        new_pos = vect_add(pos_list[i], shift);
-                        for (int neigh : neigh_ind_list[i]) {
+						new_pos = vect_add(pos_list[atom], shift);
+                        for (int neigh : neigh_ind_list[atom]) {
                             if (bc_check(pos_list[neigh], new_pos)) {
-                                deco_group.push_back(neigh);
-                            }
-                        }
-                    }
-                }
-                motifs.push_back(deco_group);
-                deco_group.clear();
-                last_ind = rule.motif_ind;
+								sites.push_back(neigh);
+							}
+						}
+					}
+				}
+                groups.push_back(sites);
+                sites.clear();
             }
+            motifs.push_back(groups);
+            groups.clear();
         }
         spin_motif_groups.push_back(motifs);
-        motifs.clear();
+        motifs.clear();     
     }
 }
 
 void Algo2::fill_CMG(vector<vector<int>>& neigh_ind_list) {
-    vector<int> deco_group;
     vector<float> new_pos { 0.0, 0.0, 0.0 };
     vector<float> self_site { 0.0, 0.0, 0.0 };
-    vector<vector<int>> motifs;
-    int last_ind = -1;
-    for (int i = 0; i < sim_cell.numb_atoms; i++) {
-        for (Rule rule : session.chem_rule_list) {
-            if (last_ind != rule.motif_ind) {
-                for (vector<float> shift : rule.motif) {
-                    if (pos_comp(shift, self_site)) { deco_group.push_back(i); }
+    vector<int> sites;
+    vector<vector<int>> groups;
+    vector<vector<vector<int>>> motifs;
+    for (int atom = 0; atom < sim_cell.numb_atoms; atom++) {
+        for (vector<vector<vector<float>>> clust : session.chem_motif_list) {
+            for (vector<vector<float>> motif : clust) {
+                for (vector<float> shift : motif) {
+					if (pos_comp(shift, self_site)) { sites.push_back(atom); }
                     else {
-                        new_pos = vect_add(pos_list[i], shift);
-                        for (int neigh : neigh_ind_list[i]) {
+						new_pos = vect_add(pos_list[atom], shift);
+                        for (int neigh : neigh_ind_list[atom]) {
                             if (bc_check(pos_list[neigh], new_pos)) {
-                                deco_group.push_back(neigh);
-                            }
-                        }
-                    }
-                }
-                motifs.push_back(deco_group);
-                deco_group.clear();
-                last_ind = rule.motif_ind;
-            }
-        }
-        chem_motif_groups.push_back(motifs);
-        motifs.clear();
-    }
+								sites.push_back(neigh);
+							}
+						}
+					}
+				}
+				groups.push_back(sites);
+				sites.clear();
+			}
+			motifs.push_back(groups);
+			groups.clear();
+		}
+		chem_motif_groups.push_back(motifs);
+		motifs.clear();     
+	}
 }
 
-void Algo2::print_state(float temp) {
-	vector<int> perm;
-	vector<int> temp_spec;
-	vector<float> temp_spin;
-	vector<vector<float>> temp_pos;
-	temp_spec.assign(chem_list.begin(), chem_list.end());
-	temp_spin.assign(spin_list.begin(), spin_list.end());
-	temp_pos = pos_list;// insert(temp_pos.end(), pos_list.begin(), pos_list.end());
-	perm = vect_permut(temp_spin);
-	sort_vect(temp_spin, perm);
-	sort_vect(temp_pos, perm);
-	sort_vect(temp_spec, perm);
-	perm = vect_permut(temp_spec);
-	sort_vect(temp_spin, perm);
-	sort_vect(temp_pos, perm);
-	sort_vect(temp_spec, perm);
-	ofstream OUT_file;
-	string temp_str = to_string(temp);
-	temp_str = replace_char(temp_str, '.', 'p');
-	string file_name = "CONTCAR" + to_string(outfile_count) + temp_str;
-	OUT_file.open(file_name);
-	if (OUT_file.is_open()) {
-		OUT_file << "Alloy of";
-		for (string spec : session.species_str) { OUT_file << " " << spec; }
-		OUT_file << "\n 1 \n";
-		for (int i = 0; i < 3; i++) {
-			vector<float>vect = sim_cell.unit_lat_vect[i];
-			for (int j = 0; j < 3; j++) { OUT_file << vect[j] * session.shape[i] << " "; }
-			OUT_file << "\n";
-		}
-		for (string spec : session.species_str) { OUT_file << " " << spec; }
-		OUT_file << "\n";
-		for (int i = 0; i < sim_cell.species_numbs.size(); i++) { OUT_file << sim_cell.species_numbs[i] << " "; }
-		OUT_file << "\nCartesian\n";
-		for (int i = 0; i < sim_cell.numb_atoms; i++) {
-			OUT_file << temp_pos[i][0] << " " << temp_pos[i][1] << " " << temp_pos[i][2] << " ";
-			OUT_file << " # " << temp_spec[i] << " " << temp_spin[i] << "\n";
-		}
-	}
-	OUT_file.close();
+void Algo2::print_state(string contcar_name, int temp) {
+    vector<int> perm;
+    vector<int> temp_spec;
+    vector<float> temp_spin;
+    vector<vector<float>> temp_pos;
+    temp_spec.assign(chem_list.begin(), chem_list.end());
+    temp_spin.assign(spin_list.begin(), spin_list.end());
+    temp_pos = pos_list;// insert(temp_pos.end(), pos_list.begin(), pos_list.end());
+    perm = vect_permut(temp_spin);
+    sort_vect(temp_spin, perm);
+    sort_vect(temp_pos, perm);
+    sort_vect(temp_spec, perm);
+    perm = vect_permut(temp_spec);
+    sort_vect(temp_spin, perm);
+    sort_vect(temp_pos, perm);
+    sort_vect(temp_spec, perm);
+    ofstream OUT_file;
+    string file_name = contcar_name + "_" + to_string(temp);
+    OUT_file.open(file_name);
+    if (OUT_file.is_open()) {
+        OUT_file << "Alloy of";
+        for (string spec : session.species_str) { OUT_file << " " << spec; }
+        OUT_file << "\n 1 \n";
+        for (int i = 0; i < 3; i++) {
+            vector<float>vect = sim_cell.unit_lat_vect[i];
+            for (int j = 0; j < 3; j++) { OUT_file << vect[j] * session.shape[i] << " "; }
+            OUT_file << "\n";
+        }
+        for (string spec : session.species_str) { OUT_file << " " << spec; }
+        OUT_file << "\n";
+        for (int i = 0; i < sim_cell.species_numbs.size(); i++) { OUT_file << sim_cell.species_numbs[i] << " "; }
+        OUT_file << "\nCartesian\n";
+        for (int i = 0; i < sim_cell.numb_atoms; i++) {
+            OUT_file << temp_pos[i][0] << " " << temp_pos[i][1] << " " << temp_pos[i][2] << " ";
+            OUT_file << " # " << temp_spec[i] << " " << temp_spin[i] << "\n";
+        }
+    }
+    OUT_file.close();
 }
 
 void Algo2::run() {
@@ -288,6 +308,7 @@ void Algo2::run() {
 
     // Create seperate output file to avoid race condition
     string file_name = "OUTPUT";
+    string contcar_name = "CONTCAR";
     bool file_exists = true;
     while (file_exists == true) {
         const char* c_file = file_name.c_str();
@@ -296,6 +317,7 @@ void Algo2::run() {
             // file exists or otherwise uncreatable
             outfile_count += 1;
             file_name = "OUTPUT" + to_string(outfile_count);
+            contcar_name = "CONTCAR" + to_string(outfile_count);
         }
         else {
             file_exists = false;
@@ -308,7 +330,7 @@ void Algo2::run() {
     
     // Output energy and spin for convergence test
     ofstream Output_converge;
-    Output_converge.open("converge.txt");
+    if ( session.do_conv_output) { Output_converge.open("OUTPUT_CONVERG"); }
 
     Output << "Phase: " << sim_cell.phase_init;
     Output << "Composition: ";
@@ -331,12 +353,12 @@ void Algo2::run() {
     // Make rule_maps for easy lookup
     string rule_key;
     for (Rule rule : session.chem_rule_list) {
-        rule_key = to_string(rule.GetType()) + "." + to_string(rule.motif_ind);
+        rule_key = to_string(rule.GetType()) + "." + to_string(rule.clust_ind);
         for (int i = 0; i < rule.deco.size(); i++) { rule_key += "." + to_string(rule.deco[i]); }
         rule_map_chem.insert(pair<string, float>(rule_key, rule.GetEnrgCont()));
     }
     for (Rule rule : session.spin_rule_list) {
-        rule_key = to_string(rule.GetType()) + "." + to_string(rule.motif_ind);
+        rule_key = to_string(rule.GetType()) + "." + to_string(rule.clust_ind);
         for (int i = 0; i < rule.deco.size(); i++) { rule_key += "." + to_string(rule.deco[i]); }
         rule_map_spin.insert(pair<string, float>(rule_key, rule.GetEnrgCont()));
         for (int atom : rule.deco) {
@@ -353,28 +375,33 @@ void Algo2::run() {
 //    for (int site = 0; site < sim_cell.numb_atoms; site++) {
 //        cout << chem_motif_groups[site].size() << ", " << spin_motif_groups[site].size() << "\n";
 //        for (int i = 0; i < chem_motif_groups[site].size(); i++) {
-//                string rule_key = "0.";
-//                rule_key += to_string(i);
-//                for (int j : chem_motif_groups[site][i]) {
-//                    cout << j << ", ";
-//                    rule_key += "." + to_string(chem_list[j]);
+//            vector<vector<int>> motif = chem_motif_groups[site][i];
+//            for (int j =0; j < motif.size(); j++) {
+//                string rule_key = "0."; // chem ind
+//                rule_key += to_string(i); // clust_ind
+//                vector<int> group = motif[j];
+//                for ( int k : group ) {
+//                    rule_key += "." + to_string(k); // sites ind
 //                }
-//                cout << ":" << rule_key << "\n";
+//                cout << "chem" << ":" << rule_key << "\n";
 //            }
+//        }
 //        for (int i = 0; i < spin_motif_groups[site].size(); i++) {
+//            vector<vector<int>> motif = spin_motif_groups[site][i];
+//            for (int j =0; j < motif.size(); j++) {
 //                string rule_key = "1.";
 //                rule_key += to_string(i);
-//                for (int j : spin_motif_groups[site][i]) {
-//                    cout << j << ", ";
-//                    rule_key += "." + to_string(chem_list[j]);
+//                vector<int> group = motif[j];
+//                for ( int k : group ) {
+//                    rule_key += "." + to_string(k); // sites ind
 //                }
-//                cout << ":" << rule_key << "\n";
+//                cout << "spin" << ":" << rule_key << "\n";
 //            }
+//        }
 //    }
     
     // Begin MC
     float init_enrg = eval_lat();
-    Output_converge << eval_lat() << ", " << init_enrg << "\n";
     cout << "Evaluated total energy: " << init_enrg / numb_atoms << "\n";
     float init_spin_enrg = eval_lat_spin();
     cout << "Evaluated spin energy: " << init_spin_enrg / numb_atoms << "\n";
@@ -410,12 +437,12 @@ void Algo2::run() {
     
     // Start MC loop
     cout << "Entering main loop\n";
+    int temp_count = 0;
     for (float temp = temp1; (temp2 - temp) * inc_dir >= 0; temp += temp_inc) {
         float e_avg = 0.0;
         float spin_avg = 0.0;
         int flip_count = 0;
         int flip_count2 = 0;
-        int real_move = 0;
         for (int pass = 0; pass < passes; pass++) {
             for (int site = 0; site < numb_atoms; site++) {
                 float e_flip = 0.0;
@@ -423,7 +450,6 @@ void Algo2::run() {
                 int method_index = rand_method(rng);
                 // Do the pass for spin flips
                 if ( method_index < passes * 0.33) {
-                    Output_converge << "method1 ";
                     if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
                         // Flip Spin
                         float old_spin = spin_list[site];
@@ -450,9 +476,10 @@ void Algo2::run() {
                         // Record the enrg and spin changes
                         init_enrg += e_flip;
                         init_spin += spin_flip;
-                        Output_converge << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
+                        if (session.do_conv_output ) {
+                            Output_converge << "method1 " << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
+                        }
                         if (pass >= passes * 0.5) {
-                            real_move += 1;
                             e_avg += init_enrg;
                             rs_C.Push(init_enrg);
                             spin_avg += init_spin;
@@ -462,7 +489,6 @@ void Algo2::run() {
                 }
                 // Do the pass for atom swaps
                 else if (method_index < passes * 0.67) {
-                    Output_converge << "method2 ";
                     same_atom = true;
                     while (same_atom == true) {
                         rand_site = rand_atom(rng);
@@ -504,7 +530,9 @@ void Algo2::run() {
                     // Record the enrg and spin changes
                     init_enrg += e_flip;
                     init_spin += spin_flip;
-                    Output_converge << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
+                    if (session.do_conv_output ) {
+                        Output_converge << "method2 " << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
+                    }
                     if (pass >= passes * 0.5) {
                         e_avg += init_enrg;
                         rs_C.Push(init_enrg);
@@ -514,7 +542,6 @@ void Algo2::run() {
                 }
                 // Do the pass for atom swaps and randomly set spins
                 else {
-                    Output_converge << "method3 ";
                     same_atom = true;
                     while (same_atom == true) {
                         rand_site = rand_atom(rng);
@@ -588,7 +615,9 @@ void Algo2::run() {
                     // Record the enrg and spin changes
                     init_enrg += e_flip;
                     init_spin += spin_flip;
-                    Output_converge << eval_lat() << "; " << init_enrg << ", " <<  init_spin << "\n";
+                    if (session.do_conv_output ) {
+                        Output_converge << "method3 " << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
+                    }
                     if (pass >= passes * 0.5) {
                         e_avg += init_enrg;
                         rs_C.Push(init_enrg);
@@ -616,7 +645,8 @@ void Algo2::run() {
             << flip_count2 << "\n";
         rs_C.Clear();
         rs_X.Clear();
-        print_state(temp2);
+        print_state(contcar_name, temp_count);
+        temp_count += 1;
     }
     cout << " MC Finished\n";
     Output.close();
@@ -652,7 +682,7 @@ void Algo2::run() {
 //    new_enrg = eval_atom_flip(rand_site);
 //    e_flip += new_enrg - old_enrg;
 //    float new_lat_e = eval_lat();
-//    if (new_lat_e - old_lat_e - e_flip > 0.000001) {
+//    if (new_lat_e - old_lat_e - e_flip > 0.00001) {
 //        cout << site << " " << rand_site << " " << old_site_chem << " " << old_rand_site_chem << "; " << pos_list[site][0] - pos_list[rand_site][0] << " " << pos_list[site][1] - pos_list[rand_site][1] << " " << pos_list[site][2] - pos_list[rand_site][2] << "; ";
 //        cout << " eflip: " << e_flip << ", elat: " << new_lat_e - old_lat_e << "\n";
 //    }

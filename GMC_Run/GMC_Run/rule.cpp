@@ -5,13 +5,13 @@
 Rule::Rule(void) {
 }
 
-Rule::Rule(float _enrg_cont, int _type, int _phase, vector<int> _deco, vector<vector<float>> _motif, int _motif_ind) {
+Rule::Rule(float _enrg_cont, int _type, int _phase, vector<int> _deco, vector<vector<float>> _motif, int _clust_ind) {
 	motif = _motif;
 	enrg_cont = _enrg_cont;
 	type = _type;
 	phase = _phase;
 	deco = _deco;
-	motif_ind = _motif_ind;
+	clust_ind = _clust_ind;
 	for (int i = 0; i < motif.size(); i++) {
 		for (int j = i + 1; j < motif.size(); j++) {
 			float new_dist = 0;
@@ -22,7 +22,20 @@ Rule::Rule(float _enrg_cont, int _type, int _phase, vector<int> _deco, vector<ve
 			}
 		}
 	}
+    if ( motif.size() == 1 ) {
+        dists.push_back(0);
+    }
 }
+
+//Rule::Rule(Rule& _rule) {
+//	motif = _rule.motif;
+//	enrg_cont = _rule.enrg_cont;
+//	type = _rule.type;
+//	phase = _rule.phase;
+//	deco = _rule.deco;
+//	clust_ind = _rule.clust_ind;
+//	dists = _rule.dists;
+//}
 
 int Rule::GetPhase() {
 	return phase;

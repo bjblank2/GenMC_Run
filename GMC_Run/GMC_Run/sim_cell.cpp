@@ -286,6 +286,7 @@ void SimCell::setNeighborDists(vector<float>& dist_list) {
 	vector<float> pos1 { 0, 0, 0 };
 	vector<float> pos2 { 0, 0, 0 };
 	float dist;
+    float max_dist = vect_max(dist_list) + 0.001;
 	int added = 0;
 	// loop through each atom object
 	for (int i = 0; i < atom_list.size(); i++) {
@@ -301,13 +302,17 @@ void SimCell::setNeighborDists(vector<float>& dist_list) {
 			dist = bc_dist(pos1, pos2);
 			added = 0;
 			// add to neighbor distance list and neighbor index list if the distance is relevent
-			for (int k = 0; k < dist_list.size(); k++) {
-				if (fcomp(dist, dist_list[k])) {
-					atom_list[i].neighbor_dists.push_back(dist);
-					atom_list[i].neighbors.push_back(j);
-					added = 1;
-				}
-			}
+            if (dist <= max_dist ) {
+                atom_list[i].neighbor_dists.push_back(dist);
+                atom_list[i].neighbors.push_back(j);
+            }
+//			for (int k = 0; k < dist_list.size(); k++) {
+//				if (fcomp(dist, dist_list[k])) {
+//					atom_list[i].neighbor_dists.push_back(dist);
+//					atom_list[i].neighbors.push_back(j);
+//					added = 1;
+//				}
+//			}
 		}
 	}
 }

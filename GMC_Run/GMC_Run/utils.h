@@ -34,6 +34,7 @@ vector<int> vect_permut(vector<float>& vect);
 vector<int> vect_add(vector<int>& vect1, vector<int>& vect2);
 vector<float> pos_round(vector<float>& pos, int digits);
 vector<float> vect_add(vector<float>& vect1, vector<float>& vect2);
+vector<float> vect_subtract(vector<float>& vect1, vector<float>& vect2);
 vector<float> vect_add(vector<float>& vect1, float vect2[3]);
 vector<float> pos_transform(vector<float>& pos, vector<vector<float>>& trans);
 vector<float> scale_vect(vector<float>& vect, float numb);

@@ -78,7 +78,7 @@ void SimCell::fillUnitCell(string POSCAR_file, Session& sess) {
 	}
 	// get the positions of each site
 	for (int i = 8; i < pos_lines.size(); i++) {
-		pos_line = pos_lines[i];
+		pos_line = pos_lines[i].substr(0, pos_lines[i].find("#"));
 		pos_list_s = split(pos_line, " ");
 		pos_species_s.clear();
 		for (int j = 0; j < 3; j++) {pos.push_back(stof(pos_list_s[j]));}

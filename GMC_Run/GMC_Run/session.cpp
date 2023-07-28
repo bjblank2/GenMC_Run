@@ -166,14 +166,6 @@ void Session::add_spin_states(string input_file) {
 	if (spin_states.size() != atom_numbs.size()) { cout << "Error: atom_numbs not equal to number of lines in spin_states file\n"; }
 }
 
-//void Session::fill_sro_list() {
-//	for (Rule rule : chem_rule_list) {
-//		if (rule.motif.size() == 2) {
-//			sro_rule_list.push_back(Rule(rule));
-//		}
-//	}
-//}
-
 void Session::fill_rule_list() {
 	vector<float> distances;
 	vector<int> spins;

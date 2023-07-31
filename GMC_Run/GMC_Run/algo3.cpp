@@ -12,7 +12,6 @@ Algo3::Algo3(Session& _session, SimCell& _sim_cell) {
 		cout << "This is probably not what you want..." << endl;
 		cout << "_______________________________________________________________________________" << endl;
 	}
-
 }
 
 float Algo3::eval_site_chem(int site) {

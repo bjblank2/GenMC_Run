@@ -442,7 +442,7 @@ void Algo3::run() {
                 vector<float> sro_flip2;
                 int method_index = rand_method(rng);
                 // Do the pass for spin flips
-                if ( method_index < passes * 0.33) {
+                if ( method_index < passes * 0.0) {
                     if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
                         // Flip Spin
                         float old_spin = spin_list[site];
@@ -482,7 +482,7 @@ void Algo3::run() {
                     }
                 }
                 // Do the pass for atom swaps
-                else if (method_index < passes * 0.67) {
+                else if (method_index < passes * 0.0) {
                     same_atom = true;
                     while (same_atom == true) {
                         rand_site = rand_atom(rng);

@@ -18,7 +18,6 @@
 #include <errno.h>
 #include <unistd.h>
 #include "rule.h"
-#include "sro.h"
 #include "sim_cell.h"
 #include "running_stat.h"
 #include "session.h"

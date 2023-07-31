@@ -4,7 +4,6 @@
 #include "run_sim.h"
 #include "session.h"
 #include "utils.h"
-#include "function_test.h"
 using namespace std;
 // The MC code
 // The paramiters for the MC run ( Composition, Simulation cell size, ect...) are all set in INPUT.txt

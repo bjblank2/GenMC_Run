@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D5B7EAB2A53FC26009C7ED4 /* sro.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B7EAA2A53FC26009C7ED4 /* sro.cpp */; };
 		3DC03E772A44E9D90016BA25 /* running_stat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E632A44E9D90016BA25 /* running_stat.cpp */; };
 		3DC03E782A44E9D90016BA25 /* rule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E652A44E9D90016BA25 /* rule.cpp */; };
 		3DC03E792A44E9D90016BA25 /* algo2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E662A44E9D90016BA25 /* algo2.cpp */; };
@@ -33,8 +32,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3D5B7EA92A53FC26009C7ED4 /* sro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sro.h; path = ../../sro.h; sourceTree = "<group>"; };
-		3D5B7EAA2A53FC26009C7ED4 /* sro.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sro.cpp; path = ../../sro.cpp; sourceTree = "<group>"; };
 		3DC03E582A44E9BD0016BA25 /* genmc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = genmc; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DC03E622A44E9D90016BA25 /* rule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rule.h; path = ../../rule.h; sourceTree = "<group>"; };
 		3DC03E632A44E9D90016BA25 /* running_stat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = running_stat.cpp; path = ../../running_stat.cpp; sourceTree = "<group>"; };
@@ -87,8 +84,6 @@
 		3DC03E5A2A44E9BD0016BA25 /* genmc */ = {
 			isa = PBXGroup;
 			children = (
-				3D5B7EAA2A53FC26009C7ED4 /* sro.cpp */,
-				3D5B7EA92A53FC26009C7ED4 /* sro.h */,
 				3DC03E922A44FB340016BA25 /* algo3.cpp */,
 				3DC03E932A44FB340016BA25 /* algo3.h */,
 				3DC03E672A44E9D90016BA25 /* algo1.cpp */,
@@ -174,7 +169,6 @@
 				3DC03E782A44E9D90016BA25 /* rule.cpp in Sources */,
 				3DC03E7D2A44E9D90016BA25 /* run_sim.cpp in Sources */,
 				3DC03E7A2A44E9D90016BA25 /* algo1.cpp in Sources */,
-				3D5B7EAB2A53FC26009C7ED4 /* sro.cpp in Sources */,
 				3DC03E7B2A44E9D90016BA25 /* main.cpp in Sources */,
 				3DC03E7F2A44E9D90016BA25 /* utils.cpp in Sources */,
 				3DC03E942A44FB340016BA25 /* algo3.cpp in Sources */,

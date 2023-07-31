@@ -223,7 +223,7 @@ void Algo1::print_state(string contcar_name, int temp) {
     sort_vect(temp_pos, perm);
     sort_vect(temp_spec, perm);
     ofstream OUT_file;
-    string file_name = contcar_name + "_" + to_string(temp);
+    string file_name = contcar_name + "-" + to_string(temp);
     OUT_file.open(file_name);
     if (OUT_file.is_open()) {
         OUT_file << "Alloy of";

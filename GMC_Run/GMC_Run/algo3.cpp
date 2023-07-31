@@ -266,7 +266,7 @@ void Algo3::print_state(string contcar_name, int temp) {
     sort_vect(temp_pos, perm);
     sort_vect(temp_spec, perm);
     ofstream OUT_file;
-    string file_name = contcar_name + "_" + to_string(temp);
+    string file_name = contcar_name + "-" + to_string(temp);
     OUT_file.open(file_name);
     if (OUT_file.is_open()) {
         OUT_file << "Alloy of";
@@ -312,7 +312,7 @@ void Algo3::run() {
 
     // Create seperate output file to avoid race condition
     string file_name = "OUTPUT";
-    string sro_file_name = "OUTPUTSRO";
+    string sro_file_name = "OUTPUT_SRO";
     string contcar_name = "CONTCAR";
     bool file_exists = true;
     while (file_exists == true) {
@@ -322,7 +322,7 @@ void Algo3::run() {
             // file exists or otherwise uncreatable
             outfile_count += 1;
             file_name = "OUTPUT" + to_string(outfile_count);
-            sro_file_name = "OUTPUTSRO" + to_string(outfile_count);
+            sro_file_name = "OUTPUT_SRO" + to_string(outfile_count);
             contcar_name = "CONTCAR" + to_string(outfile_count);
         }
         else {

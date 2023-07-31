@@ -131,7 +131,7 @@ float Algo2::eval_lat_spin() {
 
 bool Algo2::bc_check(vector<float> check_vect, vector<float>& pos) {
     bool bc_test = false;
-    vector<int> dir { -1, 1, -2, 2 };
+    vector<int> dir { -1, 1 };
     vector<float> bc_pos { 0, 0, 0 };
     vector<float> lc_shift { 0, 0, 0 };
     vector<vector<float>> bc_shifts { pos };

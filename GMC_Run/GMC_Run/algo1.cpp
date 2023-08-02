@@ -296,7 +296,7 @@ void Algo1::run() {
     Output << "Composition: ";
     for (int i = 0; i < sim_cell.species_numbs.size(); i++) { Output << sim_cell.species_numbs[i] << ", "; }
     Output << "\n";    Output << "MC passes: " << session.numb_passes << ", ";
-    Output << "Beginning MC EQ run using Algo2\n";
+    Output << "Beginning MC EQ run using Algo1\n";
     
     cout << "Making atom list and neighbor index list\n";
     // Make atom_list more acessable for species and spin and neighbors

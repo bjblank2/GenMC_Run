@@ -344,7 +344,7 @@ void Algo3::run() {
     Output << "Composition: ";
     for (int i = 0; i < sim_cell.species_numbs.size(); i++) { Output << sim_cell.species_numbs[i] << ", "; }
     Output << "\n";    Output << "MC passes: " << session.numb_passes << ", ";
-    Output << "Beginning MC EQ run using Algo2\n";
+    Output << "Beginning MC EQ run using Algo3\n";
     
     cout << "Making atom list and neighbor index list\n";
     // Make atom_list more acessable for species and spin and neighbors
@@ -442,7 +442,7 @@ void Algo3::run() {
                 vector<float> sro_flip2;
                 int method_index = rand_method(rng);
                 // Do the pass for spin flips
-                if ( method_index < passes * 0.0) {
+                if ( method_index < passes * 0.33) {
                     if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
                         // Flip Spin
                         float old_spin = spin_list[site];
@@ -482,7 +482,7 @@ void Algo3::run() {
                     }
                 }
                 // Do the pass for atom swaps
-                else if (method_index < passes * 1.01) {
+                else if (method_index < passes * 0.67) {
                     same_atom = true;
                     while (same_atom == true) {
                         rand_site = rand_atom(rng);

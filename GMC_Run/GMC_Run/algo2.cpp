@@ -8,7 +8,7 @@ Algo2::Algo2(Session& _session, SimCell& _sim_cell) {
 	if (session.numb_passes < 1) {
 		cout << "_______________________________________________________________________________" << endl;
 		cout << "Possible Error: Algo2 has been given 0 passes" << endl;
-		cout << "This implies that no flips are made which is likely not phisical." << endl;
+		cout << "This implies that no flips are made which is likely not physical." << endl;
 		cout << "This is probably not what you want..." << endl;
 		cout << "_______________________________________________________________________________" << endl;
 	}
@@ -366,9 +366,10 @@ void Algo2::run() {
         }
     }
     
-    cout << "Making chem/spin motif group lists\n";
     // Fill motif group lists
+    cout << "Making chem motif group lists\n";
     fill_CMG(neigh_ind_list);
+    cout << "Making spin motif group lists\n";
     fill_SMG(neigh_ind_list);
     
 //    output CMG/SMG

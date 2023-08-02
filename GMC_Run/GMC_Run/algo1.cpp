@@ -8,7 +8,7 @@ Algo1::Algo1(Session& _session, SimCell& _sim_cell) {
     if (session.numb_passes < 1) {
         cout << "_______________________________________________________________________________" << endl;
         cout << "Possible Error: Algo1 has been given 0 passes" << endl;
-        cout << "This implies that no flips are made which is likely not phisical." << endl;
+        cout << "This implies that no flips are made which is likely not physical." << endl;
         cout << "This is probably not what you want..." << endl;
         cout << "_______________________________________________________________________________" << endl;
     }

@@ -7,8 +7,8 @@ Algo3::Algo3(Session& _session, SimCell& _sim_cell) {
 	sim_cell = _sim_cell;
 	if (session.numb_passes < 1) {
 		cout << "_______________________________________________________________________________" << endl;
-		cout << "Possible Error: Algo3 has been given 0 subpasses per main pass" << endl;
-		cout << "This implies that no seperate spin flips are made which is likely not phisical." << endl;
+		cout << "Possible Error: Algo3 has been given 0 passes per main pass" << endl;
+		cout << "This implies that no seperate spin flips are made" << endl;
 		cout << "This is probably not what you want..." << endl;
 		cout << "_______________________________________________________________________________" << endl;
 	}
@@ -94,7 +94,7 @@ float Algo3::eval_atom_flip(int site) {
             }
             rule_itr_chem = rule_map_chem.find(rule_key);
             if (rule_itr_chem != rule_map_chem.end()) {
-                enrg += rule_itr_chem->second[0] / group.size();
+                enrg += rule_itr_chem->second[0];
                 site_rule_count_list[round(rule_itr_chem->second[1])] += 1.0;
             }
         }
@@ -358,7 +358,7 @@ void Algo3::run() {
     }
     
     cout << "Making rule maps\n";
-    // Make rule_maps for easy lookup
+    // Make rule_maps for easy lookup and initialize rule_count_list
     float ind = 0;
     string rule_key;
     map<string, vector<float>>::iterator rule_itr;
@@ -482,7 +482,7 @@ void Algo3::run() {
                     }
                 }
                 // Do the pass for atom swaps
-                else if (method_index < passes * 0.0) {
+                else if (method_index < passes * 1.01) {
                     same_atom = true;
                     while (same_atom == true) {
                         rand_site = rand_atom(rng);

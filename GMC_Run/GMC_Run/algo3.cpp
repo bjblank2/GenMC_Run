@@ -453,6 +453,7 @@ void Algo3::atom_move(int site, int rand_site, float new_spin1, float new_spin2,
 
 void Algo3::run() {
     // declare variables
+    passes = session.numb_passes;
     int attempts = 0;
     int rand_site = 1;
     float rand_spin = 0.0;
@@ -513,7 +514,7 @@ void Algo3::run() {
         chem_list.push_back(sim_cell.atom_list[i].getSpecies());
         spin_list.push_back(sim_cell.atom_list[i].getSpin());
         pos_list.push_back({ sim_cell.atom_list[i].pos[0], sim_cell.atom_list[i].pos[1], sim_cell.atom_list[i].pos[2] });
-        sim_cell.atom_list[i].getNumbNeighbors(i, sim_cell);
+        numb_neighbors = sim_cell.atom_list[i].getNumbNeighbors(i, sim_cell);
         for (int j = 0; j < numb_neighbors; j++) {
             neigh_ind_list[i][j] = sim_cell.atom_list[i].getNeighborIndex(j, sim_cell);
         }
@@ -553,7 +554,7 @@ void Algo3::run() {
     fill_SMG(neigh_ind_list);
 
     // Begin MC
-    float init_enrg = eval_lat();
+    init_enrg = eval_lat();
     init_sro = lat_rule_count_list; // record initial SRO/rule count list
     cout << "Evaluated total energy: " << init_enrg / numb_atoms << "\n";
     float init_spin_enrg = eval_lat_spin();

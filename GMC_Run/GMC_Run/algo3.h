@@ -36,7 +36,7 @@ public:
 	int flip_count = 0;
 	int flip_count2 = 0;
 	int outfile_count = 0;
-	int passes = session.numb_passes;
+	int passes;
 	const double Kb = 0.00008617333262; // Boltzmann constant
 	const double uB = 0.00005788381806; // Bhor magnaton
 	float spin_flip = 0.0;

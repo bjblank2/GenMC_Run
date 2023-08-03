@@ -615,7 +615,7 @@ void Algo3::run() {
                         if (new_spin != spin_list[site]) { same_spin = false; }
                         attempts += 1;
                     }
-                    if (attempts <= 20) state = METHOD_0;
+                    if (attempts >= 20) state = METHOD_0;
                     spin_move(site, pass, temp, new_spin, Output_converge);
                     break;
                     //-----------------------------------------------------------
@@ -623,7 +623,7 @@ void Algo3::run() {
                     if (sim_cell.atom_list[site].allowed_species.size() == 1) state = METHOD_1;
                     same_atom = true;
                     attempts = 0;
-                    while (same_atom == true and attempts > 100) {
+                    while (same_atom == true and attempts < 100) {
                         rand_site = rand_atom(rng);
                         if (rand_site != site) {
                             if (find(sim_cell.atom_list[rand_site].allowed_species.begin(), sim_cell.atom_list[rand_site].allowed_species.end(), chem_list[site]) != sim_cell.atom_list[rand_site].allowed_species.end() && find(sim_cell.atom_list[site].allowed_species.begin(), sim_cell.atom_list[site].allowed_species.end(), chem_list[rand_site]) != sim_cell.atom_list[site].allowed_species.end()) {
@@ -632,7 +632,7 @@ void Algo3::run() {
                         }
                         attempts += 1;
                     }
-                    if (attempts <= 100) state = METHOD_1;
+                    if (attempts >= 100) state = METHOD_1;
                     spec_move(site, rand_site, pass, temp, new_spin, Output_converge);
                     break;
                     //-----------------------------------------------------------
@@ -640,7 +640,7 @@ void Algo3::run() {
                     if (sim_cell.atom_list[site].allowed_species.size() == 1) state = METHOD_1;
                     same_atom = true;
                     attempts = 0;
-                    while (same_atom == true and attempts > 100) {
+                    while (same_atom == true and attempts < 100) {
                         rand_site = rand_atom(rng);
                         if (rand_site != site) {
                             if (find(sim_cell.atom_list[rand_site].allowed_species.begin(), sim_cell.atom_list[rand_site].allowed_species.end(), chem_list[site]) != sim_cell.atom_list[rand_site].allowed_species.end() && find(sim_cell.atom_list[site].allowed_species.begin(), sim_cell.atom_list[site].allowed_species.end(), chem_list[rand_site]) != sim_cell.atom_list[site].allowed_species.end()) {
@@ -649,7 +649,7 @@ void Algo3::run() {
                         }
                         attempts += 1;
                     }
-                    if (attempts <= 100) state = METHOD_1;
+                    if (attempts >= 100) state = METHOD_1;
                     if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[rand_site]) != spin_atoms.end()) new_spin1 = spin_list[rand_site];
                     else if (spin_states[chem_list[rand_site]].size() <= 1) new_spin1 = spin_list[rand_site];
                     else {
@@ -665,7 +665,7 @@ void Algo3::run() {
                             if (new_spin1 != spin_list[rand_site]) { same_spin = false; }
                             attempts += 1;
                         }
-                        if (attempts <= 20) state = METHOD_0;
+                        if (attempts >= 20) state = METHOD_0;
                     }
                     if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) new_spin2 = spin_list[site];
                     else if (spin_states[chem_list[site]].size() <= 1) new_spin2 = spin_list[site];
@@ -682,7 +682,7 @@ void Algo3::run() {
                             if (new_spin2 != spin_list[site]) { same_spin = false; }
                             attempts += 1;
                         }
-                        if (attempts <= 20) state = METHOD_0;
+                        if (attempts >= 20) state = METHOD_0;
                     }
                     atom_move(site, rand_site, new_spin1, new_spin2, pass, temp, new_spin, Output_converge);
                     break;

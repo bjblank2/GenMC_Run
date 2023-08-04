@@ -257,20 +257,24 @@ void Algo3::print_state(string contcar_name, int temp) {
     vector<int> perm;
     vector<int> temp_spec;
     vector<float> temp_spin;
+    vector<vector<int>> temp_allowed;
     vector<vector<float>> temp_pos;
     temp_spec.assign(chem_list.begin(), chem_list.end());
     temp_spin.assign(spin_list.begin(), spin_list.end());
     temp_pos = pos_list;// insert(temp_pos.end(), pos_list.begin(), pos_list.end());
     perm = vect_permut(temp_spin);
+    for (int i = 0; i < sim_cell.numb_atoms; i++) { temp_allowed.push_back(sim_cell.atom_list[i].allowed_species); }
     sort_vect(temp_spin, perm);
     sort_vect(temp_pos, perm);
     sort_vect(temp_spec, perm);
+    sort_vect(temp_allowed, perm);
     perm = vect_permut(temp_spec);
     sort_vect(temp_spin, perm);
     sort_vect(temp_pos, perm);
     sort_vect(temp_spec, perm);
+    sort_vect(temp_allowed, perm);
     ofstream OUT_file;
-    string file_name = contcar_name + "-" + to_string(temp);
+    string file_name = contcar_name + "_" + to_string(temp);
     OUT_file.open(file_name);
     if (OUT_file.is_open()) {
         OUT_file << "Alloy of";
@@ -287,6 +291,9 @@ void Algo3::print_state(string contcar_name, int temp) {
         OUT_file << "\nCartesian\n";
         for (int i = 0; i < sim_cell.numb_atoms; i++) {
             OUT_file << temp_pos[i][0] << " " << temp_pos[i][1] << " " << temp_pos[i][2] << " ";
+            for (int j = 0; j < temp_allowed[i].size(); j++) {
+                OUT_file << session.species_str[temp_allowed[i][j]] << " ";
+            }
             OUT_file << " # " << temp_spec[i] << " " << temp_spin[i] << "\n";
         }
     }
@@ -449,7 +456,6 @@ void Algo3::atom_move(int site, int rand_site, float new_spin1, float new_spin2,
         count_avg = vect_add(count_avg, init_sro);
     }
 }
-
 
 void Algo3::run() {
     // declare variables

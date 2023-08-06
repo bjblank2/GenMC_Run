@@ -5,6 +5,7 @@ Algo3::Algo3(void) {}
 Algo3::Algo3(Session& _session, SimCell& _sim_cell) {
     session = _session;
     sim_cell = _sim_cell;
+    passes = session.numb_passes;
     if (session.numb_passes < 1) {
         cout << "_______________________________________________________________________________" << endl;
         cout << "Possible Error: Algo3 has been given 0 passes per main pass" << endl;
@@ -332,7 +333,7 @@ void Algo3::spin_move(int site, int pass, float temp, float new_spin, ofstream& 
     }
 }
 
-void Algo3::spec_move(int site, int rand_site, int pass, float temp, float new_spin, ofstream& Output_converge) {
+void Algo3::spec_move(int site, int rand_site, int pass, float temp, ofstream& Output_converge) {
     int old_site_chem = chem_list[site];
     float old_site_spin = spin_list[site];
     int old_rand_site_chem = chem_list[rand_site];
@@ -459,7 +460,6 @@ void Algo3::atom_move(int site, int rand_site, float new_spin1, float new_spin2,
 
 void Algo3::run() {
     // declare variables
-    passes = session.numb_passes;
     int attempts = 0;
     int rand_site = 1;
     float rand_spin = 0.0;
@@ -596,104 +596,139 @@ void Algo3::run() {
                 float new_spin1 = 0.0;
                 float new_spin2 = 0.0;
                 //float old_spin;
-                int state;
+                int state = 0;
                 int method_index = rand_method(rng);
+                int rand_atom_list = rand_atom(rng);
+                double rand_spin_list = unif(rng);
                 if (method_index < passes * 0.33) state = METHOD_1;
                 else if (method_index < passes * 0.67) state = METHOD_2;
                 else state = METHOD_3;
-                switch (state) {
-                    //-----------------------------------------------------------
-                case 0:
-                    break;
-                    //-----------------------------------------------------------       
-                case METHOD_1:
-                    if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) state = NO_SPIN; // state set to 0
-                    if (spin_states[chem_list[site]].size() <= 1) state = ONE_SPIN; // state set to 0
-                    //old_spin = spin_list[site];
-                    same_spin = true;
-                    attempts = 0;
-                    while (same_spin == true and attempts < 20) {
-                        rand_spin = unif(rng);
-                        for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[site]].size(); it_spin_state++) {
-                            if (rand_spin > float(it_spin_state) / float(spin_states[chem_list[site]].size())) {
-                                new_spin = spin_states[chem_list[site]][it_spin_state];
-                            }
-                        }
-                        if (new_spin != spin_list[site]) { same_spin = false; }
-                        attempts += 1;
-                    }
-                    if (attempts >= 20) state = METHOD_0;
-                    spin_move(site, pass, temp, new_spin, Output_converge);
-                    break;
-                    //-----------------------------------------------------------
-                case METHOD_2:
-                    if (sim_cell.atom_list[site].allowed_species.size() == 1) state = METHOD_1;
-                    same_atom = true;
-                    attempts = 0;
-                    while (same_atom == true and attempts < 100) {
-                        rand_site = rand_atom(rng);
-                        if (rand_site != site) {
-                            if (find(sim_cell.atom_list[rand_site].allowed_species.begin(), sim_cell.atom_list[rand_site].allowed_species.end(), chem_list[site]) != sim_cell.atom_list[rand_site].allowed_species.end() && find(sim_cell.atom_list[site].allowed_species.begin(), sim_cell.atom_list[site].allowed_species.end(), chem_list[rand_site]) != sim_cell.atom_list[site].allowed_species.end()) {
-                                if (chem_list[site] != chem_list[rand_site]) { same_atom = false; }
-                            }
-                        }
-                        attempts += 1;
-                    }
-                    if (attempts >= 100) state = METHOD_1;
-                    spec_move(site, rand_site, pass, temp, new_spin, Output_converge);
-                    break;
-                    //-----------------------------------------------------------
-                case METHOD_3:
-                    if (sim_cell.atom_list[site].allowed_species.size() == 1) state = METHOD_1;
-                    same_atom = true;
-                    attempts = 0;
-                    while (same_atom == true and attempts < 100) {
-                        rand_site = rand_atom(rng);
-                        if (rand_site != site) {
-                            if (find(sim_cell.atom_list[rand_site].allowed_species.begin(), sim_cell.atom_list[rand_site].allowed_species.end(), chem_list[site]) != sim_cell.atom_list[rand_site].allowed_species.end() && find(sim_cell.atom_list[site].allowed_species.begin(), sim_cell.atom_list[site].allowed_species.end(), chem_list[rand_site]) != sim_cell.atom_list[site].allowed_species.end()) {
-                                if (chem_list[site] != chem_list[rand_site]) { same_atom = false; }
-                            }
-                        }
-                        attempts += 1;
-                    }
-                    if (attempts >= 100) state = METHOD_1;
-                    if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[rand_site]) != spin_atoms.end()) new_spin1 = spin_list[rand_site];
-                    else if (spin_states[chem_list[rand_site]].size() <= 1) new_spin1 = spin_list[rand_site];
-                    else {
-                        same_spin = true;
-                        attempts = 0;
-                        while (same_spin == true and attempts < 20) {
-                            rand_spin = unif(rng);
-                            for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[rand_site]].size(); it_spin_state++) {
-                                if (rand_spin > float(it_spin_state) / float(spin_states[chem_list[rand_site]].size())) {
-                                    new_spin1 = spin_states[chem_list[rand_site]][it_spin_state];
-                                }
-                            }
-                            if (new_spin1 != spin_list[rand_site]) { same_spin = false; }
-                            attempts += 1;
-                        }
-                        if (attempts >= 20) state = METHOD_0;
-                    }
-                    if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) new_spin2 = spin_list[site];
-                    else if (spin_states[chem_list[site]].size() <= 1) new_spin2 = spin_list[site];
-                    else {
+                while(state != DONE) {
+                    switch (state) {
+                        //-----------------------------------------------------------
+                    case 0:
+                        state = DONE;
+                        break;
+                        //-----------------------------------------------------------       
+                    case METHOD_1:
+                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
+                            state = NO_SPIN;
+                            break;
+                        }// state set to 0
+                        if (spin_states[chem_list[site]].size() <= 1) {
+                            state = ONE_SPIN;
+                            break;
+                        }// state set to 0
+                        //old_spin = spin_list[site];
                         same_spin = true;
                         attempts = 0;
                         while (same_spin == true and attempts < 20) {
                             rand_spin = unif(rng);
                             for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[site]].size(); it_spin_state++) {
                                 if (rand_spin > float(it_spin_state) / float(spin_states[chem_list[site]].size())) {
-                                    new_spin2 = spin_states[chem_list[site]][it_spin_state];
+                                    new_spin = spin_states[chem_list[site]][it_spin_state];
                                 }
                             }
-                            if (new_spin2 != spin_list[site]) { same_spin = false; }
+                            if (new_spin != spin_list[site]) { same_spin = false; }
                             attempts += 1;
                         }
-                        if (attempts >= 20) state = METHOD_0;
+                        if (attempts >= 20) {
+                            state = METHOD_0;
+                            break;
+                        }
+                        spin_move(site, pass, temp, new_spin, Output_converge);
+                        state = DONE;
+                        break;
+                        //-----------------------------------------------------------
+                    case METHOD_2:
+                        if (sim_cell.atom_list[site].allowed_species.size() <= 1) {
+                            state = METHOD_1;
+                            break;
+                        }
+                        same_atom = true;
+                        attempts = 0;
+                        while (same_atom == true and attempts < 100) {
+                            rand_site = rand_atom(rng);
+                            if (rand_site != site) {
+                                if (find(sim_cell.atom_list[rand_site].allowed_species.begin(), sim_cell.atom_list[rand_site].allowed_species.end(), chem_list[site]) != sim_cell.atom_list[rand_site].allowed_species.end() && find(sim_cell.atom_list[site].allowed_species.begin(), sim_cell.atom_list[site].allowed_species.end(), chem_list[rand_site]) != sim_cell.atom_list[site].allowed_species.end()) {
+                                    if (chem_list[site] != chem_list[rand_site]) { same_atom = false; }
+                                }
+                            }
+                            attempts += 1;
+                        }
+                        if (attempts >= 100) {
+                            state = METHOD_1;
+                            break;
+                        }
+                        spec_move(site, rand_site, pass, temp, Output_converge);
+                        state = DONE;
+                        break;
+                        //-----------------------------------------------------------
+                    case METHOD_3:
+                        if (sim_cell.atom_list[site].allowed_species.size() <= 1) {
+                            state = METHOD_1;
+                            break;
+                        }
+                        same_atom = true;
+                        attempts = 0;
+                        while (same_atom == true and attempts < 100) {
+                            rand_site = rand_atom(rng);
+                            if (rand_site != site) {
+                                if (find(sim_cell.atom_list[rand_site].allowed_species.begin(), sim_cell.atom_list[rand_site].allowed_species.end(), chem_list[site]) != sim_cell.atom_list[rand_site].allowed_species.end() && find(sim_cell.atom_list[site].allowed_species.begin(), sim_cell.atom_list[site].allowed_species.end(), chem_list[rand_site]) != sim_cell.atom_list[site].allowed_species.end()) {
+                                    if (chem_list[site] != chem_list[rand_site]) { same_atom = false; }
+                                }
+                            }
+                            attempts += 1;
+                        }
+                        if (attempts >= 100) {
+                            state = METHOD_1;
+                            break;
+                        }
+                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[rand_site]) != spin_atoms.end()) new_spin1 = spin_list[rand_site];
+                        else if (spin_states[chem_list[rand_site]].size() <= 1) new_spin1 = spin_list[rand_site];
+                        else {
+                            same_spin = true;
+                            attempts = 0;
+                            while (same_spin == true and attempts < 20) {
+                                rand_spin = unif(rng);
+                                for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[rand_site]].size(); it_spin_state++) {
+                                    if (rand_spin > float(it_spin_state) / float(spin_states[chem_list[rand_site]].size())) {
+                                        new_spin1 = spin_states[chem_list[rand_site]][it_spin_state];
+                                    }
+                                }
+                                if (new_spin1 != spin_list[rand_site]) { same_spin = false; }
+                                attempts += 1;
+                            }
+                            if (attempts >= 20) {
+                                state = METHOD_0;
+                                break;
+                            }
+                        }
+                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) new_spin2 = spin_list[site];
+                        else if (spin_states[chem_list[site]].size() <= 1) new_spin2 = spin_list[site];
+                        else {
+                            same_spin = true;
+                            attempts = 0;
+                            while (same_spin == true and attempts < 20) {
+                                rand_spin = unif(rng);
+                                for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[site]].size(); it_spin_state++) {
+                                    if (rand_spin > float(it_spin_state) / float(spin_states[chem_list[site]].size())) {
+                                        new_spin2 = spin_states[chem_list[site]][it_spin_state];
+                                    }
+                                }
+                                if (new_spin2 != spin_list[site]) { same_spin = false; }
+                                attempts += 1;
+                            }
+                            if (attempts >= 20) {
+                                state = METHOD_0;
+                                break;
+                            }
+                        }
+                        atom_move(site, rand_site, new_spin1, new_spin2, pass, temp, new_spin, Output_converge);
+                        state = DONE;
+                        break;
+                        //-----------------------------------------------------------
                     }
-                    atom_move(site, rand_site, new_spin1, new_spin2, pass, temp, new_spin, Output_converge);
-                    break;
-                    //-----------------------------------------------------------
                 }
             }
         }

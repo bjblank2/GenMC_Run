@@ -657,7 +657,6 @@ void Algo3::run() {
                             attempts += 1;
                         }
                         if (attempts >= 100) {
-                            cout << "222";
                             state = METHOD_1;
                             break;
                         }
@@ -682,7 +681,6 @@ void Algo3::run() {
                             attempts += 1;
                         }
                         if (attempts >= 100) {
-                            cout << "222";
                             state = METHOD_1;
                             break;
                         }

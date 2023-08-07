@@ -45,14 +45,17 @@ void SimCell::_copy(SimCell& sc_copy) {
 
 // fill the unit cell using the poscar file 
 void SimCell::fillUnitCell(string POSCAR_file, Session& sess) {
-	ifstream POS_list;
+    int pos_start = 8;
+    int comp_start = 6;
+    ifstream POS_list;
 	string pos_line;
+    string type = "frac";
 	vector<string> comp_line;
 	vector<string> pos_lines;
 	vector<string> LCs;
-	vector<string> pos_list_s;
+	vector<string> pos_list_s; //single?
 	vector<int> pos_species_s;
-	vector<vector<float>> pos_list_f;
+	vector<vector<float>> pos_list_f; //full?
 	vector<vector<int>> pos_species_f;
 	vector<int> species_list;
 	vector<float> pos;
@@ -76,12 +79,29 @@ void SimCell::fillUnitCell(string POSCAR_file, Session& sess) {
 		unit_lat_vect.push_back({ unit_lat_fact * stof(LCs[0]), unit_lat_fact * stof(LCs[1]), unit_lat_fact * stof(LCs[2]) });
 		unit_LC[i - 2] = sqrt(pow(unit_lat_vect[i - 2][0], 2) + pow(unit_lat_vect[i - 2][1], 2) + pow(unit_lat_vect[i - 2][2], 2));
 	}
-	// get the positions of each site
-	for (int i = 8; i < pos_lines.size(); i++) {
+    
+	// get the poscar type
+    for (int i = 5; i < 8; i++) {
+        if (pos_lines[i].find("artesian") != std::string::npos) {
+            pos_start = i+1;
+            comp_start = i-1;
+            type = "cart";
+        }
+        else if (pos_lines[i].find("irect") != std::string::npos) {
+            pos_start = i+1;
+            comp_start = i-1;
+            type = "frac";
+        }
+    }
+    
+    // get the positions of each site and convert to cartesain
+	for (int i = pos_start; i < pos_lines.size(); i++) {
 		pos_line = pos_lines[i].substr(0, pos_lines[i].find("#"));
 		pos_list_s = split(pos_line, " ");
-		pos_species_s.clear();
 		for (int j = 0; j < 3; j++) {pos.push_back(stof(pos_list_s[j]));}
+        if (type == "frac") {
+            pos = pos_transform(pos, unit_lat_vect);
+        }
 		pos_list_f.push_back(pos);
 		pos.clear();
 		// get the allowed species for each site
@@ -97,10 +117,11 @@ void SimCell::fillUnitCell(string POSCAR_file, Session& sess) {
 		else {
 			pos_species_f.push_back(pos_species_s);
 		}
+        pos_species_s.clear();
 	}
-
+    
 	// assign the correct atomic species to each atom position
-	comp_line = split(pos_lines[6]);
+	comp_line = split(pos_lines[comp_start]);
 	for (int i = 0; i < comp_line.size(); i++) {
 		poscar_comp.push_back(stoi(comp_line[i]));
 	}
@@ -121,6 +142,7 @@ void SimCell::fillUnitCell(string POSCAR_file, Session& sess) {
 			species_list.push_back(comp_count);
 		}
 	}
+    
 	// create "atom" object for each atom in the unit cell
 	for (int i = 0; i < pos_list_f.size(); i++) {
 		unit_cell.push_back(Atom(i, species_list[i], 0, 0, pos_list_f[i], pos_species_f[i]));
@@ -158,8 +180,8 @@ void SimCell::make_supercell(Session& sess) {
 				for (int m = 0; m < unit_cell.size(); m++) {
 					vector<float> uc_pos; for (int unit_i = 0; unit_i < 3; unit_i++) { uc_pos.push_back(unit_cell[m].pos[unit_i]); }
 					vector<float> shifted_pos;
-					shifted_pos = vect_add(uc_pos, current_cell);
-					new_atom_pos = pos_transform(shifted_pos, unit_lat_vect);
+                    shifted_pos = pos_transform(current_cell, unit_lat_vect);
+                    new_atom_pos = vect_add(uc_pos, shifted_pos);
 					if (sess.spin_init[0] == 'F') { spin = vect_max(sess.spin_states[unit_cell[m].getSpecies()]); }
 					else if (sess.spin_init[0] == 'R') {
 						if (sess.spin_states.size() == 0) {

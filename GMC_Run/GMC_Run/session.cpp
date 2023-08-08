@@ -39,6 +39,9 @@ Session::Session(string input_file) {
             if (setting[2].compare("TRUE") == 0){ do_conv_output = true; }
             else{ do_conv_output = false; }
         }
+		else if (setting[0].compare("WRITE_CONTCARS") == 0) {
+			if (setting[2].compare("FALSE") == 0) { write_contcars = false; }
+		}
 		else if (setting[0].compare("USE_STATES") == 0) {
 			if (setting[2][0] == 'T') { use_states = true; }
 			else { use_states = false; }

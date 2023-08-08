@@ -789,9 +789,12 @@ void Algo3::run() {
         SROout << "\n" << temp << " ";
         for (float x : count_avg) { SROout << x << " "; }
         SROout << "\n";
-        print_state(contcar_name, temp_count);
+        if (session.write_contcars == true) {
+            print_state(contcar_name, temp_count);
+        }
         temp_count += 1;
     }
+    print_state("CONTCAR_FINAL", temp_count);
     cout << " MC Finished\n";
     Output.close();
     SROout.close();

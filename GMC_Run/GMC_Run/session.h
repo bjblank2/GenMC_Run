@@ -18,6 +18,7 @@ public:
 	bool use_poscar;
 	bool use_states;
     bool do_conv_output = false;
+	bool write_contcars = true;
 	int algo = 0;
 	int numb_passes = 1;
 	int numb_subpasses = 0;

@@ -598,8 +598,6 @@ void Algo3::run() {
                 //float old_spin;
                 int state = 0;
                 int method_index = rand_method(rng);
-                int rand_atom_list = rand_atom(rng);
-                double rand_spin_list = unif(rng);
                 if (method_index < passes * 0.33) { state = METHOD_1; }
                 else if (method_index < passes * 0.67) { state = METHOD_2; }
                 else { state = METHOD_3; }

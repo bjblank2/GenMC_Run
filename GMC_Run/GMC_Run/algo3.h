@@ -61,8 +61,8 @@ public:
 	vector<vector<float>> pos_list;
 	vector<vector<vector<vector<int>>>> spin_motif_groups;
 	vector<vector<vector<vector<int>>>> chem_motif_groups;
-	map <string, vector<float>> rule_map_chem;
-	map <string, float> rule_map_spin;
+	map <size_t, vector<float>> rule_map_chem;
+	map <size_t, float> rule_map_spin;
 	// setup rng for random spin choice and acceptance probability
 	std::mt19937_64 rng;
 	uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();

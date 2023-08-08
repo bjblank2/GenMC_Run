@@ -50,7 +50,7 @@ int Rule::GetType() {
 }
 
 int Rule::GetLength() {
-	return int(motif.size());
+	return motif.size();
 }
 
 vector<int> Rule::GetDeco() {

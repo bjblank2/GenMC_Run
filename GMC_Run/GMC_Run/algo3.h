@@ -71,8 +71,6 @@ public:
 	std::uniform_int_distribution<int> rand_atom;
 	std::uniform_int_distribution<int> rand_method;
 
-
-
 	Algo3(void);
 	Algo3(Session& _session, SimCell& _sim_cell);
 	void run();

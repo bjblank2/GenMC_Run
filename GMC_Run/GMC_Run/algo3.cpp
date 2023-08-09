@@ -146,6 +146,7 @@ float Algo3::eval_atom_flip(int site) {
             rule_key = cust_hash(rule_info);
             rule_itr_spin = rule_map_spin.find(rule_key);
             enrg += (rule_itr_spin != rule_map_spin.end()) ? (rule_itr_spin->second * spin_prod) : 0.0;
+            rule_info.clear();
         }
     }
     return enrg;
@@ -405,7 +406,7 @@ void Algo3::spec_move(int site, int rand_site, int pass, float temp, ofstream& O
     }
 }
 
-void Algo3::atom_move(int site, int rand_site, float new_spin1, float new_spin2, int pass, float temp, float new_spin, ofstream& Output_converge) {
+void Algo3::atom_move(int site, int rand_site, float new_spin1, float new_spin2, int pass, float temp, ofstream& Output_converge) {
     int old_site_chem = chem_list[site];
     float old_site_spin = spin_list[site];
     int old_rand_site_chem = chem_list[rand_site];
@@ -418,7 +419,7 @@ void Algo3::atom_move(int site, int rand_site, float new_spin1, float new_spin2,
     float old_enrg = eval_atom_flip(site);
     vector<float> old_sro = site_rule_count_list;
     chem_list[site] = old_rand_site_chem;
-    spin_list[site] = old_rand_site_spin;
+    // spin_list[site] = old_rand_site_spin;
     // Flip spin for site
     spin_list[site] = new_spin1;
     spin_flip += new_spin1 - old_rand_site_spin;
@@ -430,7 +431,7 @@ void Algo3::atom_move(int site, int rand_site, float new_spin1, float new_spin2,
     old_enrg = eval_atom_flip(rand_site);
     old_sro = site_rule_count_list;
     chem_list[rand_site] = old_site_chem;
-    spin_list[rand_site] = old_site_spin;
+    // spin_list[rand_site] = old_site_spin;
     // Flip spin for rand_site
     spin_list[rand_site] = new_spin2;
     spin_flip += new_spin2 - old_site_spin;
@@ -693,8 +694,10 @@ void Algo3::run() {
                             state = METHOD_1;
                             break;
                         }
-                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[rand_site]) == spin_atoms.end()) new_spin1 = spin_list[rand_site];
-                        else if (spin_states[chem_list[rand_site]].size() <= 1) new_spin1 = spin_list[rand_site];
+                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[rand_site]) == spin_atoms.end()) {
+                            new_spin1 = spin_list[rand_site];}
+                        else if (spin_states[chem_list[rand_site]].size() <= 1) {
+                            new_spin1 = spin_list[rand_site];}
                         else {
                             same_spin = true;
                             attempts = 0;
@@ -705,7 +708,8 @@ void Algo3::run() {
                                         new_spin1 = spin_states[chem_list[rand_site]][it_spin_state];
                                     }
                                 }
-                                if (new_spin1 != spin_list[rand_site]) { same_spin = false; }
+                                if (new_spin1 != spin_list[rand_site]) {
+                                    same_spin = false; }
                                 attempts += 1;
                             }
                             if (attempts >= 20) {
@@ -713,8 +717,10 @@ void Algo3::run() {
                                 break;
                             }
                         }
-                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) == spin_atoms.end()) new_spin2 = spin_list[site];
-                        else if (spin_states[chem_list[site]].size() <= 1) new_spin2 = spin_list[site];
+                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) == spin_atoms.end()) {
+                            new_spin2 = spin_list[site];}
+                        else if (spin_states[chem_list[site]].size() <= 1) {
+                            new_spin2 = spin_list[site];}
                         else {
                             same_spin = true;
                             attempts = 0;
@@ -733,7 +739,7 @@ void Algo3::run() {
                                 break;
                             }
                         }
-                        atom_move(site, rand_site, new_spin1, new_spin2, pass, temp, new_spin, Output_converge);
+                        atom_move(site, rand_site, new_spin1, new_spin2, pass, temp, Output_converge);
                         state = DONE;
                         break;
                         //-----------------------------------------------------------

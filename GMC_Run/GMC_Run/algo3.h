@@ -80,7 +80,7 @@ public:
 	void print_state(string contcar_name, int temp);
 	void spin_move(int site, int pass, float temp, float new_spin, ofstream& Output_converge);
 	void spec_move(int site, int rand_site, int pass, float temp, ofstream& Output_converge);
-	void atom_move(int site, int rand_site, float new_spin1, float new_spin2, int pass, float temp, float new_spin, ofstream& Output_converge);
+	void atom_move(int site, int rand_site, float new_spin1, float new_spin2, int pass, float temp, ofstream& Output_converge);
 	bool bc_check(vector<float> check_vect, vector<float>& pos);
 	float eval_lat();
 	float eval_lat_spin();

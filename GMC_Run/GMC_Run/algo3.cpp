@@ -352,13 +352,6 @@ void Algo3::spin_move(int site, int pass, float temp, float new_spin, ofstream& 
     if (session.do_conv_output) {
         Output_converge << "method1 " << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
     }
-    if (pass >= passes * 0.5) {
-        e_avg += init_enrg;
-        rs_C.Push(init_enrg);
-        spin_avg += init_spin;
-        rs_X.Push(init_spin);
-        count_avg = vect_add(count_avg, init_sro);
-    }
 }
 
 void Algo3::spec_move(int site, int rand_site, int pass, float temp, ofstream& Output_converge) {
@@ -368,7 +361,6 @@ void Algo3::spec_move(int site, int rand_site, int pass, float temp, ofstream& O
     float old_rand_site_spin = spin_list[rand_site];
     float keep_rand;
     float keep_prob;
-    vector<float> sro_flip;
     vector<float> sro_flip1;
     vector<float> sro_flip2;
     // Flip atom for site
@@ -411,13 +403,6 @@ void Algo3::spec_move(int site, int rand_site, int pass, float temp, ofstream& O
     if (session.do_conv_output) {
         Output_converge << "method2 " << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
     }
-    if (pass >= passes * 0.5) {
-        e_avg += init_enrg;
-        rs_C.Push(init_enrg);
-        spin_avg += init_spin;
-        rs_X.Push(init_spin);
-        count_avg = vect_add(count_avg, init_sro);
-    }
 }
 
 void Algo3::atom_move(int site, int rand_site, float new_spin1, float new_spin2, int pass, float temp, float new_spin, ofstream& Output_converge) {
@@ -427,7 +412,6 @@ void Algo3::atom_move(int site, int rand_site, float new_spin1, float new_spin2,
     float old_rand_site_spin = spin_list[rand_site];
     float keep_prob;
     float keep_rand;
-    vector<float> sro_flip;
     vector<float> sro_flip1;
     vector<float> sro_flip2;
     // Flip atom for site
@@ -476,13 +460,6 @@ void Algo3::atom_move(int site, int rand_site, float new_spin1, float new_spin2,
     init_sro = vect_add(init_sro, sro_flip);
     if (session.do_conv_output) {
         Output_converge << "method3 " << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
-    }
-    if (pass >= passes * 0.5) {
-        e_avg += init_enrg;
-        rs_C.Push(init_enrg);
-        spin_avg += init_spin;
-        rs_X.Push(init_spin);
-        count_avg = vect_add(count_avg, init_sro);
     }
 }
 
@@ -645,7 +622,7 @@ void Algo3::run() {
                         break;
                         //-----------------------------------------------------------       
                     case METHOD_1:
-                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
+                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) == spin_atoms.end()) {
                             state = NO_SPIN;
                             break;
                         }// state set to 0
@@ -718,7 +695,7 @@ void Algo3::run() {
                             state = METHOD_1;
                             break;
                         }
-                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[rand_site]) != spin_atoms.end()) new_spin1 = spin_list[rand_site];
+                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[rand_site]) == spin_atoms.end()) new_spin1 = spin_list[rand_site];
                         else if (spin_states[chem_list[rand_site]].size() <= 1) new_spin1 = spin_list[rand_site];
                         else {
                             same_spin = true;
@@ -738,7 +715,7 @@ void Algo3::run() {
                                 break;
                             }
                         }
-                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) new_spin2 = spin_list[site];
+                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) == spin_atoms.end()) new_spin2 = spin_list[site];
                         else if (spin_states[chem_list[site]].size() <= 1) new_spin2 = spin_list[site];
                         else {
                             same_spin = true;
@@ -763,6 +740,13 @@ void Algo3::run() {
                         break;
                         //-----------------------------------------------------------
                     }
+                }
+                if (pass >= passes * 0.5) {
+                    e_avg += init_enrg;
+                    rs_C.Push(init_enrg);
+                    spin_avg += init_spin;
+                    rs_X.Push(init_spin);
+                    count_avg = vect_add(count_avg, init_sro);
                 }
             }
         }

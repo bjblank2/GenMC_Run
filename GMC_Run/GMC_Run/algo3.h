@@ -55,6 +55,7 @@ public:
 	vector<int> chem_list;
 	vector<float> count_avg;
 	vector<float> init_sro;
+    vector<float> sro_flip;
 	vector<float> spin_list;
 	vector<float> site_rule_count_list;
 	vector<float> lat_rule_count_list;

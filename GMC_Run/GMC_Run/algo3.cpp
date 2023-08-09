@@ -645,7 +645,7 @@ void Algo3::run() {
                         break;
                         //-----------------------------------------------------------       
                     case METHOD_1:
-                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) {
+                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) == spin_atoms.end()) {
                             state = NO_SPIN;
                             break;
                         }// state set to 0
@@ -718,7 +718,7 @@ void Algo3::run() {
                             state = METHOD_1;
                             break;
                         }
-                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[rand_site]) != spin_atoms.end()) new_spin1 = spin_list[rand_site];
+                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[rand_site]) == spin_atoms.end()) new_spin1 = spin_list[rand_site];
                         else if (spin_states[chem_list[rand_site]].size() <= 1) new_spin1 = spin_list[rand_site];
                         else {
                             same_spin = true;
@@ -738,7 +738,7 @@ void Algo3::run() {
                                 break;
                             }
                         }
-                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) != spin_atoms.end()) new_spin2 = spin_list[site];
+                        if (find(spin_atoms.begin(), spin_atoms.end(), chem_list[site]) == spin_atoms.end()) new_spin2 = spin_list[site];
                         else if (spin_states[chem_list[site]].size() <= 1) new_spin2 = spin_list[site];
                         else {
                             same_spin = true;

@@ -55,14 +55,15 @@ public:
 	vector<int> chem_list;
 	vector<float> count_avg;
 	vector<float> init_sro;
+    vector<float> sro_flip;
 	vector<float> spin_list;
 	vector<float> site_rule_count_list;
 	vector<float> lat_rule_count_list;
 	vector<vector<float>> pos_list;
 	vector<vector<vector<vector<int>>>> spin_motif_groups;
 	vector<vector<vector<vector<int>>>> chem_motif_groups;
-	map <string, vector<float>> rule_map_chem;
-	map <string, float> rule_map_spin;
+	map <size_t, vector<float>> rule_map_chem;
+	map <size_t, float> rule_map_spin;
 	// setup rng for random spin choice and acceptance probability
 	std::mt19937_64 rng;
 	uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
@@ -70,8 +71,6 @@ public:
 	std::uniform_real_distribution<double> unif;
 	std::uniform_int_distribution<int> rand_atom;
 	std::uniform_int_distribution<int> rand_method;
-
-
 
 	Algo3(void);
 	Algo3(Session& _session, SimCell& _sim_cell);
@@ -81,7 +80,7 @@ public:
 	void print_state(string contcar_name, int temp);
 	void spin_move(int site, int pass, float temp, float new_spin, ofstream& Output_converge);
 	void spec_move(int site, int rand_site, int pass, float temp, ofstream& Output_converge);
-	void atom_move(int site, int rand_site, float new_spin1, float new_spin2, int pass, float temp, float new_spin, ofstream& Output_converge);
+	void atom_move(int site, int rand_site, float new_spin1, float new_spin2, int pass, float temp, ofstream& Output_converge);
 	bool bc_check(vector<float> check_vect, vector<float>& pos);
 	float eval_lat();
 	float eval_lat_spin();

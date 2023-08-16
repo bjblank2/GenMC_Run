@@ -296,7 +296,7 @@ void Algo1::run() {
     Output << "Composition: ";
     for (int i = 0; i < sim_cell.species_numbs.size(); i++) { Output << sim_cell.species_numbs[i] << ", "; }
     Output << "\n";    Output << "MC passes: " << session.numb_passes << ", ";
-    Output << "Beginning MC EQ run using Algo2\n";
+    Output << "Beginning MC EQ run using Algo1\n";
     
     cout << "Making atom list and neighbor index list\n";
     // Make atom_list more acessable for species and spin and neighbors
@@ -408,7 +408,7 @@ void Algo1::run() {
                     if (session.do_conv_output ) {
                         Output_converge << "method1 " << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
                     }
-                    if (pass >= passes * 0.2) {
+                    if (pass > passes * 0.2) {
                         e_avg += init_enrg;
                         rs_C.Push(init_enrg);
                         spin_avg += init_spin;

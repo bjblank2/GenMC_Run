@@ -416,6 +416,10 @@ void Algo1::run() {
                             if (new_spin != old_spin) { same_spin = false; }
                             attempts += 1;
                         }
+                        if (attempts >= 20) {
+                            state = 0;
+                            break;
+                        }
                         spin_list[site] = new_spin;
                         e_flip = eval_spin_flip(site, old_spin);
                         spin_flip = new_spin - old_spin;
@@ -429,6 +433,9 @@ void Algo1::run() {
                         // Record the enrg and spin changes
                         init_enrg += e_flip;
                         init_spin += spin_flip;
+                        state = DONE;
+                        break;
+                        //-----------------------------------------------------------
                         }
                     }
                 if (session.do_conv_output ) {

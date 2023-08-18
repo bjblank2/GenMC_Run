@@ -248,6 +248,7 @@ void Algo1::print_state(string contcar_name, int temp) {
 
 void Algo1::run() {
     // declare variables
+    int attempts = 0;
     float rand_spin = 0.0;
     bool same_spin;
     float Cmag = 0.0;
@@ -326,9 +327,10 @@ void Algo1::run() {
         }
     }
     
-    cout << "Making chem/spin motif group lists\n";
     // Fill motif group lists
-    fill_CMG(neigh_ind_list);
+//    cout << "Making chem motif group lists\n";
+//    fill_CMG(neigh_ind_list);
+    cout << "Making spin motif group lists\n";
     fill_SMG(neigh_ind_list);
     
 //    // initalize system with desired SRO
@@ -339,11 +341,14 @@ void Algo1::run() {
     
     // Begin MC
     float init_enrg = eval_lat();
-    cout << "Evaluated total energy: " << init_enrg / numb_atoms << "\n";
-    float init_spin_enrg = eval_lat_spin();
-    cout << "Evaluated spin energy: " << init_spin_enrg / numb_atoms << "\n";
-    Output << "initial total energy, spin energy\n";
-    Output << init_enrg / numb_atoms << ", " << init_spin_enrg / numb_atoms << "\n";
+    cout << "Evaluated spin energy: " << init_enrg / numb_atoms << "\n";
+    Output << "initial spin energy\n";
+    Output << init_enrg / numb_atoms << "\n";
+//    cout << "Evaluated total energy: " << init_enrg / numb_atoms << "\n";
+//    float init_spin_enrg = eval_lat_spin();
+//    cout << "Evaluated spin energy: " << init_spin_enrg / numb_atoms << "\n";
+//    Output << "initial total energy, spin energy\n";
+//    Output << init_enrg / numb_atoms << ", " << init_spin_enrg / numb_atoms << "\n";
     Output << "temp, enrg, mag, var_e, var_spin, Cmag, Xmag, flip_count, flip_count2 \n";
     float init_spin = 0.0;
     float var_spin = 0.0;
@@ -383,14 +388,16 @@ void Algo1::run() {
                     // Flip Spin
                     float old_spin = spin_list[site];
                     float new_spin = 0.0;
+                    attempts = 0;
                     same_spin = true;
-                    while (same_spin == true) {
+                    while (same_spin == true and attempts < 20) {
                         rand_spin = unif(rng);
                         for (int it_spin_state = 0; it_spin_state < spin_states[chem_list[site]].size(); it_spin_state++) {
                             if (rand_spin > float(it_spin_state) / float(spin_states[chem_list[site]].size())) {
                                 new_spin = spin_states[chem_list[site]][it_spin_state]; }
                         }
                         if (new_spin != old_spin) { same_spin = false; }
+                        attempts += 1;
                     }
                     spin_list[site] = new_spin;
                     e_flip = eval_spin_flip(site, old_spin);
@@ -408,7 +415,7 @@ void Algo1::run() {
                     if (session.do_conv_output ) {
                         Output_converge << "method1 " << eval_lat() << "; " << init_enrg << ", " << e_flip << "; " << init_spin << ", " << spin_flip << "\n";
                     }
-                    if (pass > passes * 0.2) {
+                    if (pass >= passes * 0.2) {
                         e_avg += init_enrg;
                         rs_C.Push(init_enrg);
                         spin_avg += init_spin;

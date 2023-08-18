@@ -745,7 +745,7 @@ void Algo3::run() {
                         //-----------------------------------------------------------
                     }
                 }
-                if (pass > passes * 0.5) {
+                if (pass >= passes * 0.5) {
                     e_avg += init_enrg;
                     rs_C.Push(init_enrg);
                     spin_avg += init_spin;

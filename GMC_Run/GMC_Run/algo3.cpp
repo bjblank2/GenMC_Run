@@ -754,7 +754,7 @@ void Algo3::run() {
                 }
             }
         }
-        double scale = 1 / (pow(numb_atoms, 2) * 0.5 * passes);
+        double scale = 1.0 / (pow(numb_atoms, 2) * 0.5 * passes);
         e_avg *= scale;
         spin_avg *= scale;
         count_avg = scale_vect(count_avg, scale * numb_atoms);

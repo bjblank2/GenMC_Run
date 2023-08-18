@@ -23,6 +23,7 @@
 #include "session.h"
 #include "utils.h"
 using namespace std;
+#define DONE -1
 
 class Algo1 {
 public:

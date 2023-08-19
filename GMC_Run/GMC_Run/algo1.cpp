@@ -438,15 +438,15 @@ void Algo1::run() {
                         //-----------------------------------------------------------
                         }
                     }
-                if (session.do_conv_output ) {
-                    Output_converge << init_enrg << " " << e_flip << " " << init_spin << " " << spin_flip << "\n";
-                }
                 if (pass >= passes * 0.2) {
                     e_avg += init_enrg;
                     rs_C.Push(init_enrg);
                     spin_avg += init_spin;
                     rs_X.Push(init_spin);
                 }
+            }
+            if (session.do_conv_output ) {
+                Output_converge << init_enrg << " " << init_spin << "\n";
             }
         }
         double scale = 1.0 / (pow(numb_atoms, 2) * 0.8 * passes);

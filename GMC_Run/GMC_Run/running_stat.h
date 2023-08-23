@@ -4,11 +4,11 @@ class RunningStat
 public:
     RunningStat();
     void Clear();
-    void Push(float x);
+    void Push(double x);
     int NumDataValues();
-    float Mean();
-    float Variance();
+    double Mean();
+    double Variance();
 private:
     int m_n;
-    float m_oldM, m_newM, m_oldS, m_newS;
+    double m_oldM, m_newM, m_oldS, m_newS;
 };

@@ -21,13 +21,13 @@ public:
 	bool write_contcars = true;
 	int algo = 0;
 	int numb_passes = 1;
-	int numb_subpasses = 0;
+	int ta_passes = 1;
 	int eq_passes = 1;
 	int shape[3] = { 0,0,0 };
 	int tot_atoms;
 	float start_temp = 1;
 	float end_temp = 0;
-	float temp_inc = 0.5;
+	float temp_step = 0.5;
 	float sro_temp = 0;
 	float sro_target;
 	float mag_ext = 0;

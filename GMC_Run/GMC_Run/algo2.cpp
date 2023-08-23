@@ -299,12 +299,11 @@ void Algo2::run() {
     float Cmag = 0.0;
     float Xmag = 0.0;
     int passes = session.numb_passes;
-    int sub_passes = session.numb_subpasses;
     int eq_passes = session.eq_passes;
     float sro_target = session.sro_target;
     float temp1 = session.start_temp;
     float temp2 = session.end_temp;
-    float temp_inc = session.temp_inc;
+    float temp_inc = session.temp_step;
     float keep_rand;
     float keep_prob;
     vector<vector<float>> spin_states = session.spin_states;

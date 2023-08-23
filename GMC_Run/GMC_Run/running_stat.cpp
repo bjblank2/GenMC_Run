@@ -14,7 +14,7 @@ void RunningStat::Clear()
     m_newS = 0;
 }
 
-void RunningStat::Push(float x)
+void RunningStat::Push(double x)
 {
     m_n++;
     // See Knuth TAOCP vol 2, 3rd edition, page 232
@@ -38,12 +38,12 @@ int RunningStat::NumDataValues()
     return m_n;
 }
 
-float RunningStat::Mean()
+double RunningStat::Mean()
 {
     return ((m_n > 0) ? m_newM : 0.0);
 }
 
-float RunningStat::Variance()
+double RunningStat::Variance()
 {
     return ((m_n > 1) ? m_newS / (m_n - 1) : 0.0);
 }

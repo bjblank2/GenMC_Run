@@ -76,6 +76,30 @@ vector<float> vect_add(vector<float>& vect1, vector<float>& vect2){
     return temp;
 }
 
+vector<double> vect_add(vector<double>& vect1, vector<double>& vect2){
+    if (vect1.size() != vect2.size()) {
+        cout << "Error: vectors must have the same size" << endl;
+        exit(1);
+    }
+    vector<double> temp;
+    for (int i = 0; i < vect1.size(); i++) {
+        temp.push_back(vect1[i] + vect2[i]);
+    }
+    return temp;
+}
+
+vector<double> vect_add(vector<double>& vect1, vector<float>& vect2){
+    if (vect1.size() != vect2.size()) {
+        cout << "Error: vectors must have the same size" << endl;
+        exit(1);
+    }
+    vector<double> temp;
+    for (int i = 0; i < vect1.size(); i++) {
+        temp.push_back(vect1[i] + vect2[i]);
+    }
+    return temp;
+}
+
 vector<float> vect_add(vector<float>& vect1, float vect2[3]) {
     if (vect1.size() != 3) {
         cout << "Error: vectors must have the same size" << endl;

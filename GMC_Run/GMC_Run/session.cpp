@@ -27,10 +27,10 @@ Session::Session(string input_file) {
 		else if (setting[0].compare("SPIN_INIT") == 0) { spin_init = setting[2]; }
 		else if (setting[0].compare("SPECIES_INIT") == 0) { species_init = setting[2]; }
 		else if (setting[0].compare("NUMB_PASSES") == 0) { numb_passes = stoi(setting[2]); }
-		else if (setting[0].compare("NUMB_SUBPASSES") == 0) { numb_subpasses = stoi(setting[2]); }
+		else if (setting[0].compare("TA_PASSES") == 0) { ta_passes = stoi(setting[2]); }
 		else if (setting[0].compare("START_TEMP") == 0) { start_temp = stof(setting[2]); }
 		else if (setting[0].compare("END_TEMP") == 0) { end_temp = stof(setting[2]); }
-		else if (setting[0].compare("TEMP_INC") == 0) { temp_inc = stof(setting[2]); }
+		else if (setting[0].compare("TEMP_STEP") == 0) { temp_step = stof(setting[2]); }
 		else if (setting[0].compare("EQ_PASSES") == 0) { eq_passes = stoi(setting[2]); }
 		else if (setting[0].compare("SRO_TEMP") == 0) { sro_temp = stof(setting[2]); }
 		else if (setting[0].compare("MAG_EXT") == 0) { mag_ext = stof(setting[2]); }
@@ -105,11 +105,11 @@ Session::Session(Session& _session) {
 	species_init = _session.species_init;
 	use_poscar = _session.use_poscar;
 	numb_passes = _session.numb_passes;
-	numb_subpasses = _session.numb_subpasses;
+	ta_passes = _session.ta_passes;
 	eq_passes = _session.eq_passes;
 	start_temp = _session.start_temp;
 	end_temp = _session.end_temp;
-	temp_inc = _session.temp_inc;
+	temp_step = _session.temp_step;
 	sro_temp = _session.sro_temp;
 	sro_target = _session.sro_target;
 	mag_ext = _session.mag_ext;
@@ -130,11 +130,11 @@ void Session::_copy(Session& _session) {
 	species_init = _session.species_init;
 	use_poscar = _session.use_poscar;
 	numb_passes = _session.numb_passes;
-	numb_subpasses = _session.numb_subpasses;
+	ta_passes = _session.ta_passes;
 	eq_passes = _session.eq_passes;
 	start_temp = _session.start_temp;
 	end_temp = _session.end_temp;
-	temp_inc = _session.temp_inc;
+	temp_step = _session.temp_step;
 	sro_temp = _session.sro_temp;
 	sro_target = _session.sro_target;
 	mag_ext = _session.mag_ext;
@@ -182,7 +182,7 @@ void Session::fill_rule_list() {
 	vector<string> line;
 	string motif_line;
 	int type = 0;
-	vector<float> enrg;
+	vector<double> enrg;
 	vector<int> phase;
 	vector<vector<vector<float>>> motif;
 	vector<vector<int>> deco;
@@ -201,15 +201,13 @@ void Session::fill_rule_list() {
 		bool intercept_flag = false;
 		for (int i = 0; i < rule_lines.size(); i++) {
 			if (rule_lines[i].find('#') != std::string::npos and intercept_flag == false) {
-				//cout << enrg.size() << "\n";
 				if (phase.size() == 0) { for (int j = 0; j < enrg.size(); j++) { phase.push_back(0); } }
-				//cout << phase.size() << "  " << type.size() << "\n";
 				if (type == 0) { chem_motif_list.push_back(motif); }
 				if (type == 1) { spin_motif_list.push_back(motif); }
 				for (int j = 0; j < motif.size(); j++) {
 					for (int k = 0; k < enrg.size(); k++) {
 						if (type == 0) { chem_rule_list.push_back(Rule(enrg[k], type, phase[k], deco[k], motif[j], chem_clust_ind)); }
-						// in algo1 and algo2 the motif information stored in the Rule is redundant. It is still stored for future undeveloped algorithms
+						// The motif information stored in the Rule is redundant for future algorithms' development
 						if (type == 1) { spin_rule_list.push_back(Rule(enrg[k], type, phase[k], deco[k], motif[j], spin_clust_ind)); }
 					}
 				}

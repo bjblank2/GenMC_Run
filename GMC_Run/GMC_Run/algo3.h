@@ -34,36 +34,32 @@ using namespace std;
 
 class Algo3 {
 public:
+    const double Kb = 0.00008617333262; // Boltzmann constant
+    const double uB = 0.00005788381806; // Bhor magnaton
 	int flip_count = 0;
 	int flip_count2 = 0;
 	int outfile_count = 0;
 	int passes;
-	const double Kb = 0.00008617333262; // Boltzmann constant
-	const double uB = 0.00005788381806; // Bhor magnaton
-	float spin_flip = 0.0;
-	float e_flip = 0.0;
-	float e_avg = 0.0;
-	float spin_avg = 0.0;
-	float init_enrg = 0.0;
-	float init_spin = 0.0;
-	float var_spin = 0.0;
-	float var_e = 0.0;
-	RunningStat rs_C;
-	RunningStat rs_X;
+    float spin_flip = 0.0;
+    double init_spin = 0.0;
+    double e_flip = 0.0;
+    double init_enrg = 0.0;
+	RunningStat rs_E;
+	RunningStat rs_M;
 	SimCell sim_cell;
 	Session session;
 	vector<int> chem_list;
-	vector<float> count_avg;
-	vector<float> init_sro;
     vector<float> sro_flip;
 	vector<float> spin_list;
 	vector<float> site_rule_count_list;
-	vector<float> lat_rule_count_list;
+	vector<double> lat_rule_count_list;
+    vector<double> init_sro;
+    vector<double> count_avg;
 	vector<vector<float>> pos_list;
 	vector<vector<vector<vector<int>>>> spin_motif_groups;
 	vector<vector<vector<vector<int>>>> chem_motif_groups;
-	map <size_t, vector<float>> rule_map_chem;
-	map <size_t, float> rule_map_spin;
+    map <size_t, vector<double>> rule_map_chem;
+	map <size_t, double> rule_map_spin;
 	// setup rng for random spin choice and acceptance probability
 	std::mt19937_64 rng;
 	uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
@@ -78,17 +74,16 @@ public:
 	void fill_CMG(vector<vector<int>>& neigh_ind_list);
 	void fill_SMG(vector<vector<int>>& neigh_ind_list);
 	void print_state(string contcar_name, int temp);
-	void spin_move(int site, int pass, float temp, float new_spin, ofstream& Output_converge);
-	void spec_move(int site, int rand_site, int pass, float temp, ofstream& Output_converge);
-	void atom_move(int site, int rand_site, float new_spin1, float new_spin2, int pass, float temp, ofstream& Output_converge);
+	void spin_move(int site, int pass, float temp, float new_spin);
+	void spec_move(int site, int rand_site, int pass, float temp);
+	void atom_move(int site, int rand_site, float new_spin1, float new_spin2, int pass, float temp);
 	bool bc_check(vector<float> check_vect, vector<float>& pos);
-	float eval_lat();
-	float eval_lat_spin();
-	float eval_site_spin(int site);
-	float eval_site_chem(int site);
-	float eval_spin_flip(int site, float old_spin);
-	float eval_atom_flip(int site);
-	vector<int> eval_site_sro(int site);
+    double eval_lat();
+    double eval_lat_spin();
+    double eval_site_spin(int site);
+    double eval_site_chem(int site);
+    double eval_spin_flip(int site, float old_spin);
+    double eval_atom_flip(int site);
 };
 
 #endif

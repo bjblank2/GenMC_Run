@@ -7,7 +7,6 @@
 #include "algo1.h"
 #include "algo2.h"
 #include "algo3.h"
-#include "function_test.h"
 
 class Sim {
 public:

@@ -7,18 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D5B7EAB2A53FC26009C7ED4 /* sro.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B7EAA2A53FC26009C7ED4 /* sro.cpp */; };
 		3DC03E772A44E9D90016BA25 /* running_stat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E632A44E9D90016BA25 /* running_stat.cpp */; };
 		3DC03E782A44E9D90016BA25 /* rule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E652A44E9D90016BA25 /* rule.cpp */; };
 		3DC03E792A44E9D90016BA25 /* algo2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E662A44E9D90016BA25 /* algo2.cpp */; };
 		3DC03E7A2A44E9D90016BA25 /* algo1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E672A44E9D90016BA25 /* algo1.cpp */; };
 		3DC03E7B2A44E9D90016BA25 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E692A44E9D90016BA25 /* main.cpp */; };
-		3DC03E7C2A44E9D90016BA25 /* monte_carlo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E6E2A44E9D90016BA25 /* monte_carlo.cpp */; };
 		3DC03E7D2A44E9D90016BA25 /* run_sim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E6F2A44E9D90016BA25 /* run_sim.cpp */; };
 		3DC03E7E2A44E9D90016BA25 /* session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E702A44E9D90016BA25 /* session.cpp */; };
 		3DC03E7F2A44E9D90016BA25 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E722A44E9D90016BA25 /* utils.cpp */; };
 		3DC03E802A44E9D90016BA25 /* sim_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E752A44E9D90016BA25 /* sim_cell.cpp */; };
-		3DC03E8B2A44F3890016BA25 /* function_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E892A44F3890016BA25 /* function_test.cpp */; };
 		3DC03E942A44FB340016BA25 /* algo3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E922A44FB340016BA25 /* algo3.cpp */; };
 /* End PBXBuildFile section */
 
@@ -35,8 +32,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3D5B7EA92A53FC26009C7ED4 /* sro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sro.h; path = ../../sro.h; sourceTree = "<group>"; };
-		3D5B7EAA2A53FC26009C7ED4 /* sro.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sro.cpp; path = ../../sro.cpp; sourceTree = "<group>"; };
 		3DC03E582A44E9BD0016BA25 /* genmc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = genmc; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DC03E622A44E9D90016BA25 /* rule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rule.h; path = ../../rule.h; sourceTree = "<group>"; };
 		3DC03E632A44E9D90016BA25 /* running_stat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = running_stat.cpp; path = ../../running_stat.cpp; sourceTree = "<group>"; };
@@ -48,7 +43,6 @@
 		3DC03E6A2A44E9D90016BA25 /* run_sim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = run_sim.h; path = ../../run_sim.h; sourceTree = "<group>"; };
 		3DC03E6B2A44E9D90016BA25 /* algo2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = algo2.h; path = ../../algo2.h; sourceTree = "<group>"; };
 		3DC03E6D2A44E9D90016BA25 /* running_stat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = running_stat.h; path = ../../running_stat.h; sourceTree = "<group>"; };
-		3DC03E6E2A44E9D90016BA25 /* monte_carlo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = monte_carlo.cpp; path = ../../monte_carlo.cpp; sourceTree = "<group>"; };
 		3DC03E6F2A44E9D90016BA25 /* run_sim.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = run_sim.cpp; path = ../../run_sim.cpp; sourceTree = "<group>"; };
 		3DC03E702A44E9D90016BA25 /* session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = session.cpp; path = ../../session.cpp; sourceTree = "<group>"; };
 		3DC03E712A44E9D90016BA25 /* sim_cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sim_cell.h; path = ../../sim_cell.h; sourceTree = "<group>"; };
@@ -56,9 +50,6 @@
 		3DC03E732A44E9D90016BA25 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utils.h; path = ../../utils.h; sourceTree = "<group>"; };
 		3DC03E742A44E9D90016BA25 /* session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = session.h; path = ../../session.h; sourceTree = "<group>"; };
 		3DC03E752A44E9D90016BA25 /* sim_cell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sim_cell.cpp; path = ../../sim_cell.cpp; sourceTree = "<group>"; };
-		3DC03E762A44E9D90016BA25 /* monte_carlo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = monte_carlo.h; path = ../../monte_carlo.h; sourceTree = "<group>"; };
-		3DC03E882A44F3560016BA25 /* function_test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = function_test.h; path = ../../function_test.h; sourceTree = "<group>"; };
-		3DC03E892A44F3890016BA25 /* function_test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = function_test.cpp; path = ../../function_test.cpp; sourceTree = "<group>"; };
 		3DC03E922A44FB340016BA25 /* algo3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = algo3.cpp; path = ../../algo3.cpp; sourceTree = "<group>"; };
 		3DC03E932A44FB340016BA25 /* algo3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = algo3.h; path = ../../algo3.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -93,8 +84,6 @@
 		3DC03E5A2A44E9BD0016BA25 /* genmc */ = {
 			isa = PBXGroup;
 			children = (
-				3D5B7EAA2A53FC26009C7ED4 /* sro.cpp */,
-				3D5B7EA92A53FC26009C7ED4 /* sro.h */,
 				3DC03E922A44FB340016BA25 /* algo3.cpp */,
 				3DC03E932A44FB340016BA25 /* algo3.h */,
 				3DC03E672A44E9D90016BA25 /* algo1.cpp */,
@@ -102,8 +91,6 @@
 				3DC03E662A44E9D90016BA25 /* algo2.cpp */,
 				3DC03E6B2A44E9D90016BA25 /* algo2.h */,
 				3DC03E692A44E9D90016BA25 /* main.cpp */,
-				3DC03E6E2A44E9D90016BA25 /* monte_carlo.cpp */,
-				3DC03E762A44E9D90016BA25 /* monte_carlo.h */,
 				3DC03E652A44E9D90016BA25 /* rule.cpp */,
 				3DC03E622A44E9D90016BA25 /* rule.h */,
 				3DC03E6F2A44E9D90016BA25 /* run_sim.cpp */,
@@ -116,8 +103,6 @@
 				3DC03E712A44E9D90016BA25 /* sim_cell.h */,
 				3DC03E722A44E9D90016BA25 /* utils.cpp */,
 				3DC03E732A44E9D90016BA25 /* utils.h */,
-				3DC03E892A44F3890016BA25 /* function_test.cpp */,
-				3DC03E882A44F3560016BA25 /* function_test.h */,
 			);
 			path = genmc;
 			sourceTree = "<group>";
@@ -180,18 +165,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DC03E7E2A44E9D90016BA25 /* session.cpp in Sources */,
-				3DC03E8B2A44F3890016BA25 /* function_test.cpp in Sources */,
 				3DC03E772A44E9D90016BA25 /* running_stat.cpp in Sources */,
 				3DC03E782A44E9D90016BA25 /* rule.cpp in Sources */,
 				3DC03E7D2A44E9D90016BA25 /* run_sim.cpp in Sources */,
 				3DC03E7A2A44E9D90016BA25 /* algo1.cpp in Sources */,
-				3D5B7EAB2A53FC26009C7ED4 /* sro.cpp in Sources */,
 				3DC03E7B2A44E9D90016BA25 /* main.cpp in Sources */,
 				3DC03E7F2A44E9D90016BA25 /* utils.cpp in Sources */,
 				3DC03E942A44FB340016BA25 /* algo3.cpp in Sources */,
 				3DC03E802A44E9D90016BA25 /* sim_cell.cpp in Sources */,
 				3DC03E792A44E9D90016BA25 /* algo2.cpp in Sources */,
-				3DC03E7C2A44E9D90016BA25 /* monte_carlo.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

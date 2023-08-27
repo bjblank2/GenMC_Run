@@ -47,13 +47,13 @@ Session::Session(string input_file) {
 			else { use_states = false; }
 		}
 		else if (setting[0].compare("USE_POSCAR") == 0) {
-			//cout << setting[0] << "_" << setting[1] << "_" << setting[2] << "\n";
-			setting[2].erase(std::remove(setting[2].begin(), setting[2].end(), '\n'), setting[2].end());
-			setting[2].erase(std::remove(setting[2].begin(), setting[2].end(), ' '), setting[2].end());
-			//cout << setting[0] << "_" << setting[1] << "_" << setting[2] << "\n";
+//			cout << setting[0] << "_" << setting[1] << "_" << setting[2] << "\n";
+//			setting[2].erase(std::remove(setting[2].begin(), setting[2].end(), '\n'), setting[2].end());
+//			setting[2].erase(std::remove(setting[2].begin(), setting[2].end(), ' '), setting[2].end());
+//			cout << setting[0] << "_" << setting[1] << "_" << setting[2] << "\n";
 			if (setting[2][0] == 'T') { use_poscar = true; }// .compare("TRUE") == 0) { use_poscar = true; }
 			else { use_poscar = false; }
-			//cout << "useposcar " << use_poscar << "\n";
+//			cout << "useposcar " << use_poscar << "\n";
 		}
 		else if (setting[0].compare("ATOM_NUMBS") == 0) {
 			tot_atoms = 0;

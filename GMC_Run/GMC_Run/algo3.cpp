@@ -157,7 +157,7 @@ double Algo3::eval_lat() {
         enrg += eval_site_chem(site);
         enrg += eval_site_spin(site);
     }
-    return enrg + session.intercept;
+    return enrg + session.intercept * sim_cell.numb_atoms;
 }
 
 double Algo3::eval_lat_spin() {

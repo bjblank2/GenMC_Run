@@ -3,4 +3,9 @@
   <PropertyGroup>
     <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <RemoteTarget>-19271171;mirage.mechse.illinois.edu (username=, port=22, authentication=Password)</RemoteTarget>
+    <RemoteDebuggingTarget>-19271171;mirage.mechse.illinois.edu (username=, port=22, authentication=Password)</RemoteDebuggingTarget>
+    <DebuggerFlavor>LinuxDebugger</DebuggerFlavor>
+  </PropertyGroup>
 </Project>

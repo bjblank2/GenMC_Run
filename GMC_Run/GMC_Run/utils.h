@@ -47,6 +47,6 @@ int sgn(float v);
 int sign(float v);
 bool fcomp(float a, float b, float tol = 0.0001);
 bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol = 0.0001);
-vector<float> frac_to_cart(vector<float> pos, vector<vector<float>> lat_vec);
-vector<float> cart_to_frac(vector<float> pos, vector<vector<float>> lat_vec);
+vector<float> frac_to_cart(vector<float>& pos, vector<vector<float>>& lat_vec);
+vector<float> cart_to_frac(vector<float>& pos, vector<vector<float>>& lat_vec);
 #endif

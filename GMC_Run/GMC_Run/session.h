@@ -15,8 +15,8 @@ using namespace std;
 class Session
 {
 public:
-	bool use_poscar;
-	bool use_states;
+	bool use_poscar = true;
+	bool use_states = true;
     bool do_conv_output = false;
 	bool write_contcars = true;
 	int algo = 0;
@@ -32,13 +32,13 @@ public:
 	float sro_target;
 	float mag_ext = 0;
 	float intercept = 0;
-	string structure_file;
-	string rules_file;
-	string sro_file;
-	string sim_type;
+	string structure_file; //unused
+	string rules_file; //unused
+	string sro_file; //unused
+	string sim_type; //unused
 	string phase_init;
 	string spin_init;
-	string species_init;
+	string species_init; //unfinished
 	vector<int> atom_numbs;
 	vector<int> species_inds;
 	vector<float> moments;
@@ -57,7 +57,7 @@ public:
 
 	void _copy(Session& _session);
 	void add_spin_states(string input_file);
-	void fill_rule_list();
+	void fill_rule_list(string cluster_file);
 	void fill_sro_list();
 	void find_unique_dists();
 };

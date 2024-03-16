@@ -1,8 +1,8 @@
 #include "sim_cell.h"
 
-// This is the sim_cell class. It holds the state of the entire simulation cell. In the MC implementation it's main components are 
-// coppied to a seperate vector to minimize the size or complexity of arguments being passed to certian functions. Still, it does 
-// serve as a usefull too for initalizing the simulation cell and as a reffernce.
+// This is the sim_cell class. It holds the state of the entire simulation cell. In the MC implementation, it's main components are
+//copied to a separate vector to minimize the size or complexity of arguments being passed to certain functions. Still, it does
+// serve as a useful tool for initializing the simulation cell and as a reference.
 SimCell::SimCell(void) {
 	sim_type = "EMPTY";
 }
@@ -157,9 +157,9 @@ void SimCell::make_supercell(Session& sess) {
 	int z = sup_cell[2];
 	vector<float>current_cell{ 0, 0, 0 };
 	int index = 0;
-	int spin;
-	int phase;
-	float spin_rand;
+	int spin = 0;
+	int phase = 0;
+//	float spin_rand;
 	vector<float> new_atom_pos;
 	for (int i = 0; i < 3; i++) { 
 		LC[i] = unit_LC[i] * sup_cell[i]; 
@@ -353,7 +353,7 @@ void SimCell::initSimCell(string POSCAR_file, Session& session) {
 	string _phase_init = session.phase_init;
 	string spin_init = session.spin_init;
 	string species_init = session.species_init;
-	bool use_poscar = session.use_poscar;
+//	bool use_poscar = session.use_poscar;
 	sim_type = _sim_type;
 	phase_init = _phase_init;
 	cutoff = _cutoff;
@@ -462,6 +462,6 @@ void SimCell::Atom::setPhase(int _phase) {
 void SimCell::randomizeSpecies(Session& session) {
 	for (int i = 0; i < numb_atoms; i++) {
 		int rand_index = rand() % numb_atoms;
-
+        rand_index = 0; // to be finished
 	}
 }

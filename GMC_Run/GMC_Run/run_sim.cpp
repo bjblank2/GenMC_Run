@@ -13,4 +13,5 @@ void Sim::start() {
 	else if (session.algo == 1) { Algo1 algo(session, sim_cell); algo.run(); }
 	else if (session.algo == 2) { Algo2 algo(session, sim_cell); algo.run(); }
     else if (session.algo == 3) { Algo3 algo(session, sim_cell); algo.run(); }
+    else if (session.algo == 4) { Algo4 algo(session, sim_cell); algo.run(); }
 }

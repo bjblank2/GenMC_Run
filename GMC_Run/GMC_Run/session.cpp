@@ -36,11 +36,12 @@ Session::Session(string input_file) {
 		else if (setting[0].compare("MAG_EXT") == 0) { mag_ext = stof(setting[2]); }
 		else if (setting[0].compare("SRO_TARGET") == 0) { sro_target = stof(setting[2]); }
         else if (setting[0].compare("WRITE_CONVERG") == 0) {
-            if (setting[2].compare("TRUE") == 0){ do_conv_output = true; }
-            else{ do_conv_output = false; }
+            if (setting[2][0] == 'T'){ do_conv_output = true; }
+            else { do_conv_output = false; }
         }
 		else if (setting[0].compare("WRITE_CONTCARS") == 0) {
-			if (setting[2].compare("FALSE") == 0) { write_contcars = false; }
+			if (setting[2][0] == 'F') { write_contcars = false; }
+            else { write_contcars = true; }
 		}
 		else if (setting[0].compare("USE_STATES") == 0) {
 			if (setting[2][0] == 'T') { use_states = true; }
@@ -49,11 +50,8 @@ Session::Session(string input_file) {
 		else if (setting[0].compare("USE_POSCAR") == 0) {
 //			cout << setting[0] << "_" << setting[1] << "_" << setting[2] << "\n";
 //			setting[2].erase(std::remove(setting[2].begin(), setting[2].end(), '\n'), setting[2].end());
-//			setting[2].erase(std::remove(setting[2].begin(), setting[2].end(), ' '), setting[2].end());
-//			cout << setting[0] << "_" << setting[1] << "_" << setting[2] << "\n";
-			if (setting[2][0] == 'T') { use_poscar = true; }// .compare("TRUE") == 0) { use_poscar = true; }
+			if (setting[2][0] == 'T') { use_poscar = true; } // .compare("TRUE") == 0) { use_poscar = true; }
 			else { use_poscar = false; }
-//			cout << "useposcar " << use_poscar << "\n";
 		}
 		else if (setting[0].compare("ATOM_NUMBS") == 0) {
 			tot_atoms = 0;
@@ -82,7 +80,6 @@ Session::Session(string input_file) {
 		else {
 			cout << "Unrecognized input flag: " << setting[0] << "\n";
 		}
-		rules_file = "CLUSTERS";
 	}
 	if (moments.size() == 0) {
 		moments.clear();
@@ -169,13 +166,13 @@ void Session::add_spin_states(string input_file) {
 	if (spin_states.size() != atom_numbs.size()) { cout << "Error: atom_numbs not equal to number of lines in spin_states file\n"; }
 }
 
-void Session::fill_rule_list() {
+void Session::fill_rule_list(string cluster_file) {
 	vector<float> distances;
 	vector<int> spins;
 	vector<int> species;
-	float energy_contribution = 0;
-	int rule_type = 0;
-	int rule_length = 0;
+//	float energy_contribution = 0;
+//	int rule_type = 0;
+//	int rule_length = 0;
 	string rule_line;
 	vector<string> rule_lines;
 	vector<string> setting;
@@ -187,7 +184,7 @@ void Session::fill_rule_list() {
 	vector<vector<vector<float>>> motif;
 	vector<vector<int>> deco;
 	ifstream rule_list_file;
-	rule_list_file.open(rules_file, ifstream::in);
+	rule_list_file.open(cluster_file, ifstream::in);
 	// Parse rule list txt file
 	if (rule_list_file.is_open()) {
 		while (getline(rule_list_file, rule_line))

@@ -317,20 +317,19 @@ bool pos_comp(vector<float>& pos1, vector<float>& pos2, float tol) {
 	return true;
 }
 
-vector<float> cart_to_frac(vector<float> pos, vector<vector<float>> lat_vec) {
+vector<float> cart_to_frac(vector<float>& pos, vector<vector<float>>& lat_vec) {
     vector<float> new_pos {0, 0, 0};
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++){
             new_pos[i] += pos[i] * lat_vec[j][i];
         }
     }
-        
     return new_pos;
 }
  
-vector<float> frac_to_cart(vector<float> pos, vector<vector<float>> lat_vec) {
+vector<float> frac_to_cart(vector<float>& pos, vector<vector<float>>& lat_vec) {
     vector<float> new_pos {0, 0, 0};
-    
+    // unfinished
     return new_pos;
 }
 

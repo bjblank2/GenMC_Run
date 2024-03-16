@@ -70,6 +70,7 @@ public:
 
 	Algo3(void);
 	Algo3(Session& _session, SimCell& _sim_cell);
+    size_t cust_hash(vector<uint32_t>& vect);
 	void run();
 	void fill_CMG(vector<vector<int>>& neigh_ind_list);
 	void fill_SMG(vector<vector<int>>& neigh_ind_list);

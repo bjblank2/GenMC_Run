@@ -610,6 +610,7 @@ void Algo3::run() {
                     case 0:
                         state = DONE;
 //                        num_method0 += 1;
+//                        if (chem_list[site]==3 or chem_list[site]==4) {num_method0 += 1;}
                         break;
                         //-----------------------------------------------------------       
                     case METHOD_1:

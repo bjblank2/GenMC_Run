@@ -4,8 +4,21 @@
     <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <RemoteTarget>-2042982174;cc-login.campuscluster.illinois.edu (username=, port=22, authentication=Password)</RemoteTarget>
+    <RemoteDebuggingTarget>-19271171;mirage.mechse.illinois.edu (username=, port=22, authentication=Password)</RemoteDebuggingTarget>
+    <DebuggerFlavor>LinuxDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mirage|x64'">
     <RemoteTarget>-19271171;mirage.mechse.illinois.edu (username=, port=22, authentication=Password)</RemoteTarget>
     <RemoteDebuggingTarget>-19271171;mirage.mechse.illinois.edu (username=, port=22, authentication=Password)</RemoteDebuggingTarget>
     <DebuggerFlavor>LinuxDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mirage|x64'">
+    <RemoteTarget>-19271171;mirage.mechse.illinois.edu (username=, port=22, authentication=Password)</RemoteTarget>
+    <RemoteDebuggingTarget>-19271171;mirage.mechse.illinois.edu (username=, port=22, authentication=Password)</RemoteDebuggingTarget>
+    <DebuggerFlavor>LinuxDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <RemoteTarget>1933754533;mirage.mechse.illinois.edu (username=, port=22, authentication=Password)</RemoteTarget>
   </PropertyGroup>
 </Project>

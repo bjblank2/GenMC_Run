@@ -79,7 +79,8 @@ void SimCell::fillUnitCell(string POSCAR_file, Session& sess) {
 		unit_lat_vect.push_back({ unit_lat_fact * stof(LCs[0]), unit_lat_fact * stof(LCs[1]), unit_lat_fact * stof(LCs[2]) });
 		unit_LC[i - 2] = sqrt(pow(unit_lat_vect[i - 2][0], 2) + pow(unit_lat_vect[i - 2][1], 2) + pow(unit_lat_vect[i - 2][2], 2));
 	}
-    
+    cout << "Lattice constants read\n";
+
 	// get the poscar type
     for (int i = 5; i < 8; i++) {
         if (pos_lines[i].find("artesian") != std::string::npos) {
@@ -94,11 +95,15 @@ void SimCell::fillUnitCell(string POSCAR_file, Session& sess) {
         }
     }
     
+	cout << "Type: " << type << "\n";
+
     // get the positions of each site and convert to cartesain
 	for (int i = pos_start; i < pos_lines.size(); i++) {
 		pos_line = pos_lines[i].substr(0, pos_lines[i].find("#"));
 		pos_list_s = split(pos_line, " ");
+		//for (int j = 0; j < pos_list_s.size(); j++) { cout << pos_list_s[j] << "\n"; }
 		for (int j = 0; j < 3; j++) {pos.push_back(stof(pos_list_s[j]));}
+		//for (int j = 0; j < pos.size(); j++) { cout << pos[j] << "\n"; }
         if (type == "frac") {
             pos = pos_transform(pos, unit_lat_vect);
         }
@@ -120,6 +125,8 @@ void SimCell::fillUnitCell(string POSCAR_file, Session& sess) {
         pos_species_s.clear();
 	}
     
+	cout << "Positions read\n";
+
 	// assign the correct atomic species to each atom position
 	comp_line = split(pos_lines[comp_start]);
 	for (int i = 0; i < comp_line.size(); i++) {
@@ -143,6 +150,8 @@ void SimCell::fillUnitCell(string POSCAR_file, Session& sess) {
 		}
 	}
     
+	cout << "Species read\n";
+
 	// create "atom" object for each atom in the unit cell
 	for (int i = 0; i < pos_list_f.size(); i++) {
 		unit_cell.push_back(Atom(i, species_list[i], 0, 0, pos_list_f[i], pos_species_f[i]));

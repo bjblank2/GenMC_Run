@@ -60,6 +60,11 @@ Session::Session(string input_file) {
 				tot_atoms += stoi(setting[j]);
 			}
 		}
+		else if (setting[0].compare("SRO_DEF") == 0) {
+			for (int j = 2; j < setting.size(); j++) {
+				sro_def.push_back(stoi(setting[j]));
+			}
+		}
 		else if (setting[0].compare("SPECIES") == 0) {
 			for (int j = 2; j < setting.size(); j++) {
 				string str = setting[j];
@@ -283,6 +288,122 @@ void Session::fill_rule_list(string cluster_file) {
 	else cout << "*ERROR* Unable to open rule file\n";
 
 }
+
+void Session::fill_sro_list(string sro_file) {
+	vector<float> distances;
+	vector<int> species;
+	//	float energy_contribution = 0;
+	//	int rule_type = 0;
+	//	int rule_length = 0;
+	string sro_line;
+	vector<string> sro_lines;
+	vector<string> setting;
+	vector<string> line;
+	string motif_line;
+	int type = 0;
+	vector<double> enrg;
+	vector<int> phase;
+	vector<vector<vector<float>>> motif;
+	vector<vector<int>> deco;
+	ifstream sro_list_file;
+	sro_list_file.open(sro_file, ifstream::in);
+	// Parse rule list txt file
+	if (sro_list_file.is_open()) {
+		while (getline(sro_list_file, sro_line))
+		{
+			sro_lines.push_back(sro_line);
+		}
+		sro_list_file.close();
+		cout << "Reading rule file\n";
+		int sro_clust_ind = 0;
+		bool intercept_flag = false;
+		for (int i = 0; i < sro_lines.size(); i++) {
+			if (sro_lines[i].find('#') != std::string::npos and intercept_flag == false) {
+				if (phase.size() == 0) { for (int j = 0; j < enrg.size(); j++) { phase.push_back(0); } }
+				sro_motif_list.push_back(motif);
+				for (int j = 0; j < motif.size(); j++) {
+					for (int k = 0; k < enrg.size(); k++) {
+						sro_rule_list.push_back(Rule(enrg[k]/motif.size(), type, phase[k], deco[k], motif[j], sro_clust_ind));
+						//cout << "energy: " << enrg[k] << " type: " << type << " phase: " << phase[k] << " deco: " << deco[k][0] << ", " << deco[k][1] << " motif: " << motif[j][0][0] << ", " << motif[j][0][1] << "," << motif[j][0][2] << "\n";
+						//cout << "Rule added\n";
+						// The motif information stored in the Rule is redundant for future algorithms' development
+					}
+				}
+				motif.clear();
+				deco.clear();
+				sro_clust_ind += 1; 
+				enrg.clear();
+				phase.clear();
+			}
+			setting = split(sro_lines[i], ":");
+			if (setting[0].find("otif") != std::string::npos) {
+				setting.erase(setting.begin());
+				line = setting;
+				if (sro_lines[i].find("nter") != std::string::npos) {
+					intercept_flag = true;
+				}
+				else {
+					intercept_flag = false;
+					bool read_motif = true;
+					int motif_count = 1;
+					vector<vector<float>> sub_motif;
+					while (read_motif == true) {
+						motif_line = sro_lines[i + motif_count];
+						if (motif_line.find_first_of("DTEP") != std::string::npos) {
+							read_motif = false;
+						}
+						else {
+							line = split(motif_line, ":");
+							for (int j = 0; j < line.size(); j++) {
+								vector<string> pos = split(line[j], ",");
+								sub_motif.push_back({ stof(pos[0]), stof(pos[1]), stof(pos[2]) });
+							}
+							motif_count += 1;
+							motif.push_back(sub_motif);
+							sub_motif.clear();
+						}
+					}
+				}
+			}
+			else if (setting[0].find("Deco") != std::string::npos) {
+				setting.erase(setting.begin());
+				line = setting;
+				for (int j = 0; j < line.size(); j++) {
+					vector<string> specs = split(line[j], ",");
+					vector<int>spec = {};
+					for (int k = 0; k < specs.size(); k++) {
+						spec.push_back(stoi(specs[k]));
+					}
+					deco.push_back(spec);
+				}
+			}
+			else if (setting[0].find("Type") != std::string::npos) {
+				type = stoi(setting[1]);
+			}
+			else if (setting[0].find("Enrg") != std::string::npos) {
+				setting.erase(setting.begin());
+				line = setting;
+				if (intercept_flag == true) { intercept = stof(line[0]); }
+				else {
+					for (int j = 0; j < line.size(); j++) {
+						enrg.push_back(stof(line[j]));
+					}
+				}
+			}
+			else if (setting[0].find("Phase") != std::string::npos) {
+				setting.erase(setting.begin());
+				line = setting;
+				for (int j = 0; j < line.size(); j++) {
+					phase.push_back(stoi(line[j]));
+				}
+			}
+		}
+		cout << "Rule list filled\n";
+	}
+	else cout << "*ERROR* Unable to open rule file\n";
+
+}
+
 
 void Session::find_unique_dists() {
 	// Loop through all mc_rules

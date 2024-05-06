@@ -32,6 +32,7 @@ public:
 	float sro_target;
 	float mag_ext = 0;
 	float intercept = 0;
+	int multiplicity = 1;
 	string structure_file; //unused
 	string rules_file; //unused
 	string sro_file; //unused
@@ -41,6 +42,7 @@ public:
 	string species_init; //unfinished
 	vector<int> atom_numbs;
 	vector<int> species_inds;
+	vector<int> sro_def;
 	vector<float> moments;
 	vector<float> unique_dists;
 	vector<string> species_str;
@@ -50,6 +52,8 @@ public:
 	vector<vector<float>> spin_states;
 	vector<vector<vector<vector<float>>>> chem_motif_list;
 	vector<vector<vector<vector<float>>>> spin_motif_list;
+	vector<vector<vector<vector<float>>>> sro_motif_list;
+
 
 	Session(void);
 	Session(Session& _session);
@@ -58,7 +62,7 @@ public:
 	void _copy(Session& _session);
 	void add_spin_states(string input_file);
 	void fill_rule_list(string cluster_file);
-	void fill_sro_list();
+	void fill_sro_list(string sro_file);
 	void find_unique_dists();
 };
 #endif

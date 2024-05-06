@@ -598,7 +598,7 @@ void Algo4::run() {
     // Begin MC
     init_enrg = eval_lat();
     init_sro = lat_rule_count_list; // record initial SRO/rule count list
-    cout << "Initial total energy is " << init_enrg / (numb_atoms - numb_vac) << " per atom\n";
+    cout << "Initial total energy is " << init_enrg << " or " << init_enrg / (numb_atoms - numb_vac) << " per atom\n";
     double init_spin_enrg = eval_lat_spin();
     cout << "Initial spin energy is " << init_spin_enrg / (numb_atoms - numb_vac) << " per atom\n";
     for (int site = 0; site < numb_atoms; site++) {
@@ -607,7 +607,7 @@ void Algo4::run() {
         }
     }
     cout << "Initial spin is " << init_spin / (numb_atoms - numb_vac) << " per atom\n";
-    Output << "Using Algo4 for atom swap and spin flip";
+    Output << "Using Algo4 for atom swap and spin flip (including vac)";
     Output << "\nPhase: " << sim_cell.phase_init;
     Output << "\nComposition: ";
     for (int i = 0; i < sim_cell.species_numbs.size(); i++) { Output << sim_cell.species_numbs[i] << " "; }
@@ -651,7 +651,9 @@ void Algo4::run() {
                         //-----------------------------------------------------------
                     case 0:
                         state = DONE;
+//                        num_method0 += 1;
 //                        if (chem_list[site]==0 or chem_list[site]==1 or chem_list[site]==2) {num_method0 += 1;}
+//                        if (chem_list[site]==3 or chem_list[site]==4) {num_method0 += 1;}
                         break;
                         //-----------------------------------------------------------
                     case METHOD_1:
@@ -682,6 +684,8 @@ void Algo4::run() {
                         spin_move(site, pass, temp, new_spin);
                         state = DONE;
 //                        num_method1 += 1;
+//                        if (chem_list[site]==0 or chem_list[site]==1 or chem_list[site]==2) {num_method1 += 1;}
+//                        if (chem_list[site]==3 or chem_list[site]==4) {num_method1 += 1;}
                         break;
                         //-----------------------------------------------------------
                     case METHOD_2:
@@ -706,6 +710,7 @@ void Algo4::run() {
                         }
                         spec_move(site, rand_site, pass, temp);
                         state = DONE;
+//                        if (chem_list[site]==0 or chem_list[site]==1 or chem_list[site]==2) {num_method2 += 1;}
 //                        if (chem_list[site]==3 or chem_list[site]==4) {num_method2 += 1;}
 //                        num_method2 += 1;
                         break;
@@ -777,6 +782,7 @@ void Algo4::run() {
                         }
                         atom_move(site, rand_site, new_spin1, new_spin2, pass, temp);
                         state = DONE;
+//                        if (chem_list[site]==0 or chem_list[site]==1 or chem_list[site]==2) {num_method3 += 1;}
 //                        if (chem_list[site]==3 or chem_list[site]==4) {num_method3 += 1;}
 //                        num_method3 += 1;
                         break;

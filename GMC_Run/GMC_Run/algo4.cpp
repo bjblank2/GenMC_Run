@@ -104,7 +104,7 @@ double Algo4::eval_spin_flip(int site, float old_spin) {
     map<size_t, double>::iterator rule_itr;
     vector<uint32_t> rule_info;
     size_t rule_key;
-    if (chem_list[site] == 4) { } //pass eval for vac site
+    if (chem_list[site] == 4) { return 0; } //pass eval for vac site
     else {
         for (int i = 0; i < spin_motif_groups[site].size(); i++) {
             vector<vector<int>> motif = spin_motif_groups[site][i];
@@ -123,13 +123,14 @@ double Algo4::eval_spin_flip(int site, float old_spin) {
                 else if (vac_flag == 0) {
                     rule_key = cust_hash(rule_info);
                     rule_itr = rule_map_spin.find(rule_key);
-                    enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod / group.size()) : 0.0;
+                    enrg += (rule_itr != rule_map_spin.end()) ? (rule_itr->second * spin_prod) : 0.0;
                 }
                 else {cout << "error in cluster energy evaluation!";}
+                rule_info.clear();
             }
         }
+        return (enrg * spin_list[site] - enrg * old_spin);
     }
-    return (enrg * spin_list[site] - enrg * old_spin);
 }
 
 double Algo4::eval_atom_flip(int site) {
@@ -194,6 +195,7 @@ double Algo4::eval_atom_flip(int site) {
 
 double Algo4::eval_lat() {
     double enrg = 0;
+    numb_vac = 0;
     for (int site = 0; site < sim_cell.numb_atoms; site++) {
         enrg += eval_site_chem(site);
         enrg += eval_site_spin(site);
@@ -598,7 +600,7 @@ void Algo4::run() {
     // Begin MC
     init_enrg = eval_lat();
     init_sro = lat_rule_count_list; // record initial SRO/rule count list
-    cout << "Initial total energy is " << init_enrg << " or " << init_enrg / (numb_atoms - numb_vac) << " per atom\n";
+    cout << "Initial total energy is " << init_enrg / (numb_atoms - numb_vac) << " per atom\n";
     double init_spin_enrg = eval_lat_spin();
     cout << "Initial spin energy is " << init_spin_enrg / (numb_atoms - numb_vac) << " per atom\n";
     for (int site = 0; site < numb_atoms; site++) {

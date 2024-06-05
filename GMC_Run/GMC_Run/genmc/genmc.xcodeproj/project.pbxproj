@@ -18,6 +18,7 @@
 		3DC03E7F2A44E9D90016BA25 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E722A44E9D90016BA25 /* utils.cpp */; };
 		3DC03E802A44E9D90016BA25 /* sim_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E752A44E9D90016BA25 /* sim_cell.cpp */; };
 		3DC03E942A44FB340016BA25 /* algo3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC03E922A44FB340016BA25 /* algo3.cpp */; };
+		3DC8149B2C0FDCD300F4A457 /* algo0.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC8149A2C0FDCD300F4A457 /* algo0.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +56,8 @@
 		3DC03E752A44E9D90016BA25 /* sim_cell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sim_cell.cpp; path = ../../sim_cell.cpp; sourceTree = "<group>"; };
 		3DC03E922A44FB340016BA25 /* algo3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = algo3.cpp; path = ../../algo3.cpp; sourceTree = "<group>"; };
 		3DC03E932A44FB340016BA25 /* algo3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = algo3.h; path = ../../algo3.h; sourceTree = "<group>"; };
+		3DC814992C0FDCD300F4A457 /* algo0.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = algo0.h; path = ../../algo0.h; sourceTree = "<group>"; };
+		3DC8149A2C0FDCD300F4A457 /* algo0.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = algo0.cpp; path = ../../algo0.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +90,8 @@
 		3DC03E5A2A44E9BD0016BA25 /* genmc */ = {
 			isa = PBXGroup;
 			children = (
+				3DC8149A2C0FDCD300F4A457 /* algo0.cpp */,
+				3DC814992C0FDCD300F4A457 /* algo0.h */,
 				3DC03E922A44FB340016BA25 /* algo3.cpp */,
 				3DA1D13D2BA2CFC200105A43 /* algo4.h */,
 				3DA1D13E2BA2CFD800105A43 /* algo4.cpp */,
@@ -174,6 +179,7 @@
 				3DC03E782A44E9D90016BA25 /* rule.cpp in Sources */,
 				3DC03E7D2A44E9D90016BA25 /* run_sim.cpp in Sources */,
 				3DC03E7A2A44E9D90016BA25 /* algo1.cpp in Sources */,
+				3DC8149B2C0FDCD300F4A457 /* algo0.cpp in Sources */,
 				3DC03E7B2A44E9D90016BA25 /* main.cpp in Sources */,
 				3DA1D13F2BA2CFD800105A43 /* algo4.cpp in Sources */,
 				3DC03E7F2A44E9D90016BA25 /* utils.cpp in Sources */,

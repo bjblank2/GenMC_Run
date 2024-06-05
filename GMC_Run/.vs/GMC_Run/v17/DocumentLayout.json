@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B53E8C9B-15FA-4AEB-AA34-6AA93ED387D3}|GMC_Run\\GMC_Run.vcxproj|C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\algo0.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{B53E8C9B-15FA-4AEB-AA34-6AA93ED387D3}|GMC_Run\\GMC_Run.vcxproj|solutionrelative:GMC_Run\\algo0.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{B53E8C9B-15FA-4AEB-AA34-6AA93ED387D3}|GMC_Run\\GMC_Run.vcxproj|C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\algo1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{B53E8C9B-15FA-4AEB-AA34-6AA93ED387D3}|GMC_Run\\GMC_Run.vcxproj|solutionrelative:GMC_Run\\algo1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B53E8C9B-15FA-4AEB-AA34-6AA93ED387D3}|GMC_Run\\GMC_Run.vcxproj|C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\algo0.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{B53E8C9B-15FA-4AEB-AA34-6AA93ED387D3}|GMC_Run\\GMC_Run.vcxproj|solutionrelative:GMC_Run\\algo0.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B53E8C9B-15FA-4AEB-AA34-6AA93ED387D3}|GMC_Run\\GMC_Run.vcxproj|C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\session.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{B53E8C9B-15FA-4AEB-AA34-6AA93ED387D3}|GMC_Run\\GMC_Run.vcxproj|solutionrelative:GMC_Run\\session.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{B53E8C9B-15FA-4AEB-AA34-6AA93ED387D3}|GMC_Run\\GMC_Run.vcxproj|C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\algo1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{B53E8C9B-15FA-4AEB-AA34-6AA93ED387D3}|GMC_Run\\GMC_Run.vcxproj|solutionrelative:GMC_Run\\algo1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B53E8C9B-15FA-4AEB-AA34-6AA93ED387D3}|GMC_Run\\GMC_Run.vcxproj|C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\session.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -29,8 +25,8 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 343,
-          "SelectedChildIndex": 4,
+          "DockedWidth": 350,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,68 +34,53 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "session.h",
-              "DocumentMoniker": "C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\session.h",
-              "RelativeDocumentMoniker": "GMC_Run\\session.h",
-              "ToolTip": "C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\session.h",
-              "RelativeToolTip": "GMC_Run\\session.h",
-              "ViewState": "AQIAACQAAAAAAAAAAAAAAC0AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-05-05T20:57:10.06Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "session.cpp",
-              "DocumentMoniker": "C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\session.cpp",
-              "RelativeDocumentMoniker": "GMC_Run\\session.cpp",
-              "ToolTip": "C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\session.cpp",
-              "RelativeToolTip": "GMC_Run\\session.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEUBAAA2AAAA",
+              "DocumentIndex": 0,
+              "Title": "algo1.cpp",
+              "DocumentMoniker": "C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\algo1.cpp",
+              "RelativeDocumentMoniker": "GMC_Run\\algo1.cpp",
+              "ToolTip": "C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\algo1.cpp",
+              "RelativeToolTip": "GMC_Run\\algo1.cpp",
+              "ViewState": "AQIAAEkAAAAAAAAAAAAAAGAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-05-03T17:08:45.639Z",
+              "WhenOpened": "2024-05-27T19:16:01.343Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "algo0.h",
-              "DocumentMoniker": "C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\algo0.h",
-              "RelativeDocumentMoniker": "GMC_Run\\algo0.h",
-              "ToolTip": "C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\algo0.h",
-              "RelativeToolTip": "GMC_Run\\algo0.h",
-              "ViewState": "AQIAABsAAAAAAAAAAAAAADAAAAAVAAAA",
+              "Title": "algo1.h",
+              "DocumentMoniker": "C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\algo1.h",
+              "RelativeDocumentMoniker": "GMC_Run\\algo1.h",
+              "ToolTip": "C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\algo1.h",
+              "RelativeToolTip": "GMC_Run\\algo1.h",
+              "ViewState": "AQIAACYAAAAAAAAAAAAswD4AAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-29T18:40:17.483Z",
+              "WhenOpened": "2024-05-27T19:16:00.514Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "algo0.cpp",
-              "DocumentMoniker": "C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\algo0.cpp",
-              "RelativeDocumentMoniker": "GMC_Run\\algo0.cpp",
-              "ToolTip": "C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\algo0.cpp*",
-              "RelativeToolTip": "GMC_Run\\algo0.cpp*",
-              "ViewState": "AQIAAFkBAAAAAAAAAADwv2UBAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-29T18:39:41.668Z",
-              "EditorCaption": ""
+              "DocumentIndex": 2,
+              "Title": "session.h",
+              "DocumentMoniker": "C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\session.h",
+              "RelativeDocumentMoniker": "GMC_Run\\session.h",
+              "ToolTip": "C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\session.h",
+              "RelativeToolTip": "GMC_Run\\session.h",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-05-14T22:34:15.692Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\main.cpp",
               "RelativeDocumentMoniker": "GMC_Run\\main.cpp",
               "ToolTip": "C:\\Users\\brian\\OneDrive\\Documents\\GitHub\\GenMC_Run\\GMC_Run\\GMC_Run\\main.cpp",
               "RelativeToolTip": "GMC_Run\\main.cpp",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAABAAAAAlAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACMAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-28T20:48:06.692Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-28T20:48:06.692Z"
             }
           ]
         }

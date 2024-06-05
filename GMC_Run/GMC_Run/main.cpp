@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
     }
 	Session ses(input); // settings for MC run from input file
 	if (ses.use_states == true) { ses.add_spin_states(spin_states); }
-    if (ses.algo == 0) { ses.fill_sro_list(sro_file); }
+    if (ses.algo == 0 or ses.algo == 1) { ses.fill_sro_list(sro_file); }
 	ses.fill_rule_list(cluster_file); // Initalize the "cluster rules" that will be used to properly apply the ECI to each site in the simulation cell.
     ses.find_unique_dists(); // Find the list of distances used in mc_rules
 	sim_cell.initSimCell(poscar, ses); // Create the simulation cell object. Arguments (POSCAR_file, dist_list, shape, species numbs, cutoff (currently unused), sim_type (also unused), phase_init (aust/mart), spin_init (AFM/FM/RAND), species_init (Ordered/Random), bool use_poscar)

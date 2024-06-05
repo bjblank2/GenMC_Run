@@ -629,7 +629,7 @@ void Algo0::run() {
     prob_initial /= numb_atoms;
     sro_initial = 1.0 - prob_initial / (2.0 * numb_A / numb_atoms * numb_B / numb_atoms);
     Output << "SRO Final: " << sro_initial << " Prob Final: " << prob_initial << endl;
-    print_state("CONTCAR_FINAL", -1);
+    print_state(contcar_name, -1);
     Output.close();
     cout << " MC Finished\n";
 

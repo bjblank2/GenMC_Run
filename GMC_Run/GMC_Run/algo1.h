@@ -34,17 +34,22 @@ public:
 	Session session;
 	vector<int> chem_list;
 	vector<float> spin_list;
+	vector<float> site_rule_count_list;
+	vector<double> lat_rule_count_list;
 	vector<vector<float>> pos_list;
 	vector<vector<vector<vector<int>>>> spin_motif_groups;
+	vector<vector<vector<vector<int>>>> sro_motif_groups;
 	vector<vector<vector<vector<int>>>> chem_motif_groups;
-	map <string, double> rule_map_chem;
-	map <string, double> rule_map_spin;
+	map <size_t, vector<double>> rule_map_chem;
+	map <size_t, double> rule_map_spin;
+	map <size_t, double> rule_map_sro;
 
 	Algo1(void);
 	Algo1(Session& _session, SimCell& _sim_cell);
 	void run();
 	void fill_CMG(vector<vector<int>>& neigh_ind_list);
 	void fill_SMG(vector<vector<int>>& neigh_ind_list);
+	void fill_SROMG(vector<vector<int>>& neigh_ind_list);
 	void print_state(string contcar_name, int temp);
 	bool bc_check(vector<float> check_vect, vector<float>& pos);
 	double eval_lat();
@@ -52,7 +57,9 @@ public:
 	double eval_site_spin(int site);
 	double eval_site_chem(int site);
 	double eval_spin_flip(int site, float old_spin);
-	double eval_atom_flip(int site);
+	float spec_spin(int site, int spec);
+	float spin_dot(int site);
+	size_t cust_hash(vector<uint32_t>& vect);
 };
 
 #endif
